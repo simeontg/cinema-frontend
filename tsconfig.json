@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "es5",
+      "allowJs": true,
+      "jsx": "react-jsx",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "noImplicitAny": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+    },
+    "ts-node": {
+        "compilerOptions": {
+          "module": "CommonJS"
+        }
+    },
+    "include": ["src/**/*"]
+}
