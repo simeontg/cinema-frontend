@@ -1,1 +1,0 @@
-export { LazyPage } from './LazyPage.lazy'

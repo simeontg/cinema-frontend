@@ -1,51 +1,28 @@
-// import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { resolve as _resolve } from 'path';
+import webpack from 'webpack';
+import { BuildMode, BuildPaths } from './config/webpack/types/types';
+import path from 'path';
+import { buildWebpack } from './config/webpack/buildWebpack';
 
-interface WebpackOptions {
-    mode?: string,
-    port?: number
+interface EnvVariables {
+    mode: BuildMode,
+    port?: number,
+    analyzer?: boolean
 }
 
-export default (options: WebpackOptions) => {
+export default (env: EnvVariables) => {
 
-    return {
-        mode: options.mode ?? 'development',
-        entry: "./src/index.tsx",
-        output: {
-            path: _resolve(__dirname, 'build'),
-            filename: '[name].[contenthash].js',
-            clean: true
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
-                },
-                {
-                    test: /\.(ts|tsx)$/,
-                    exclude: /node_modules/,
-                    use: 'babel-loader'
-                },
-                {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                    type: 'asset/resource',
-                }
-            ]
-        },
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js']
-        },
-        plugins: [new HtmlWebpackPlugin({
-            template: './public/index.html'
-        })],
-        devServer: {
-            port: options.port ?? 3000,
-            open: true,
-            historyApiFallback: true,
-            hot: true
-        }
+    const paths: BuildPaths = {
+        output: path.resolve(__dirname, 'build'),
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        html: path.resolve(__dirname, 'public', 'index.html'),
     }
+
+    const config: webpack.Configuration =  buildWebpack({
+        port: env.port ?? 3000,
+        mode: env.mode ?? 'development',
+        paths,
+        analyzer: env.analyzer,
+        });
+    
+    return config;
 }
