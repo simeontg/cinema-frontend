@@ -6,7 +6,6 @@ import { BuildOptions } from './types/types';
 import { buildLoaders } from './buildLoaders';
 
 export function buildWebpack(options: BuildOptions): webpack.Configuration {
-    
     const { mode, paths } = options;
     
     const isDev = mode === 'development';
