@@ -17,7 +17,7 @@
       "*": ["./src/*"]
     }
   },
-  "include": ["./config/jest/setup-jest.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["./config/jest/setupTests.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
