@@ -1,15 +1,12 @@
-import { useState } from 'react';
-import * as styles from './App.module.css';
+import { RouterProvider } from 'react-router-dom';
+import '../../config/i18n/i18n';
+import { router } from './router';
 
 export const App = () => {
-  const [count, setCount] = useState<number>(0);
-  const increment = () => setCount((prev) => prev + 4);
+  console.log('in app component');
   return (
-    <div>
-      <h1 className={styles.count}>{count}</h1>
-      <button className={styles.btn} onClick={increment}>
-        <span>Increment</span>
-      </button>
+    <div className="app">
+      <RouterProvider router={router} />
     </div>
   );
 };
