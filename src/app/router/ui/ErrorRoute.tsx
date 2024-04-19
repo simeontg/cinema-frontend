@@ -9,7 +9,7 @@ export const ErrorRoute: FC = () => {
   const notFoundPageError = isRouteErrorResponse(error) && error.status === 404;
 
   return (
-    <div className="flex flex-grow flex-col items-center justify-center">
+    <div>
       {notFoundPageError ? (
         <>
           <h1>{t('notFoundPageTitle')}</h1>
