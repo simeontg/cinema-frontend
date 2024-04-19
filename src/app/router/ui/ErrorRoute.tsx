@@ -6,7 +6,6 @@ import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 export const ErrorRoute: FC = () => {
   const { t } = useTranslation();
   const error = useRouteError();
-  console.error(error);
   const notFoundPageError = isRouteErrorResponse(error) && error.status === 404;
 
   return (
