@@ -1,1 +1,6 @@
-{}
+{
+    "notFoundPageTitle": "Oops!",
+    "notFoundPageDescription": "Страницата не е намерена.",
+    "errorPageTitle": "Oops!",
+    "errorPageDescription": "Съжаляваме, възникна неочаквана грешка."
+}

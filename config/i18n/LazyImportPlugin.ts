@@ -10,14 +10,7 @@ const LazyImportPlugin: BackendModule = {
         callback(null, obj);
       }
     );
-  },
-
-  save: function (language, namespace, data) {
-  },
-
-  create: function (languages, namespace, key, fallbackValue) {
-    /* save the missing translation */
-  },
+  }
 };
 
 export default LazyImportPlugin;

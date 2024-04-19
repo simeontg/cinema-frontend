@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,7 @@ export const RootRoute = () => {
   const increment = () => setCount((prev) => prev + 4);
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <h1>{count}</h1>
         <button onClick={increment}>
@@ -17,6 +17,6 @@ export const RootRoute = () => {
       </div>
       <div>{t('title')}</div>
       <Outlet />
-    </React.Fragment>
+    </>
   );
 };
