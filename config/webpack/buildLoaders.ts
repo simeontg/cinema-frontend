@@ -14,6 +14,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         loader: "css-loader",
         options: {
             modules: {
+                auto: (resPath: string) => Boolean(resPath.includes('.module.')),
                 localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:8]'
             }
         }
@@ -27,6 +28,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           cssLoaderWithModules,
+          'postcss-loader'
         ]
       }
 
