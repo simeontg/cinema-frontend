@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import { TrendingMovies } from '../../../features/TrendingMovies';
 
 export const RootRoute = () => {
-  return (
-    <>
-      <span className="text-9xl">Hello World</span>
-      <Outlet />
-    </>
-  );
+    return (
+        <>
+            <TrendingMovies />
+            <Outlet />
+        </>
+    );
 };
