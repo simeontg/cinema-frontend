@@ -1,21 +1,14 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import { Movie } from '../types/Movie';
 
-interface Movie {
-    title: string;
-    imageUrl: string;
-    description: string;
-    duration: number;
-    genre: string;
-}
-
-interface ImageSliderProps {
+interface MovieSliderProps {
     movies: Movie[];
 }
 
-const ImageSlider = ({ movies }: ImageSliderProps) => {
+const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
     const [imageIndex, setImageIndex] = useState(0);
 
     const showNextImage = () => {
@@ -67,4 +60,4 @@ const ImageSlider = ({ movies }: ImageSliderProps) => {
     );
 };
 
-export default ImageSlider;
+export default MovieSlider;

@@ -1,13 +1,14 @@
+import { FC } from 'react';
 import MaterialButton, { ButtonProps as MaterialButtonProps } from '@mui/material/Button';
 
 interface ButtonProps extends MaterialButtonProps {}
 
-const Button = ({ children, ...props }: ButtonProps) => {
+export const Button: FC<ButtonProps> = ({ children, onClick }) => {
     return (
-        <MaterialButton {...props}>
-            {children}
-        </MaterialButton>
+    <MaterialButton
+        onClick={onClick}
+    >
+        {children}
+    </MaterialButton>
     )
-}
-
-export default Button;
+};

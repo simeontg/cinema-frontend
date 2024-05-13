@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { TrendingMovies } from '../../../features/TrendingMovies';
+import { Header } from 'layout/Header';
 
-export const RootRoute = () => {
+export const RootRoute: FC = () => {
     return (
         <>
-            <TrendingMovies />
+            <Header />
             <Outlet />
         </>
     );

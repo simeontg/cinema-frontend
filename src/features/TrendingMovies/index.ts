@@ -1,1 +1,1 @@
-export { TrendingMovies } from './components/TrendingMovies'
+export { TrendingMovies } from './ui/TrendingMovies';

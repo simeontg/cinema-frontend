@@ -4,7 +4,7 @@ import { App } from './app/App';
 const root = document.getElementById('root');
 
 if (!root) {
-  throw new Error('No root element');
+    throw new Error('No root element');
 }
 
 const container = createRoot(root);

@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { movies } from '../mockdata';
-import ImageSlider from './ImageSlider';
+import MovieSlider from './MovieSlider';
 
-export const TrendingMovies = () => {
+export const TrendingMovies: FC = () => {
     return (
         <div className="max-w-1200px w-full mx-auto h-500 hidden md:block h-[600px]">
-            <ImageSlider movies={movies} />
+            <MovieSlider movies={movies} />
         </div>
     );
 };
