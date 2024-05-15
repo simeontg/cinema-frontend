@@ -20,6 +20,11 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         }
     }
 
+    const svgLoader = {
+      test: /\.svg$/,
+      use: ['@svgr/webpack']
+    }
+
     const cssLoader = {
         test: /\.css$/i,
         use: [
@@ -42,5 +47,5 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
           }
         }
     }
-    return [ assetLoader, cssLoader, babelLoader]
+    return [ assetLoader, svgLoader, cssLoader, babelLoader]
 }

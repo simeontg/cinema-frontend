@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC } from 'react';
+import { LoadingSpinner } from 'shared/ui';
 
 export const MainPageSuspense: FC = () => (
-    <div>LOADING...</div>
-)
+    <div><LoadingSpinner /></div>
+);

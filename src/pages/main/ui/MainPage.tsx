@@ -1,11 +1,9 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { TrendingMovies } from "features/TrendingMovies";
+import { TrendingMovies } from 'features/TrendingMovies';
 
 const MainPage: FC = () => {
-    return (
-        <TrendingMovies />
-    )
-}
+    return <TrendingMovies />;
+};
 
 export default MainPage;
