@@ -2,5 +2,6 @@
     "notFoundPageTitle": "Oops!",
     "notFoundPageDescription": "This page is not found.",
     "errorPageTitle": "Oops!",
-    "errorPageDescription": "Sorry, an unexpected error has occurred."
+    "errorPageDescription": "Sorry, an unexpected error has occurred.",
+    "login": "Login"
 }

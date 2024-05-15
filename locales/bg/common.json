@@ -2,5 +2,6 @@
     "notFoundPageTitle": "Опа!",
     "notFoundPageDescription": "Страницата не е намерена.",
     "errorPageTitle": "Oпа!",
-    "errorPageDescription": "Съжаляваме, възникна неочаквана грешка."
+    "errorPageDescription": "Съжаляваме, възникна неочаквана грешка.",
+    "login": "Влез"
 }

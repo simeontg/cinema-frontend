@@ -7,11 +7,11 @@ import './styles/index.css';
 const queryClient = new QueryClient();
 
 export const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <div className="app">
-        <RouterProvider router={router} />
-      </div>
-    </QueryClientProvider>
-  );
+    return (
+        <QueryClientProvider client={queryClient}>
+            <div className="app">
+                <RouterProvider router={router} />
+            </div>
+        </QueryClientProvider>
+    );
 };

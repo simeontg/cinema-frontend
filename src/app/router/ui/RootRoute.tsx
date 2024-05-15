@@ -1,10 +1,12 @@
+import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Header } from 'layout/Header';
 
-export const RootRoute = () => {
-  return (
-    <>
-      <span className="text-9xl">Hello World</span>
-      <Outlet />
-    </>
-  );
+export const RootRoute: FC = () => {
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+    );
 };

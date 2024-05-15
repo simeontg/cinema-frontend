@@ -14,12 +14,6 @@ export default ({ config }: ConfigProps) => {
   config?.resolve?.modules?.push(absolutePath)
   config?.resolve?.extensions?.push('.ts', '.tsx')
 
-  config?.plugins?.push(
-    new webpack.DefinePlugin({
-      _IS_DEV_: true,
-    }),
-  )
-
 
   if (config?.module?.rules) {
     config.module.rules = config.module.rules.map((rule?: ModuleRule) => {
@@ -30,6 +24,22 @@ export default ({ config }: ConfigProps) => {
       return rule
     })
   }
+
+  config?.module?.rules?.push({
+    test: /\.svg$/,
+    use: ['@svgr/webpack'],
+  })
+  
+  config?.module?.rules?.push({
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env', '@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]]
+      }
+    }
+  })
 
   return config
 }
