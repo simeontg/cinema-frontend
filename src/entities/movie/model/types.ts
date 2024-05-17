@@ -1,4 +1,4 @@
-export interface Movie {
+export interface TrendingMovie {
     title: string;
     imageUrl: string;
     description: string;
