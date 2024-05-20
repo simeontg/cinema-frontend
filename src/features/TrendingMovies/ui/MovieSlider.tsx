@@ -1,11 +1,12 @@
 import { FC, useState } from 'react';
+
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { Movie } from '../types/Movie';
+import { TrendedMovie } from 'entities/movie/model/types';
 
 interface MovieSliderProps {
-    movies: Movie[];
+    movies: TrendedMovie[];
 }
 
 const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {

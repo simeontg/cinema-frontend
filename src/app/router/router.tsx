@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { RootRoute } from './ui/RootRoute';
-import { ErrorRoute } from './ui/ErrorRoute';
+
 import { MainPageLazy } from 'pages/main';
+
+import { ErrorRoute } from './ui/ErrorRoute';
+import { RootRoute } from './ui/RootRoute';
 
 export const router = createBrowserRouter([
     {

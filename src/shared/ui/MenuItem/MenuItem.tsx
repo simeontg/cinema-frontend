@@ -1,5 +1,6 @@
-import MaterialMenuItem from '@mui/material/MenuItem';
 import { FC, ReactNode } from 'react';
+
+import MaterialMenuItem from '@mui/material/MenuItem';
 
 interface MenuItemProps {
     onClick?: () => void;

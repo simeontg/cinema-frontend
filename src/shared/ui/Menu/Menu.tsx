@@ -1,5 +1,6 @@
-import MaterialMenu from '@mui/material/Menu';
 import { FC, ReactNode } from 'react';
+
+import MaterialMenu from '@mui/material/Menu';
 
 interface MenuProps {
     open: boolean;

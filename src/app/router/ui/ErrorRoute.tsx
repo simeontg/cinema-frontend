@@ -1,5 +1,7 @@
 import { type FC } from 'react';
+
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+
 import { useTranslation } from 'shared/hooks/i18nHook';
 
 export const ErrorRoute: FC = () => {
