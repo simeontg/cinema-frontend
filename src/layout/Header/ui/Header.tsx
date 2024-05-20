@@ -1,5 +1,7 @@
 import { FC } from 'react';
+
 import { useTranslation } from 'shared/hooks/i18nHook';
+
 import { LanguageMenu } from './LanguageMenu';
 
 export const Header: FC = () => {

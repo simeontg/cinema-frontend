@@ -6,7 +6,9 @@ import { getTrendedMovies } from '../api';
 import { mapTrendedMovieDTOToTrendedMovie } from '../mappers/movieMappers';
 import { TrendedMovie } from '../model/types';
 
-export const useGetTrendedMovies = <ReturnData = TrendedMovie[] | null>(): QueryHookReturnData<ReturnData> => {
+export const useGetTrendedMovies = <
+    ReturnData = TrendedMovie[] | null
+>(): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['trending'],
         queryFn: async () => {

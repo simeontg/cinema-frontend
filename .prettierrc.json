@@ -8,7 +8,7 @@
     "importOrder": [
         "^react$",
         "<THIRD_PARTY_MODULES>",
-        "^(app|api|features|interfaces|pages|shared|widgets)/(.*)$", 
+        "^(app|entities|features|layout|pages|shared)/(.*)$", 
         "^[./]", 
         "^.+\\.?(css)$"
     ],

@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
+
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Menu, MenuItem } from 'shared/ui';
+
 import { languageToImg } from '../constants/language';
 
 export const LanguageMenu: FC = () => {

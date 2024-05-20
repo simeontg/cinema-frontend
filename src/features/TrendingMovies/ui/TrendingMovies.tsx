@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import MovieSlider from './MovieSlider';
-import { LoadingSpinner } from 'shared/ui';
+
 import { useGetTrendedMovies } from 'entities/movie/hooks/useGetTrendedMovies';
+
+import { LoadingSpinner } from 'shared/ui';
+
+import MovieSlider from './MovieSlider';
 
 export const TrendingMovies: FC = () => {
     const { data, isLoading, isError } = useGetTrendedMovies();
