@@ -1,6 +1,7 @@
 import webpack, { Configuration } from "webpack";
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import Dotenv from 'dotenv-webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from "./types/types";
 
@@ -12,6 +13,9 @@ export function buildPlugins({ mode, paths, analyzer }: BuildOptions): Configura
         new HtmlWebpackPlugin({template: paths.html}),
         new webpack.ProvidePlugin({
             "React": "react",
+        }),
+        new Dotenv({
+            path: '.env'
         })
     ];
 

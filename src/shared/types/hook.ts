@@ -1,4 +1,4 @@
-export interface HookReturnData<ReturnedData> {
+export interface QueryHookReturnData<ReturnedData> {
     data: ReturnedData;
     isLoading: boolean;
     isError: boolean;

@@ -1,21 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { $api } from 'shared/api/api';
-import { MOVIES_BASE_URL } from 'shared/constants/api';
-import { GetTrendedMovieDTO } from '../api/types';
+
+import { QueryHookReturnData } from 'shared/types/hook';
+
+import { getTrendedMovies } from '../api';
 import { mapTrendedMovieDTOToTrendedMovie } from '../mappers/movieMappers';
-import { HookReturnData } from 'shared/types/hook';
 import { TrendedMovie } from '../model/types';
 
-export const useGetTrendedMovies = <
-    ReturnData = TrendedMovie[] | null
->(): HookReturnData<ReturnData> => {
+export const useGetTrendedMovies = <ReturnData = TrendedMovie[] | null>(): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['trending'],
         queryFn: async () => {
-            const response = await $api.get<GetTrendedMovieDTO[]>(
-                `${MOVIES_BASE_URL}/movies/trended`
-            );
-            const trendedMovies = response.data;
+            const trendedMovies = await getTrendedMovies();
             return trendedMovies.map(mapTrendedMovieDTOToTrendedMovie);
         }
     });

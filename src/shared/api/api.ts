@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { MOVIES_BASE_URL } from 'shared/constants/api';
 
 export const $api = axios.create({
-    baseURL: 'http://localhost:3001'
+    baseURL: MOVIES_BASE_URL
 });
