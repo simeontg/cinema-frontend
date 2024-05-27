@@ -22,7 +22,7 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
 
     return (
         <section
-            className="w-full h-full"
+            className="w-full h-full relative"
             style={{
                 background: `linear-gradient(to left, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 100%), url(${movies[imageIndex].imageUrl}) center/cover`
             }}
@@ -47,11 +47,11 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
             <button onClick={showNextImage} className="block absolute p4 right-5 h-7 w-7 top-1/2">
                 <ArrowForwardIosIcon className="hover:scale-125" fontSize="large" />
             </button>
-            <div className="mt-20 ml-20 flex gap-14 overflow-hidden">
+            <div className="mt-20 ml-24 flex gap-14 overflow-hidden" style={{maxWidth: '1350px'}}>
                 {movies.map((_, index) => (
                     <button key={index} onClick={() => setImageIndex(index)}>
                         <div
-                            className={`${imageIndex === index ? '' : 'hover:scale-110'} ${imageIndex === index ? 'h-[120px]' : 'h-[100px]'} ${imageIndex === index ? 'w-[190px]' : 'w-[180px]'} rounded-xl`}
+                            className={`${imageIndex === index ? '' : 'hover:scale-110'} ${imageIndex === index ? 'h-[120px]' : 'h-[100px]'} ${imageIndex === index ? 'w-[180px]' : 'w-[170px]'} rounded-xl`}
                             style={{ background: `url(${movies[index].imageUrl}) center/cover` }}
                         ></div>
                     </button>
