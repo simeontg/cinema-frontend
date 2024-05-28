@@ -13,7 +13,6 @@ export const MovieItem: FC<MovieItemProps> = ({ genre, duration, title, imageUrl
     const [isInfoVisible, setIsInfoVisible] = useState(false);
 
     return (
-    <div>
         <div
             onMouseEnter={() => setIsInfoVisible(true)}
             onMouseLeave={() => setIsInfoVisible(false)}
@@ -32,7 +31,6 @@ export const MovieItem: FC<MovieItemProps> = ({ genre, duration, title, imageUrl
                     <p>{duration}</p>
                 </div>
             </div>
-        </div>
         </div>
     );
 };

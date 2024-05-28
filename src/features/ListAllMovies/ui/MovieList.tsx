@@ -1,17 +1,17 @@
 import { FC, useState } from 'react';
 
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Tab, Tabs } from 'shared/ui';
 
 import { MovieItem } from './MovieItem';
 import { movies } from './mock';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface MovieListProps {}
 
 export const MovieList: FC<MovieListProps> = () => {
     const [tabValue, setTabValue] = useState(0);
 
-    const { t } = useTranslation('main')
+    const { t } = useTranslation('main');
 
     return (
         <div className="max-w-[1400px] block m-auto">
