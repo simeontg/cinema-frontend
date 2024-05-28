@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
-import { Header } from 'layout/Header';
 import { Outlet } from 'react-router-dom';
+
+import { Header } from 'layout/Header';
 
 export const RootRoute: FC = () => {
     return (

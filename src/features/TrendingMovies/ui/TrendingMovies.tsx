@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import { useGetTrendedMovies } from 'entities/movie/hooks/useGetTrendedMovies';
-
 import { LoadingSpinner } from 'shared/ui';
 
 import MovieSlider from './MovieSlider';

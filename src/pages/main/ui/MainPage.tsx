@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { TrendingMovies } from 'features/TrendingMovies';
 import { MovieList } from 'features/ListAllMovies';
+import { TrendingMovies } from 'features/TrendingMovies';
 
 const MainPage: FC = () => {
     return (
