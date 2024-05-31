@@ -8,10 +8,17 @@ interface ButtonProps {
     disabled?: boolean;
     className?: string;
     variant?: 'outlined' | 'contained' | 'text';
-    style?: CSSProperties
+    style?: CSSProperties;
 }
 
-export const Button: FC<ButtonProps> = ({ children, onClick, disabled, className, variant, style }) => {
+export const Button: FC<ButtonProps> = ({
+    children,
+    onClick,
+    disabled,
+    className,
+    variant,
+    style
+}) => {
     return (
         <MaterialButton
             variant={variant}

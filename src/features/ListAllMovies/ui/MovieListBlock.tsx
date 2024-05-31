@@ -18,8 +18,8 @@ export const MovieList: FC<MovieListProps> = () => {
                 <Tab onClick={() => setTabValue(0)} className="text-lg" label={t('whatsOn')}></Tab>
                 <Tab onClick={() => setTabValue(1)} label={t('whatsComing')}></Tab>
             </Tabs>
-            {tabValue === 0 && <MoviesList type='current'/>}
-            {tabValue === 1 && <MoviesList type='upcoming'/>}
+            {tabValue === 0 && <MoviesList type="current" />}
+            {tabValue === 1 && <MoviesList type="upcoming" />}
         </div>
     );
 };

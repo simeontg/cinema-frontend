@@ -1,4 +1,4 @@
-import { InfiniteQueryObserverResult } from "@tanstack/react-query";
+import { InfiniteQueryObserverResult } from '@tanstack/react-query';
 
 export interface QueryHookReturnData<ReturnedData> {
     data: ReturnedData;

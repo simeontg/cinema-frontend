@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 
 import clsx from 'clsx';
+
 import { transformMinutesToHours } from '../utils/transformMinutesToHours';
 
 interface MovieItemProps {

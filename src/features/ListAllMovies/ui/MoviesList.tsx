@@ -1,20 +1,23 @@
+import { FC } from 'react';
+
+import clsx from 'clsx';
+import { Fragment } from 'react/jsx-runtime';
+
 import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
 
 import { MovieItem } from './MovieItem';
-import { Fragment } from 'react/jsx-runtime';
-import { FC } from 'react';
-import clsx from 'clsx';
 
 interface MovieListProp {
-    type: 'upcoming' | 'current'
+    type: 'upcoming' | 'current';
 }
 
 export const MoviesList: FC<MovieListProp> = ({ type }) => {
     const { t } = useTranslation('main');
 
-    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(type);
+    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } =
+        useGetPaginatedMovies(type);
 
     if (isError) {
         return <div>Error loading movies. Please try again later.</div>;
@@ -37,7 +40,12 @@ export const MoviesList: FC<MovieListProp> = ({ type }) => {
                     </Fragment>
                 ))}
             </div>
-            <div className={clsx('flex items-center justify-center', `${isFetchingNextPage ? 'block' : 'hidden'}`)}>
+            <div
+                className={clsx(
+                    'flex items-center justify-center',
+                    `${isFetchingNextPage ? 'block' : 'hidden'}`
+                )}
+            >
                 <LoadingSpinner />
             </div>
             <Button
