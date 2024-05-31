@@ -1,0 +1,57 @@
+import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import { Button, LoadingSpinner } from 'shared/ui';
+
+import { MovieItem } from './MovieItem';
+import { Fragment } from 'react/jsx-runtime';
+import { FC } from 'react';
+import clsx from 'clsx';
+
+interface MovieListProp {
+    type: 'upcoming' | 'current'
+}
+
+export const MoviesList: FC<MovieListProp> = ({ type }) => {
+    const { t } = useTranslation('main');
+
+    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(type);
+
+    if (isError) {
+        return <div>Error loading movies. Please try again later.</div>;
+    }
+
+    return (
+        <>
+            <div className="flex gap-8 flex-wrap mt-5 mb-8 pl-10 max-w-[1400px]">
+                {data?.pages.map((page, idx) => (
+                    <Fragment key={idx}>
+                        {page.items.map((movie) => (
+                            <MovieItem
+                                key={movie.id}
+                                genre={movie.genre}
+                                duration={movie.duration}
+                                title={movie.title}
+                                imageUrl={movie.imageUrl}
+                            />
+                        ))}
+                    </Fragment>
+                ))}
+            </div>
+            <div className={clsx('flex items-center justify-center', `${isFetchingNextPage ? 'block' : 'hidden'}`)}>
+                <LoadingSpinner />
+            </div>
+            <Button
+                className="mt-10"
+                style={{
+                    display: hasNextPage ? 'block' : 'none',
+                    margin: 'auto',
+                    marginTop: '30px'
+                }}
+                onClick={() => fetchNextPage()}
+                variant="outlined"
+            >
+                {t('loadMore')}
+            </Button>
+        </>
+    );
+};
