@@ -19,23 +19,3 @@ export interface Movie {
     releaseDate: Date;
     trended: boolean;
 }
-
-export interface PaginatedMovies {
-    pages: {
-        items: Movie[];
-        meta: {
-            totalItems: number;
-            itemCount: number;
-            itemsPerPage: number;
-            totalPages: number;
-            currentPage: number;
-        };
-        links: {
-            first: string;
-            previous: string;
-            next: string;
-            last: string;
-        };
-    }[];
-    pageParams: number[];
-}

@@ -1,4 +1,4 @@
-import { PaginatedParams } from "shared/types/dto";
+import { PaginatedParams } from 'shared/types/dto';
 
 type ReleaseTypeParam = 'current' | 'upcoming';
 
