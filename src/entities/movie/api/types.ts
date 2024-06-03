@@ -1,3 +1,7 @@
+import { PaginatedParams } from "shared/types/dto";
+
+type ReleaseTypeParam = 'current' | 'upcoming';
+
 export interface GetTrendedMovieDTO {
     id: string;
     title: string;
@@ -5,6 +9,10 @@ export interface GetTrendedMovieDTO {
     imageUrl: string;
     genre: string;
     duration: number;
+}
+
+export interface GetPaginatedMoviesParams extends PaginatedParams {
+    releaseType: ReleaseTypeParam;
 }
 
 export interface GetMovieDto {
@@ -18,21 +26,4 @@ export interface GetMovieDto {
     genre: string;
     releaseDate: Date;
     trended: boolean;
-}
-
-export interface GetPaginatedMoviesDto {
-    items: GetMovieDto[];
-    meta: {
-        totalItems: number;
-        itemCount: number;
-        itemsPerPage: number;
-        totalPages: number;
-        currentPage: number;
-    };
-    links: {
-        first: string;
-        previous: string;
-        next: string;
-        last: string;
-    };
 }

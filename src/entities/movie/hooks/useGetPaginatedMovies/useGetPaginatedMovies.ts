@@ -2,16 +2,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { InfiniteQueryHookReturnData } from 'shared/types/hook';
 
-import { getPaginatedMovies } from '../api';
-import { PaginatedMovies } from '../model/types';
+import { getPaginatedMovies } from '../../api';
+import { PaginatedMovies } from '../../model/types';
+import { MovieReleaseType } from './types';
 
 export const useGetPaginatedMovies = <ReturnData = PaginatedMovies | null>(
-    releaseType: 'current' | 'upcoming'
+    releaseType: MovieReleaseType, limit: number
 ): InfiniteQueryHookReturnData<ReturnData> => {
     const { data, fetchNextPage, hasNextPage, isError, status, isFetchingNextPage } =
         useInfiniteQuery({
-            queryKey: ['paginatedMovies', releaseType],
-            queryFn: getPaginatedMovies,
+            queryKey: ['paginatedMovies', releaseType, limit],
+            queryFn: (({pageParam}) => getPaginatedMovies({page: pageParam, releaseType, limit})),
             getNextPageParam: (lastPage) => {
                 const { currentPage, totalPages } = lastPage.meta;
                 return currentPage < totalPages ? currentPage + 1 : undefined;

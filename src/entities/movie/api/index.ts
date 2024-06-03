@@ -1,6 +1,7 @@
 import { $api } from 'shared/api/api';
+import { PaginatedDto } from 'shared/types/dto';
 
-import { GetPaginatedMoviesDto, GetTrendedMovieDTO } from './types';
+import { GetMovieDto, GetPaginatedMoviesParams, GetTrendedMovieDTO } from './types';
 
 export const getTrendedMovies = async (): Promise<GetTrendedMovieDTO[]> => {
     const response = await $api.get<GetTrendedMovieDTO[]>('/movies/trended');
@@ -8,15 +9,12 @@ export const getTrendedMovies = async (): Promise<GetTrendedMovieDTO[]> => {
 };
 
 export const getPaginatedMovies = async ({
-    pageParam = 1,
-    queryKey
-}: {
-    pageParam: number;
-    queryKey: string[];
-}): Promise<GetPaginatedMoviesDto> => {
-    const [, releaseType] = queryKey;
+    page,
+    releaseType,
+    limit
+}: GetPaginatedMoviesParams): Promise<PaginatedDto<GetMovieDto>> => {
     const response = await $api.get(
-        `/movies?page=${pageParam}&limit=18${releaseType ? `&releaseType=${releaseType}` : ''}`
+        `/movies?page=${page}&limit=${limit}${releaseType ? `&releaseType=${releaseType}` : ''}`
     );
     return response.data;
 };

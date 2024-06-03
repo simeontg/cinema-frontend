@@ -3,21 +3,25 @@ import { FC } from 'react';
 import clsx from 'clsx';
 import { Fragment } from 'react/jsx-runtime';
 
-import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies';
+import { MovieReleaseType } from 'entities/movie/hooks/useGetPaginatedMovies/types';
+import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies/useGetPaginatedMovies';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
 
 import { MovieItem } from './MovieItem';
 
 interface MovieListProp {
-    type: 'upcoming' | 'current';
+    type: MovieReleaseType;
+    limit: number;
 }
 
-export const MoviesList: FC<MovieListProp> = ({ type }) => {
+export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
     const { t } = useTranslation('main');
 
-    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } =
-        useGetPaginatedMovies(type);
+    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(
+        type,
+        limit
+    );
 
     if (isError) {
         return <div>Error loading movies. Please try again later.</div>;
