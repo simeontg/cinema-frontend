@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, ReactNode } from 'react';
+import { CSSProperties, FC, MouseEventHandler, ReactNode } from 'react';
 
 import MaterialButton from '@mui/material/Button';
 
@@ -8,16 +8,24 @@ interface ButtonProps {
     disabled?: boolean;
     className?: string;
     variant?: 'outlined' | 'contained' | 'text';
+    style?: CSSProperties;
 }
 
-export const Button: FC<ButtonProps> = ({ children, onClick, disabled, className, variant }) => {
+export const Button: FC<ButtonProps> = ({
+    children,
+    onClick,
+    disabled,
+    className,
+    variant,
+    style
+}) => {
     return (
         <MaterialButton
             variant={variant}
-            style={{ display: 'block', margin: 'auto' }}
             className={className}
             disabled={disabled}
             onClick={onClick}
+            style={style}
         >
             {children}
         </MaterialButton>

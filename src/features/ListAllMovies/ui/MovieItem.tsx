@@ -2,10 +2,12 @@ import { FC, useState } from 'react';
 
 import clsx from 'clsx';
 
+import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
+
 interface MovieItemProps {
     genre: string;
     title: string;
-    duration: string;
+    duration: number;
     imageUrl: string;
 }
 
@@ -28,7 +30,8 @@ export const MovieItem: FC<MovieItemProps> = ({ genre, duration, title, imageUrl
                     )}
                 >
                     <p>{genre}</p>
-                    <p>{duration}</p>
+                    <p>|</p>
+                    <p>{transformMinutesToHours(duration)}</p>
                 </div>
             </div>
         </div>
