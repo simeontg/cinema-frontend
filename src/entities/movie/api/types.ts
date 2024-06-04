@@ -13,6 +13,8 @@ export interface GetTrendedMovieDTO {
 
 export interface GetPaginatedMoviesParams extends PaginatedParams {
     releaseType: ReleaseTypeParam;
+    title: string;
+    genre: string;
 }
 
 export interface GetMovieDto {

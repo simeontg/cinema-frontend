@@ -1,5 +1,7 @@
 {
     "loadMore": "Load More",
     "whatsOn": "What's on",
-    "whatsComing": "What's coming"
+    "whatsComing": "What's coming",
+    "moviesFilter": "Movies...",
+    "genreFilter": "Genre..."
 }
