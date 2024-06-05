@@ -8,6 +8,7 @@ import { MOVIE_GENRES } from 'shared/constants/movieGenres';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { PaginatedModel } from 'shared/types/model';
 import { Autocomplete, TextField } from 'shared/ui';
+
 import { Filters } from '../types';
 
 interface MovieFiltersProps {
