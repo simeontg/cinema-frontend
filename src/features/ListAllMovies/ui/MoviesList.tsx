@@ -8,6 +8,7 @@ import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovie
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
 
+import { Filters } from '../types';
 import { MovieFilters } from './MovieFilters';
 import { MovieItem } from './MovieItem';
 
@@ -19,7 +20,7 @@ interface MovieListProp {
 export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
     const { t } = useTranslation('main');
 
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<Filters>({
         title: '',
         genre: ''
     });

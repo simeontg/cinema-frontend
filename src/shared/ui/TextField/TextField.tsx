@@ -1,17 +1,11 @@
-import { TextField as MaterialTextField } from "@mui/material";
-import { FC } from "react";
+import { FC } from 'react';
+
+import { TextField as MaterialTextField } from '@mui/material';
 
 interface TextFieldProps {
     label: string;
 }
 
 export const TextField: FC<TextFieldProps> = ({ label, ...props }) => {
-    return (
-        <MaterialTextField
-            {...props}
-            label={label}
-        >
-
-        </MaterialTextField>
-    )
-}
+    return <MaterialTextField {...props} label={label}></MaterialTextField>;
+};

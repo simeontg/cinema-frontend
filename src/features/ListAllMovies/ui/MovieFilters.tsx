@@ -1,8 +1,6 @@
 import { FC } from 'react';
 
 import CameraRollIcon from '@mui/icons-material/CameraRoll';
-import EventSeatIcon from '@mui/icons-material/EventSeat';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 import { Movie } from 'entities/movie/model/types';
@@ -43,22 +41,6 @@ export const MovieFilters: FC<MovieFiltersProps> = ({ data, setFilters }) => {
                     options={data?.pages[0].items.map((item) => item.title) || []}
                     onChange={onTitleChange}
                     renderInput={(params) => <TextField {...params} label={t('moviesFilter')} />}
-                />
-            </div>
-            <div className="flex gap-4 items-center">
-                <LocationOnIcon />
-                <Autocomplete
-                    className="w-64"
-                    options={['TO', 'DO']}
-                    renderInput={(params) => <TextField {...params} label="Location..." />}
-                />
-            </div>
-            <div className="flex gap-4 items-center">
-                <EventSeatIcon />
-                <Autocomplete
-                    className="w-64"
-                    options={['TO', 'DO']}
-                    renderInput={(params) => <TextField {...params} label="Experience..." />}
                 />
             </div>
             <div className="flex gap-4 items-center">
