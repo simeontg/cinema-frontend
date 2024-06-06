@@ -20,7 +20,6 @@ interface MovieDetailsProps {
 }
 
 export const MovieDetails: FC<MovieDetailsProps> = ({
-    style,
     description,
     title,
     genre,
@@ -41,7 +40,6 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     };
     return (
         <div
-            style={style}
             className={clsx('hidden max-w-[1400px] pr-12 relative', isVisible && 'md:block')}
         >
             <button className="absolute top-2 right-14 text-white" onClick={handleClose}>

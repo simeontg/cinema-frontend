@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import clsx from 'clsx';
 
 import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
+
 import { SelectedMovie } from '../types';
 
 interface MovieItemProps {
@@ -15,7 +16,15 @@ interface MovieItemProps {
     setSelectedMovie: React.Dispatch<React.SetStateAction<SelectedMovie>>;
 }
 
-export const MovieItem: FC<MovieItemProps> = ({ genre, duration, description, title, imageUrl, rowIndex, setSelectedMovie }) => {
+export const MovieItem: FC<MovieItemProps> = ({
+    genre,
+    duration,
+    description,
+    title,
+    imageUrl,
+    rowIndex,
+    setSelectedMovie
+}) => {
     const [isInfoVisible, setIsInfoVisible] = useState(false);
 
     const handleClick = () => {
@@ -26,14 +35,16 @@ export const MovieItem: FC<MovieItemProps> = ({ genre, duration, description, ti
             description,
             imageUrl,
             rowIndex
-        })
-    }
+        });
+    };
 
     return (
         <div
             onMouseEnter={() => setIsInfoVisible(true)}
             onMouseLeave={() => setIsInfoVisible(false)}
-            className={clsx("font-effra w-48 h-64 rounded-md flex-none relative hover:cursor-pointer")}
+            className={clsx(
+                'font-effra w-48 h-64 rounded-md flex-none relative hover:cursor-pointer'
+            )}
             onClick={handleClick}
         >
             <img className="w-full h-full rounded-md" src={imageUrl} />
