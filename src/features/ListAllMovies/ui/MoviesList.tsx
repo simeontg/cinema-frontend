@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import clsx from 'clsx';
 import { Fragment } from 'react/jsx-runtime';
@@ -8,6 +8,8 @@ import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovie
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
 
+import { Filters } from '../types';
+import { MovieFilters } from './MovieFilters';
 import { MovieItem } from './MovieItem';
 
 interface MovieListProp {
@@ -18,9 +20,15 @@ interface MovieListProp {
 export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
     const { t } = useTranslation('main');
 
+    const [filters, setFilters] = useState<Filters>({
+        title: '',
+        genre: ''
+    });
+
     const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(
         type,
-        limit
+        limit,
+        filters
     );
 
     if (isError) {
@@ -29,6 +37,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
 
     return (
         <>
+            <MovieFilters data={data} setFilters={setFilters} />
             <div className="flex gap-8 flex-wrap mt-5 mb-8 pl-10 max-w-[1400px]">
                 {data?.pages.map((page, idx) => (
                     <Fragment key={idx}>

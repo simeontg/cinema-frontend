@@ -5,21 +5,32 @@ import { PaginatedModel } from 'shared/types/model';
 
 import { getPaginatedMovies } from '../../api';
 import { Movie } from '../../model/types';
-import { MovieReleaseType } from './types';
+import { FilterParams, MovieReleaseType } from './types';
+
+const STALE_TIME = 10 * (60 * 1000); // 10 minutes
 
 export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>(
     releaseType: MovieReleaseType,
-    limit: number
+    limit: number,
+    { title, genre }: FilterParams
 ): InfiniteQueryHookReturnData<ReturnData> => {
     const { data, fetchNextPage, hasNextPage, isError, status, isFetchingNextPage } =
         useInfiniteQuery({
-            queryKey: ['paginatedMovies', releaseType, limit],
-            queryFn: ({ pageParam }) => getPaginatedMovies({ page: pageParam, releaseType, limit }),
+            queryKey: ['paginatedMovies', releaseType, limit, title, genre],
+            queryFn: ({ pageParam }) =>
+                getPaginatedMovies({
+                    page: pageParam,
+                    releaseType,
+                    limit,
+                    title,
+                    genre
+                }),
             getNextPageParam: (lastPage) => {
                 const { currentPage, totalPages } = lastPage.meta;
                 return currentPage < totalPages ? currentPage + 1 : undefined;
             },
-            initialPageParam: 1
+            initialPageParam: 1,
+            staleTime: STALE_TIME
         });
 
     return {

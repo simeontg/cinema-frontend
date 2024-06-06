@@ -6,6 +6,8 @@ import { getTrendedMovies } from '../api';
 import { mapTrendedMovieDTOToTrendedMovie } from '../mappers/movieMappers';
 import { TrendedMovie } from '../model/types';
 
+const STALE_TIME = 10 * (60 * 1000); // 10 minutes
+
 export const useGetTrendedMovies = <
     ReturnData = TrendedMovie[] | null
 >(): QueryHookReturnData<ReturnData> => {
@@ -14,7 +16,8 @@ export const useGetTrendedMovies = <
         queryFn: async () => {
             const trendedMovies = await getTrendedMovies();
             return trendedMovies.map(mapTrendedMovieDTOToTrendedMovie);
-        }
+        },
+        staleTime: STALE_TIME
     });
 
     return {
