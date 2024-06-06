@@ -7,8 +7,10 @@ import { MovieReleaseType } from 'entities/movie/hooks/useGetPaginatedMovies/typ
 import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies/useGetPaginatedMovies';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
+import { splitToRows } from 'shared/utils/splitToRows';
 
-import { Filters } from '../types';
+import { Filters, SelectedMovie } from '../types';
+import { MovieDetails } from './MovieDetails';
 import { MovieFilters } from './MovieFilters';
 import { MovieItem } from './MovieItem';
 
@@ -25,6 +27,15 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         genre: ''
     });
 
+    const [selectedMovie, setSelectedMovie] = useState<SelectedMovie>({
+        description: '',
+        title: '',
+        rowIndex: null,
+        genre: '',
+        duration: 0,
+        imageUrl: ''
+    });
+
     const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(
         type,
         limit,
@@ -35,21 +46,35 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         return <div>Error loading movies. Please try again later.</div>;
     }
 
+    const items = data?.pages.flatMap((page) => splitToRows(page.items, 6));
+
     return (
         <>
             <MovieFilters data={data} setFilters={setFilters} />
-            <div className="flex gap-8 flex-wrap mt-5 mb-8 pl-10 max-w-[1400px]">
-                {data?.pages.map((page, idx) => (
+            <div className="flex gap-8 flex-wrap mt-5 pl-10 max-w-[1400px]">
+                {items?.map((page, idx) => (
                     <Fragment key={idx}>
-                        {page.items.map((movie) => (
+                        {page.map((movie) => (
                             <MovieItem
                                 key={movie.id}
                                 genre={movie.genre}
                                 duration={movie.duration}
                                 title={movie.title}
                                 imageUrl={movie.imageUrl}
+                                description={movie.description}
+                                rowIndex={idx}
+                                setSelectedMovie={setSelectedMovie}
                             />
                         ))}
+                        <MovieDetails
+                            isVisible={selectedMovie?.rowIndex === idx}
+                            title={selectedMovie?.title}
+                            description={selectedMovie?.description}
+                            genre={selectedMovie?.genre}
+                            imageUrl={selectedMovie?.imageUrl}
+                            duration={selectedMovie?.duration}
+                            setSelectedMovie={setSelectedMovie}
+                        />
                     </Fragment>
                 ))}
             </div>
