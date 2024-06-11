@@ -34,7 +34,7 @@ export const MovieFilters: FC<MovieFiltersProps> = ({ data, setFilters }) => {
     };
 
     return (
-        <div className="p-5 flex gap-10 flex-wrap mt-5 mb-8 pl-10 max-w-[1400px]">
+        <div className="p-5 flex gap-10 flex-wrap mt-5 mb-8 max-w-[1400px]">
             <div className="flex gap-4 items-center">
                 <OndemandVideoIcon />
                 <Autocomplete

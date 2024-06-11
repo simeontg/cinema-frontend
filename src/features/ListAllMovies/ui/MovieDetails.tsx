@@ -1,12 +1,10 @@
-import { CSSProperties, FC } from 'react';
+import { CSSProperties, FC, MouseEventHandler } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import clsx from 'clsx';
 
 import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
-
-import { SelectedMovie } from '../types';
 
 interface MovieDetailsProps {
     style?: CSSProperties;
@@ -16,7 +14,7 @@ interface MovieDetailsProps {
     duration: number;
     genre: string;
     isVisible: boolean;
-    setSelectedMovie: React.Dispatch<React.SetStateAction<SelectedMovie>>;
+    onClose: MouseEventHandler;
 }
 
 export const MovieDetails: FC<MovieDetailsProps> = ({
@@ -26,23 +24,11 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     imageUrl,
     duration,
     isVisible,
-    setSelectedMovie
+    onClose
 }) => {
-    const handleClose = () => {
-        setSelectedMovie({
-            description: '',
-            title: '',
-            rowIndex: null,
-            genre: '',
-            duration: 0,
-            imageUrl: ''
-        });
-    };
     return (
-        <div
-            className={clsx('hidden max-w-[1400px] pr-12 relative', isVisible && 'md:block')}
-        >
-            <button className="absolute top-2 right-14 text-white" onClick={handleClose}>
+        <div className={clsx('hidden max-w-[1400px] mt-3 relative', isVisible && 'md:block')}>
+            <button className="absolute top-2 right-2 text-white" onClick={onClose}>
                 <CloseIcon />
             </button>
             <div className="bg-black w-full text-white font-effra flex space-between">

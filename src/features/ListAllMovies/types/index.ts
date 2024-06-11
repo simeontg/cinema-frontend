@@ -9,5 +9,6 @@ export interface SelectedMovie {
     genre: string;
     duration: number;
     imageUrl: string;
+    id: string;
     rowIndex: number | null;
 }
