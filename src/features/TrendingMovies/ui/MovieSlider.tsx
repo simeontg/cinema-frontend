@@ -25,7 +25,7 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
         <section
             className="w-full h-full relative"
             style={{
-                background: `linear-gradient(to left, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 100%), url(${movies[imageIndex].imageUrl}) center/cover`,
+                background: `linear-gradient(to left, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 100%), url(${movies[imageIndex].imageUrl}) center/cover`
             }}
         >
             <div className="pointer-events-none mt-20 ml-20 inline-block w-[600px] h-[300px]">

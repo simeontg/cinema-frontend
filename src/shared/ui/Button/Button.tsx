@@ -26,7 +26,6 @@ export const Button: FC<ButtonProps> = ({
             disabled={disabled}
             onClick={onClick}
             style={style}
-            sx={{'&:hover': {backgroundColor: '#6e3996', color: 'white', borderColor: '#6e3996'}}}
         >
             {children}
         </MaterialButton>

@@ -1,7 +1,8 @@
-import { FC } from "react"
+import { FC } from 'react';
+
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const Footer: FC = () => {
     return (
@@ -25,6 +26,5 @@ export const Footer: FC = () => {
             </div>
             <p className="absolute bottom-0 left-2/4">&copy; 2024</p>
         </div>
-    )
-
-}
+    );
+};

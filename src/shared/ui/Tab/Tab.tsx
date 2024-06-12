@@ -15,7 +15,7 @@ export const Tab: FC<TabProps> = ({ label, className, onClick, style }) => {
             onClick={onClick}
             className={className}
             style={style}
-            sx={{opacity: 1, fontSize: '1.2rem'}}
+            sx={{ opacity: 1, fontSize: '1.2rem' }}
             label={label}
         ></MaterialTab>
     );

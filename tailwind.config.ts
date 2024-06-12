@@ -7,6 +7,6 @@ const config = {
         'effra': ['Effra']
       }
     }
-  }
-  
+}
+ 
 export default config

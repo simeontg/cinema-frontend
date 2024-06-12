@@ -59,7 +59,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         return <div>Error loading movies. Please try again later.</div>;
     }
 
-    const { transformedData } = useGetTransformedData(data);
+    const transformedData = useGetTransformedData(data);
 
     let emptyMoviesToAdd = 0;
 
@@ -111,14 +111,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                 <LoadingSpinner />
             </div>
             <Button
-                style={{
-                    display: hasNextPage ? 'block' : 'none',
-                    margin: 'auto',
-                    marginTop: '30px',
-                    padding: '10px 30px',
-                    borderRadius: '13px',
-                    fontSize: '13px'
-                }}
+                className={clsx('hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !px-8 !py-2.5 !m-auto !mt-8 text-[13px]', hasNextPage ? '!block' : '!hidden')}
                 onClick={() => fetchNextPage()}
                 variant="outlined"
             >

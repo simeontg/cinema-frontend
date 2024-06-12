@@ -5,7 +5,7 @@ import useScreenSize from 'shared/hooks/useScreenSize';
 import { PaginatedModel } from 'shared/types/model';
 import { splitToRows } from 'shared/utils/splitToRows';
 
-const useGetTransformedData = (data: PaginatedModel<Movie> | null) => {
+const useGetTransformedData = (data: PaginatedModel<Movie> | null): Movie[][] | undefined => {
     const [transformedData, setTransformedData] = useState<Movie[][] | undefined>(undefined);
     const { width } = useScreenSize();
 
@@ -14,7 +14,6 @@ const useGetTransformedData = (data: PaginatedModel<Movie> | null) => {
     useEffect(() => {
         if (width >= 1100) {
             setTransformedData(splitToRows(items, 6));
-            console.log(transformedData)
         } else if (width >= 700) {
             setTransformedData(splitToRows(items, 4));
         } else if (width >= 600) {
@@ -24,9 +23,7 @@ const useGetTransformedData = (data: PaginatedModel<Movie> | null) => {
         }
     }, [width, data]);
 
-    return {
-        transformedData
-    };
+    return transformedData;
 };
 
 export default useGetTransformedData;
