@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { Footer } from 'layout/Footer';
 import { Header } from 'layout/Header';
 
 export const RootRoute: FC = () => {
@@ -9,6 +10,7 @@ export const RootRoute: FC = () => {
         <>
             <Header />
             <Outlet />
+            <Footer />
         </>
     );
 };

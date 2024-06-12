@@ -8,7 +8,9 @@ import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovie
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, LoadingSpinner } from 'shared/ui';
 
-import { Filters } from '../types';
+import useGetTransformedData from '../hooks/useGetTransformedData';
+import { Filters, SelectedMovie } from '../types';
+import { MovieDetails } from './MovieDetails';
 import { MovieFilters } from './MovieFilters';
 import { MovieItem } from './MovieItem';
 
@@ -31,28 +33,75 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         filters
     );
 
+    const [selectedMovie, setSelectedMovie] = useState<SelectedMovie>({
+        description: '',
+        title: '',
+        rowIndex: null,
+        genre: '',
+        duration: 0,
+        imageUrl: '',
+        id: ''
+    });
+
+    const handleCloseMovieDetails = () => {
+        setSelectedMovie({
+            description: '',
+            title: '',
+            rowIndex: null,
+            genre: '',
+            duration: 0,
+            imageUrl: '',
+            id: ''
+        });
+    };
+
     if (isError) {
         return <div>Error loading movies. Please try again later.</div>;
     }
 
+    const transformedData = useGetTransformedData(data);
+
+    let emptyMoviesToAdd = 0;
+
+    if (transformedData?.length) {
+        emptyMoviesToAdd = transformedData[0].length - transformedData[transformedData.length - 1].length;
+    }
+
     return (
-        <>
+        <div className="max-w-[1400px] pl-10 pr-10">
             <MovieFilters data={data} setFilters={setFilters} />
-            <div className="flex gap-8 flex-wrap mt-5 mb-8 pl-10 max-w-[1400px]">
-                {data?.pages.map((page, idx) => (
-                    <Fragment key={idx}>
-                        {page.items.map((movie) => (
-                            <MovieItem
-                                key={movie.id}
-                                genre={movie.genre}
-                                duration={movie.duration}
-                                title={movie.title}
-                                imageUrl={movie.imageUrl}
-                            />
-                        ))}
-                    </Fragment>
-                ))}
-            </div>
+            {transformedData?.map((row, idx) => (
+                <Fragment key={idx}>
+                    <div className="flex gap-8 mt-5">
+                        <Fragment>
+                            {row.map((movie) => (
+                                <MovieItem
+                                    key={movie.id}
+                                    genre={movie.genre}
+                                    duration={movie.duration}
+                                    title={movie.title}
+                                    imageUrl={movie.imageUrl}
+                                    clicked={selectedMovie.id === movie.id}
+                                    onClick={() => setSelectedMovie({ ...movie, rowIndex: idx })}
+                                />
+                            ))}
+                            {idx === transformedData.length - 1 &&
+                                Array.from({ length: emptyMoviesToAdd }).map((_, idx) => (
+                                    <div key={idx} className="w-48 h-48"></div>
+                                ))}
+                        </Fragment>
+                    </div>
+                    <MovieDetails
+                        isVisible={selectedMovie?.rowIndex === idx}
+                        title={selectedMovie?.title}
+                        description={selectedMovie?.description}
+                        genre={selectedMovie?.genre}
+                        imageUrl={selectedMovie?.imageUrl}
+                        duration={selectedMovie?.duration}
+                        onClose={handleCloseMovieDetails}
+                    />
+                </Fragment>
+            ))}
             <div
                 className={clsx(
                     'flex items-center justify-center',
@@ -62,17 +111,12 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                 <LoadingSpinner />
             </div>
             <Button
-                className="mt-10"
-                style={{
-                    display: hasNextPage ? 'block' : 'none',
-                    margin: 'auto',
-                    marginTop: '30px'
-                }}
+                className={clsx('hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !px-8 !py-2.5 !m-auto !mt-8 text-[13px]', hasNextPage ? '!block' : '!hidden')}
                 onClick={() => fetchNextPage()}
                 variant="outlined"
             >
                 {t('loadMore')}
             </Button>
-        </>
+        </div>
     );
 };
