@@ -64,7 +64,8 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
     let emptyMoviesToAdd = 0;
 
     if (transformedData?.length) {
-        emptyMoviesToAdd = transformedData[0].length - transformedData[transformedData.length - 1].length;
+        emptyMoviesToAdd =
+            transformedData[0].length - transformedData[transformedData.length - 1].length;
     }
 
     return (
@@ -111,7 +112,10 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                 <LoadingSpinner />
             </div>
             <Button
-                className={clsx('hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !px-8 !py-2.5 !m-auto !mt-8 text-[13px]', hasNextPage ? '!block' : '!hidden')}
+                className={clsx(
+                    'hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !px-8 !py-2.5 !m-auto !mt-8 text-[13px]',
+                    hasNextPage ? '!block' : '!hidden'
+                )}
                 onClick={() => fetchNextPage()}
                 variant="outlined"
             >

@@ -6,3 +6,4 @@ export { Tabs } from './Tabs/Tabs';
 export { Tab } from './Tab/Tab';
 export { Autocomplete } from './Autocomplete/Autocomplete';
 export { TextField } from './TextField/TextField';
+export { Drawer } from './Drawer/Drawer';
