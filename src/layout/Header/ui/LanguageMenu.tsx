@@ -26,7 +26,7 @@ export const LanguageMenu: FC = () => {
 
     return (
         <>
-            <Button className="h-full" onClick={(e) => handleClick(e)}>
+            <Button className="h-full !text-black hover:!text-[#6e3996] !text-base hover:!bg-transparent !text-lg" onClick={(e) => handleClick(e)}>
                 <div className="flex gap-2 items-center">
                     <p>{currentLanguage}</p>
                     <img className="h-4 w-4 rounded-md" src={languageToImg[currentLanguage]} />
