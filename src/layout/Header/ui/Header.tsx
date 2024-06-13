@@ -26,11 +26,13 @@ export const Header: FC = () => {
                     />
                 </Link>
             </div>
-            <nav className="font-effra-md hidden md:block h-full">
+            <nav className="hidden md:block h-full">
                 <ul className="flex items-center h-full">
                     <li className="h-full pr-2 border-b-2 border-b-transparent hover:border-b-[#6e3996] border-r-[1px]">
                         <Link to="/login" className="!h-full">
-                            <Button className="!h-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base">{t('login')}</Button>
+                            <Button className="!h-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base">
+                                {t('login')}
+                            </Button>
                         </Link>
                     </li>
                     <li className="h-full pl-2 pr-2 border-b-2 border-transparent hover:border-[#6e3996]">
