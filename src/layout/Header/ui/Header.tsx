@@ -8,6 +8,8 @@ import { Button, Drawer } from 'shared/ui';
 
 import { LanguageMenu } from './LanguageMenu';
 
+const headerStyle = { boxShadow: '1px 2px 5px 0px rgba(0,0,0,0.07)' };
+
 export const Header: FC = () => {
     const { t } = useTranslation('common');
 
@@ -15,7 +17,7 @@ export const Header: FC = () => {
 
     return (
         <header
-            style={{ boxShadow: '1px 2px 5px 0px rgba(0,0,0,0.07)' }}
+            style={headerStyle}
             className="flex justify-between items-center sticky w-full h-20 top-0 z-10 bg-white"
         >
             <div className="w-[135px] h-[85px] ml-10">

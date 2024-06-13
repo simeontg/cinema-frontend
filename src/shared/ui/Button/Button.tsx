@@ -26,7 +26,6 @@ export const Button: FC<ButtonProps> = ({
             disabled={disabled}
             onClick={onClick}
             style={style}
-            sx={{ borderColor: '#909090', color: '#909090' }}
         >
             {children}
         </MaterialButton>
