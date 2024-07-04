@@ -9,6 +9,7 @@ interface ButtonProps {
     className?: string;
     variant?: 'outlined' | 'contained' | 'text';
     style?: CSSProperties;
+    type?: 'submit';
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -17,7 +18,8 @@ export const Button: FC<ButtonProps> = ({
     disabled,
     className,
     variant,
-    style
+    style,
+    type
 }) => {
     return (
         <MaterialButton
@@ -25,6 +27,7 @@ export const Button: FC<ButtonProps> = ({
             className={className}
             disabled={disabled}
             onClick={onClick}
+            type={type}
             style={style}
         >
             {children}
