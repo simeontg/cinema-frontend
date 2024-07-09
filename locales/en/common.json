@@ -3,6 +3,8 @@
     "notFoundPageDescription": "This page is not found.",
     "errorPageTitle": "Oops!",
     "errorPageDescription": "Sorry, an unexpected error has occurred.",
+    "loginFormIntroText": "Sign in to your Simeon Cinemas account to see your booking history and profile setting.",
+    "registerFormIntroText": "Create a Simeon Cinemas account to make booking movies easier and to see your booking history.",
     "login": "Log in",
     "signup": "Sign up",
     "firstName": "First name",

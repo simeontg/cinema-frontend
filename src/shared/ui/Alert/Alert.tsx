@@ -9,5 +9,9 @@ interface AlertProps {
 }
 
 export const Alert: FC<AlertProps> = ({ children, severity, className }) => {
-    return <MaterialAlert className={className} severity={severity}>{children}</MaterialAlert>;
+    return (
+        <MaterialAlert className={className} severity={severity}>
+            {children}
+        </MaterialAlert>
+    );
 };

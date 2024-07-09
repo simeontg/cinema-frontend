@@ -1,4 +1,4 @@
-export interface SignupReqBody  {
+export interface SignupReqBody {
     firstName: string;
     lastName: string;
     email: string;

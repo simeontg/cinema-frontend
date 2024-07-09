@@ -1,5 +1,6 @@
-import AuthBlock from 'features/auth/AuthBlock';
 import { FC } from 'react';
+
+import { AuthBlock } from 'features/AuthenticateUser';
 
 const AuthPage: FC = () => {
     return (

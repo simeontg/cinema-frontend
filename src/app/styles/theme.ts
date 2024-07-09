@@ -16,10 +16,10 @@ const theme = createTheme({
                     '&.MuiButton-textPrimary': {
                         color: '#909090',
                         borderColor: '#909090'
-                    },
-                },
-            },
-        },
+                    }
+                }
+            }
+        }
     },
     palette: {
         primary: {

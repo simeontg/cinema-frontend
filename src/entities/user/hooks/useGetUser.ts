@@ -11,7 +11,7 @@ export const useGetUser = <ReturnData = User>(): QueryHookReturnData<ReturnData>
         queryFn: async () => {
             const user = await getUser();
             return user;
-        },
+        }
     });
 
     return {

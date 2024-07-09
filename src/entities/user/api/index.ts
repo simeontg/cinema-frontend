@@ -13,6 +13,10 @@ export const signInUser = async (signInData: SigninReqBody): Promise<GetUserDTO>
     return response.data;
 };
 
+export const signOutUser = async () => {
+    await $authApi.post('/auth/signout');
+};
+
 export const getUser = async (): Promise<GetUserDTO> => {
     const response = await $authApi.get('/users');
     return response.data;
