@@ -86,7 +86,7 @@ export const RegisterForm: FC = () => {
             icon: <EmailOutlinedIcon />,
             rules: {
                 validate: (value: string) => isValidEmail(value) || t('enterValidEmail'),
-                required: { value: true, message: t('emailRequired') },
+                required: { value: true, message: t('emailRequired') }
             },
             className: 'w-1/3'
         },
