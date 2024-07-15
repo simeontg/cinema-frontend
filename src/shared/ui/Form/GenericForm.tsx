@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -37,6 +37,7 @@ interface GenericFormProps {
     networkErrorMessage?: string;
     formClassName?: string;
     watchControl?: string;
+    resetForm?: boolean;
     formError?: string;
 }
 
@@ -45,6 +46,7 @@ export const GenericForm: FC<GenericFormProps> = ({
     fields,
     wrapperClassName,
     submitButtonLabel,
+    resetForm,
     submitButtonClass,
     submitButtonStyle,
     defaultValues,
@@ -56,10 +58,14 @@ export const GenericForm: FC<GenericFormProps> = ({
     networkErrorMessage,
     formError
 }) => {
-    const { handleSubmit, control } = useForm({
+    const { handleSubmit, control, reset } = useForm({
         defaultValues,
         mode: formMode
     });
+
+    useEffect(() => {
+        reset();
+    }, [resetForm])
 
     return (
         <div className={wrapperClassName}>

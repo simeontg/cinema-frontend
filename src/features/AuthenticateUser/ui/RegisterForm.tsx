@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import GestureOutlinedIcon from '@mui/icons-material/GestureOutlined';
@@ -6,7 +6,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import { SubmitHandler } from 'react-hook-form';
 
-import { useSignUp } from 'entities/user/hooks/useSignUp';
+import { useSignUpMutation } from 'entities/user/hooks/useSignUp';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { NetworkError } from 'shared/types/network';
 import { GenericForm } from 'shared/ui';
@@ -35,12 +35,18 @@ const defaultValues = {
     confirmPassword: ''
 };
 
-export const RegisterForm: FC = () => {
+interface RegisterFormProps {
+    setTabValue: Dispatch<SetStateAction<number>>;
+}
+
+export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
     const { t } = useTranslation('common');
 
-    const { mutate: signUp, isPending, isError, error } = useSignUp();
+    const { mutate: signUp, isPending, isError, error } = useSignUpMutation();
 
     const [isPasswordMismatch, setIsPasswordMismatch] = useState(false);
+
+    const [resetForm, setResetForm] = useState(false);
 
     const onSubmit: SubmitHandler<FormFields> = async ({
         firstName,
@@ -55,6 +61,8 @@ export const RegisterForm: FC = () => {
         } else {
             setIsPasswordMismatch(false);
             signUp({ email, password, firstName, lastName, phoneNumber });
+            setResetForm(true);
+            setTabValue(0);
         }
     };
 
@@ -139,6 +147,7 @@ export const RegisterForm: FC = () => {
             isPending={isPending}
             formMode="onBlur"
             defaultValues={defaultValues}
+            resetForm={resetForm}
             watchControl="password"
             isError={isError}
             formError={isPasswordMismatch ? 'Passwords must match' : ''}

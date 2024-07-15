@@ -4,7 +4,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import KeyIcon from '@mui/icons-material/Key';
 import { SubmitHandler } from 'react-hook-form';
 
-import { useSignIn } from 'entities/user/hooks/useSignIn';
+import { useSignInMutation } from 'entities/user/hooks/useSignIn';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { NetworkError } from 'shared/types/network';
 import { GenericForm } from 'shared/ui';
@@ -28,7 +28,7 @@ const defaultValues = {
 export const LoginForm: FC = () => {
     const { t } = useTranslation('common');
 
-    const { mutate: signIn, isPending, isError, error } = useSignIn();
+    const { mutate: signIn, isPending, isError, error } = useSignInMutation();
 
     const onSubmit: SubmitHandler<FormFields> = async ({ email, password }) => {
         signIn({ email, password });

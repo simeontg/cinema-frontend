@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { signUpUser } from '../api';
 import { SignupReqBody } from './types/authTypes';
 
-export const useSignUp = () => {
+export const useSignUpMutation = () => {
     const navigate = useNavigate();
 
     const mutation = useMutation({
