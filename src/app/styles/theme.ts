@@ -16,11 +16,16 @@ const theme = createTheme({
                     '&.MuiButton-textPrimary': {
                         color: '#909090',
                         borderColor: '#909090'
-                    },
-                },
-            },
-        },
+                    }
+                }
+            }
+        }
     },
+    palette: {
+        primary: {
+            main: '#6e3996'
+        }
+    }
 });
 
 export default theme;

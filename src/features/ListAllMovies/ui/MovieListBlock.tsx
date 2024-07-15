@@ -15,7 +15,7 @@ export const MovieList: FC<MovieListProps> = () => {
     const { t } = useTranslation('main');
 
     return (
-        <div className="max-w-[1400px] block m-auto">
+        <div className="max-w-[1400px] block m-auto mb-5">
             <Tabs value={tabValue} className="ml-10">
                 <Tab
                     onClick={() => setTabValue(0)}
