@@ -7,8 +7,9 @@ import { Routes, RoutesPaths } from 'shared/constants/router';
 
 import { ErrorRoute } from './ui/ErrorRoute';
 import { ProtectedRoute } from './ui/ProtectedRoute';
-import { PublicRoute } from './ui/PublicRoute';
+import { AuthRoute } from './ui/AuthRoute';
 import { RootRoute } from './ui/RootRoute';
+import { PublicRoute } from './ui/PublicRoute';
 
 export const router = createBrowserRouter([
     {
@@ -18,11 +19,16 @@ export const router = createBrowserRouter([
         hasErrorBoundary: false,
         children: [
             {
-                path: RoutesPaths[Routes.MAIN],
-                element: <MainPageLazy />
+                element: <PublicRoute />,
+                children: [
+                    {
+                        path: RoutesPaths[Routes.MAIN],
+                        element: <MainPageLazy />
+                    }
+                ]
             },
             {
-                element: <PublicRoute />,
+                element: <AuthRoute />,
                 children: [
                     {
                         path: RoutesPaths[Routes.LOGIN],

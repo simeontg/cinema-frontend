@@ -22,7 +22,7 @@ $authApi.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response.data.msg === 'Token has expired') {
+        if (error.response.data.msg === 'Token has expired' && error.config && !error.config._isRetry) {
             const { userId } = error.response.data;
             originalRequest._isRetry = true;
             try {
