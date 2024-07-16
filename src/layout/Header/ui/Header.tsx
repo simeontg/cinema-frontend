@@ -1,9 +1,11 @@
 import { FC, useState } from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { Link } from 'react-router-dom';
 
-import { useGetUser } from 'entities/user/hooks/useGetUser';
+import { useSignOutMutation } from 'entities/user/hooks/useSignOut';
+import { useAuthContext } from 'shared/contexts/authContext';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Drawer } from 'shared/ui';
 
@@ -16,8 +18,9 @@ export const Header: FC = () => {
 
     const [open, setOpen] = useState(false);
 
-    const { data: user } = useGetUser();
+    const { mutate: signOut } = useSignOutMutation();
 
+    const { account } = useAuthContext();
     return (
         <header
             style={headerStyle}
@@ -33,12 +36,30 @@ export const Header: FC = () => {
             </div>
             <nav className="hidden md:block h-full">
                 <ul className="flex items-center h-full">
-                    {user ? (
-                        <li className="h-full flex text-lg items-center justify-center pr-2 border-b-2 border-b-transparent border-r-[1px]">
-                            <p>
-                                {t('welcome')}, {user.firstName}
-                            </p>
-                        </li>
+                    {account ? (
+                        <>
+                            <li className="h-full flex text-lg items-center justify-center pr-2  border-b-2 border-b-transparent border-r-[1px]">
+                                <Button className="!cursor-default !h-full !w-full !text-lg !text-black hover:!bg-transparent !text-base">
+                                    <PermIdentityOutlinedIcon />
+                                    {t('welcome')}, {account.firstName}
+                                </Button>
+                            </li>
+                            <li className="h-full flex text-lg items-center justify-center pl-2 pr-2 hover:border-b-[#6e3996] border-b-2 border-b-transparent border-r-[1px]">
+                                <Link to="profile">
+                                    <Button className="!h-full !w-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base">
+                                        {t('myAccount')}
+                                    </Button>
+                                </Link>
+                            </li>
+                            <li className="h-full flex text-lg items-center justify-center pl-2 pr-2 hover:border-b-[#6e3996] border-b-2 border-b-transparent border-r-[1px]">
+                                <Button
+                                    onClick={() => signOut()}
+                                    className="!h-full !w-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base"
+                                >
+                                    {t('signOut')}
+                                </Button>
+                            </li>
+                        </>
                     ) : (
                         <li className="h-full pr-2 border-b-2 border-b-transparent hover:border-b-[#6e3996] border-r-[1px]">
                             <Link to="/login" className="!h-full !w-full">
@@ -61,7 +82,18 @@ export const Header: FC = () => {
                 <Drawer open={open} anchor="top" onClose={() => setOpen(false)}>
                     <ul className="flex gap-4 flex-col items-center">
                         <li>
-                            <Button>{t('login')}</Button>
+                            {!account ? (
+                                <Link to="login">
+                                    <Button>{t('login')}</Button>
+                                </Link>
+                            ) : (
+                                <div className="flex flex-col gap-2">
+                                    <Link to="profile">
+                                        <Button>{t('myAccount')}</Button>
+                                    </Link>
+                                    <Button onClick={() => signOut()}>{t('signOut')}</Button>
+                                </div>
+                            )}
                         </li>
                     </ul>
                 </Drawer>

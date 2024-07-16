@@ -42,7 +42,7 @@ export const AuthBlock: FC = () => {
                         ></Tab>
                     </Tabs>
                     {tabValue === 0 && <LoginForm />}
-                    {tabValue === 1 && <RegisterForm />}
+                    {tabValue === 1 && <RegisterForm setTabValue={setTabValue} />}
                 </div>
                 <div className="mt-2">
                     <p

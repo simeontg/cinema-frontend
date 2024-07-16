@@ -29,6 +29,7 @@ export const Button: FC<ButtonProps> = ({
             onClick={onClick}
             type={type}
             style={style}
+            disableRipple
         >
             {children}
         </MaterialButton>
