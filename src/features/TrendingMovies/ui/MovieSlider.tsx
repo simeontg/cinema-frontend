@@ -3,8 +3,10 @@ import { FC, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import { Link } from 'react-router-dom';
 
 import { TrendedMovie } from 'entities/movie/model/types';
+import { Button } from 'shared/ui';
 
 interface MovieSliderProps {
     movies: TrendedMovie[];
@@ -38,6 +40,18 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
                 <div className="mt-4 w-96">
                     <p className="font-effra">{movies[imageIndex].description}</p>
                 </div>
+                <Link to={`/movie/${movies[imageIndex].id}`}>
+                    <Button
+                        className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
+                        style={{
+                            background:
+                                'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
+                        }}
+                        type="submit"
+                    >
+                        BOOK NOW
+                    </Button>
+                </Link>
             </div>
             <button
                 onClick={showPreviousImage}

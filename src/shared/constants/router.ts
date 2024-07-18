@@ -1,11 +1,13 @@
 export enum Routes {
     MAIN = 'main',
     LOGIN = 'login',
-    PROFILE = 'profile'
+    PROFILE = 'profile',
+    MOVIE = 'movie'
 }
 
 export const RoutesPaths: Record<Routes, string> = {
     [Routes.MAIN]: '/',
     [Routes.LOGIN]: 'login',
-    [Routes.PROFILE]: 'profile'
+    [Routes.PROFILE]: 'profile',
+    [Routes.MOVIE]: 'movie/:id'
 };

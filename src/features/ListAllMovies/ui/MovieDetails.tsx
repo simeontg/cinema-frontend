@@ -3,7 +3,9 @@ import { CSSProperties, FC, MouseEventHandler } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
+import { Button } from 'shared/ui';
 import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
 
 interface MovieDetailsProps {
@@ -11,6 +13,7 @@ interface MovieDetailsProps {
     description: string;
     title: string;
     imageUrl: string;
+    id: string;
     duration: number;
     genre: string;
     isVisible: boolean;
@@ -23,6 +26,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     genre,
     imageUrl,
     duration,
+    id,
     isVisible,
     onClose
 }) => {
@@ -40,6 +44,18 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
                         <p>{transformMinutesToHours(duration)}</p>
                     </div>
                     <p className="w-3/4 text-sm">{description}</p>
+                    <Link to={`/movie/${id}`}>
+                        <Button
+                            className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
+                            style={{
+                                background:
+                                    'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
+                            }}
+                            type="submit"
+                        >
+                            BOOK NOW
+                        </Button>
+                    </Link>
                 </div>
                 <div
                     className="w-full"

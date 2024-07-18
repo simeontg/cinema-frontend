@@ -10,6 +10,7 @@ import { ProtectedRoute } from './ui/ProtectedRoute';
 import { AuthRoute } from './ui/AuthRoute';
 import { RootRoute } from './ui/RootRoute';
 import { PublicRoute } from './ui/PublicRoute';
+import { MoviePageLazy } from 'pages/movie';
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
                     {
                         path: RoutesPaths[Routes.PROFILE],
                         element: <ProfilePageLazy />
+                    },
+                    {
+                        path: RoutesPaths[Routes.MOVIE],
+                        element: <MoviePageLazy />
                     }
                 ]
             }
