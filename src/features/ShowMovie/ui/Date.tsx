@@ -1,16 +1,17 @@
 import { FC, useState } from 'react';
 
 import clsx from 'clsx';
+import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface DateProps {
-    month: string,
-    date: number,
-    day: string
+    month: string;
+    date: number;
+    day: string;
 }
 
 export const Date: FC<DateProps> = ({ month, date, day }) => {
     const [isActiveDate, setIsActiveDate] = useState(false);
-
+    const { t } = useTranslation('common');
     return (
         <div
             className={clsx(
@@ -19,9 +20,9 @@ export const Date: FC<DateProps> = ({ month, date, day }) => {
             )}
             onClick={() => setIsActiveDate(true)}
         >
-            <p className="text-md">{month}</p>
+            <p className="text-md">{t(month)}</p>
             <p className="text-4xl font-bold">{date}</p>
-            <p className="text-md">{day.toUpperCase()}</p>
+            <p className="text-md">{t(day).toUpperCase()}</p>
         </div>
     );
 };

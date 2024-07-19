@@ -33,13 +33,13 @@ export const DatesNav: FC<DatesNavProps> = ({ dates }) => {
             <ArrowBackIosIcon
                 className={clsx(
                     'cursor-pointer justify-self-start',
-                    dates.length > 7 ? '!block' : '!hidden',
+                    dates.length > visibleItemsCount ? '!block' : '!hidden',
                     startIndex === 0 ? 'text-gray-400 pointer-events-none' : 'hover:scale-125'
                 )}
                 fontSize="large"
                 onClick={shiftLeft}
             />
-            <div className='flex gap-6'>
+            <div className="flex gap-6">
                 {dates.slice(startIndex, startIndex + visibleItemsCount).map((date) => {
                     const day = mapDayToLetter(date.getDay());
                     const month = mapMonthToLetter(date.getMonth());
@@ -52,7 +52,7 @@ export const DatesNav: FC<DatesNavProps> = ({ dates }) => {
             <ArrowForwardIosIcon
                 className={clsx(
                     'cursor-pointer justify-self-end',
-                    dates.length > 7 ? '!block' : '!hidden',
+                    dates.length > visibleItemsCount ? '!block' : '!hidden',
                     startIndex + visibleItemsCount === dates.length
                         ? 'text-gray-400 pointer-events-none'
                         : 'hover:scale-125'

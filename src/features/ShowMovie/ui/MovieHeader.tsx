@@ -4,8 +4,11 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import { Link } from 'react-router-dom';
 
 import { Button } from 'shared/ui';
+import { useTranslation } from 'shared/hooks/i18nHook';
 
 export const MovieHeader: FC = () => {
+    const { t } = useTranslation('common');
+
     return (
         <section
             className="py-[120px] flex justify-center lg:justify-start items-center"
@@ -45,7 +48,7 @@ export const MovieHeader: FC = () => {
                             }}
                             type="submit"
                         >
-                            BOOK NOW
+                            {t('bookNow')}
                         </Button>
                     </Link>
                 </div>

@@ -65,7 +65,7 @@ export const GenericForm: FC<GenericFormProps> = ({
 
     useEffect(() => {
         reset();
-    }, [resetForm])
+    }, [resetForm]);
 
     return (
         <div className={wrapperClassName}>

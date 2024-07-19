@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export const Footer: FC = () => {
     return (
-        <div className="w-full relative h-60 bg-zinc-900 font-effra flex text-white">
+        <div className="w-full absolute h-60 bg-zinc-900 font-effra flex text-white">
             <div className="pt-14 pl-28">
                 <h1 className="text-lg font-bold mb-2">About the developer</h1>
                 <p>Simeon Georgiev</p>

@@ -7,12 +7,15 @@ import { Link } from 'react-router-dom';
 
 import { TrendedMovie } from 'entities/movie/model/types';
 import { Button } from 'shared/ui';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 interface MovieSliderProps {
     movies: TrendedMovie[];
 }
 
 const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
+    const { t } = useTranslation('common');
     const [imageIndex, setImageIndex] = useState(0);
 
     const showNextImage = () => {
@@ -40,7 +43,7 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
                 <div className="mt-4 w-96">
                     <p className="font-effra">{movies[imageIndex].description}</p>
                 </div>
-                <Link to={`/movie/${movies[imageIndex].id}`}>
+                <Link to={generateMovieRoute(movies[imageIndex].id)}>
                     <Button
                         className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
                         style={{
@@ -49,7 +52,7 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
                         }}
                         type="submit"
                     >
-                        BOOK NOW
+                        {t('bookNow')}
                     </Button>
                 </Link>
             </div>
