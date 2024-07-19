@@ -2,14 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { AuthPageLazy } from 'pages/auth/AuthPage.async';
 import { MainPageLazy } from 'pages/main';
+import { MoviePageLazy } from 'pages/movie';
 import { ProfilePageLazy } from 'pages/profile';
 import { Routes, RoutesPaths } from 'shared/constants/router';
 
+import { AuthRoute } from './ui/AuthRoute';
 import { ErrorRoute } from './ui/ErrorRoute';
 import { ProtectedRoute } from './ui/ProtectedRoute';
-import { AuthRoute } from './ui/AuthRoute';
-import { RootRoute } from './ui/RootRoute';
 import { PublicRoute } from './ui/PublicRoute';
+import { RootRoute } from './ui/RootRoute';
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
                     {
                         path: RoutesPaths[Routes.PROFILE],
                         element: <ProfilePageLazy />
+                    },
+                    {
+                        path: RoutesPaths[Routes.MOVIE],
+                        element: <MoviePageLazy />
                     }
                 ]
             }

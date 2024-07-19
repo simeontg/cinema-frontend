@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useLogin } from 'shared/hooks/authHooks';
 
@@ -10,6 +10,7 @@ export const useSignInMutation = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { onLogin } = useLogin();
+    const location = useLocation();
 
     const mutation = useMutation({
         mutationFn: (signInData: SigninReqBody) => {
@@ -18,7 +19,8 @@ export const useSignInMutation = () => {
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['user'] });
             onLogin(data);
-            navigate('/');
+            const { from } = location.state;
+            navigate(from);
         }
     });
 

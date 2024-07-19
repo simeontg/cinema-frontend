@@ -1,4 +1,4 @@
-{  
+{
     "notFoundPageTitle": "Oops!",
     "notFoundPageDescription": "This page is not found.",
     "errorPageTitle": "Oops!",
@@ -26,5 +26,25 @@
     "passwordLengthError": "Password must be at least 8 characters long",
     "phoneDigitsError": "Phone number must be exact 10 digits",
     "registerWithGmail": "OR SIGN IN WITH",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "bookNow": "Book now",
+    "Mon": "Mon",
+    "Tue": "Tue",
+    "Wed": "Wed",
+    "Thu": "Thu",
+    "Fri": "Fri",
+    "Sat": "Sat",
+    "Sun": "Sun",
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "May": "May",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Aug",
+    "Sep": "Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec": "Dec"
 }

@@ -3,14 +3,19 @@ import { CSSProperties, FC, MouseEventHandler } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
+import { Button } from 'shared/ui';
 import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 interface MovieDetailsProps {
     style?: CSSProperties;
     description: string;
     title: string;
     imageUrl: string;
+    id: string;
     duration: number;
     genre: string;
     isVisible: boolean;
@@ -23,9 +28,12 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     genre,
     imageUrl,
     duration,
+    id,
     isVisible,
     onClose
 }) => {
+    const { t } = useTranslation('common');
+    
     return (
         <div className={clsx('hidden max-w-[1400px] mt-3 relative', isVisible && 'md:block')}>
             <button className="absolute top-2 right-2 text-white" onClick={onClose}>
@@ -40,6 +48,18 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
                         <p>{transformMinutesToHours(duration)}</p>
                     </div>
                     <p className="w-3/4 text-sm">{description}</p>
+                    <Link to={generateMovieRoute(id)}>
+                        <Button
+                            className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
+                            style={{
+                                background:
+                                    'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
+                            }}
+                            type="submit"
+                        >
+                            {t('bookNow')}
+                        </Button>
+                    </Link>
                 </div>
                 <div
                     className="w-full"

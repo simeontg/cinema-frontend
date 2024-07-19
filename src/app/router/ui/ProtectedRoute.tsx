@@ -12,7 +12,7 @@ export const ProtectedRoute = () => {
 
     useEffect(() => {
         if (!account) {
-            navigate(RoutesPaths[Routes.MAIN]);
+            navigate(RoutesPaths[Routes.LOGIN], { state: { from: window.location.pathname } });
         }
     }, [account]);
 
