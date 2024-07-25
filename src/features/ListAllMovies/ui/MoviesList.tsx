@@ -97,6 +97,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                         title={selectedMovie?.title}
                         description={selectedMovie?.description}
                         genre={selectedMovie?.genre}
+                        id={selectedMovie?.id}
                         imageUrl={selectedMovie?.imageUrl}
                         duration={selectedMovie?.duration}
                         onClose={handleCloseMovieDetails}

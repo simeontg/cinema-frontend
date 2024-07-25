@@ -1,5 +1,5 @@
-import { Routes } from "shared/constants/router"
+import { Routes } from 'shared/constants/router';
 
 export const generateMovieRoute = (param: string) => {
-    return `${Routes.MOVIE}/${param}`
-}
+    return `${Routes.MOVIE}/${param}`;
+};

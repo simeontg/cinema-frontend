@@ -7,5 +7,5 @@ export const mapMonthToLetter = (month: number) => {
 };
 
 export const mapDayToLetter = (day: number) => {
-    return days[day];
+    return days[day-1];
 };

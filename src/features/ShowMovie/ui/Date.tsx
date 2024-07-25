@@ -1,24 +1,28 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import clsx from 'clsx';
+
 import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface DateProps {
     month: string;
     date: number;
     day: string;
+    wholeDate: Date;
+    isActive: boolean;
+    onClick: (date: Date) => void;
 }
 
-export const Date: FC<DateProps> = ({ month, date, day }) => {
-    const [isActiveDate, setIsActiveDate] = useState(false);
+export const Date: FC<DateProps> = ({ month, date, day, wholeDate, isActive, onClick }) => {
     const { t } = useTranslation('common');
+
     return (
         <div
             className={clsx(
                 'rounded-md flex cursor-pointer items-center justify-center flex-col w-[30px] h-[30px] p-12 min-w-0',
-                isActiveDate ? 'text-white bg-[#6e3996]' : 'hover:text-[#6e3996]'
+                isActive ? 'text-white bg-[#6e3996]' : 'hover:text-[#6e3996]'
             )}
-            onClick={() => setIsActiveDate(true)}
+            onClick={() => onClick(wholeDate)}
         >
             <p className="text-md">{t(month)}</p>
             <p className="text-4xl font-bold">{date}</p>

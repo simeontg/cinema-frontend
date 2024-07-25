@@ -1,3 +1,5 @@
+import { Session } from "entities/session/model/types";
+
 export interface TrendedMovie {
     id: string;
     title: string;
@@ -18,4 +20,5 @@ export interface Movie {
     genre: string;
     releaseDate: Date;
     trended: boolean;
+    sessions: Session[];
 }
