@@ -14,7 +14,13 @@ interface MovieHeaderProps {
     description: string;
 }
 
-export const MovieHeader: FC<MovieHeaderProps> = ({ title, imageUrl, genre, duration, description }) => {
+export const MovieHeader: FC<MovieHeaderProps> = ({
+    title,
+    imageUrl,
+    genre,
+    duration,
+    description
+}) => {
     const { t } = useTranslation('common');
 
     return (
@@ -29,8 +35,7 @@ export const MovieHeader: FC<MovieHeaderProps> = ({ title, imageUrl, genre, dura
                 <div
                     className="md:w-[300px] md:h-[420px] w-[180px] h-[300px]"
                     style={{
-                        background:
-                            `url(${imageUrl}) center/cover`
+                        background: `url(${imageUrl}) center/cover`
                     }}
                 ></div>
                 <div className="pointer-events-none flex lg:justify-start lg:items-start justify-start items-start md:justify-center md:items-center flex-col text-white mt-10 lg:mt-20 lg:ml-20 inline-block">

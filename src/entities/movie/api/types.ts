@@ -29,5 +29,5 @@ export interface GetMovieDto {
     genre: string;
     releaseDate: Date;
     trended: boolean;
-    sessions: GetSessionDto
+    sessions: GetSessionDto;
 }

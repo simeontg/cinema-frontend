@@ -1,5 +1,5 @@
-import { GetCinemaDto } from "entities/cinema/api/types";
-import { GetHallDto } from "entities/hall/api/types";
+import { GetCinemaDto } from 'entities/cinema/api/types';
+import { GetHallDto } from 'entities/hall/api/types';
 
 export interface getSessionsParams {
     movieId: string;

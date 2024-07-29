@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useGetMovie } from 'entities/movie/hooks/useGetMovie';
-import { LoadingSpinner } from 'shared/ui';
+import { ErrorWrapper, LoadingSpinner } from 'shared/ui';
 
 import { DatesNav } from './DatesNav';
 import { MovieHeader } from './MovieHeader';
@@ -18,20 +18,16 @@ export const MovieBlock: FC = () => {
         return <LoadingSpinner />;
     }
 
-    if (isError) {
-        return <div>Something went wrong...</div>
-    }
-
     const projectionDates: Date[] = [];
 
     movie.sessions.forEach((s) => {
-        if (!projectionDates.some(d => d.getTime() === new Date(s.date).getTime())) {
+        if (!projectionDates.some((d) => d.getTime() === new Date(s.date).getTime())) {
             projectionDates.push(new Date(s.date));
         }
     });
 
     return (
-        <>
+        <ErrorWrapper isError={isError}>
             <MovieHeader
                 title={movie.title}
                 description={movie.description}
@@ -39,8 +35,12 @@ export const MovieBlock: FC = () => {
                 imageUrl={movie.imageUrl}
                 duration={movie.duration}
             />
-            <DatesNav activeDate={activeDate} setActiveDate={setActiveDate} dates={projectionDates.sort((a, b) => a.getTime() - b.getTime())} />
-            <ProjectionsList activeDate={activeDate} sessions={movie.sessions}/>
-        </>
+            <DatesNav
+                activeDate={activeDate}
+                setActiveDate={setActiveDate}
+                dates={projectionDates.sort((a, b) => a.getTime() - b.getTime())}
+            />
+            <ProjectionsList activeDate={activeDate} sessions={movie.sessions} />
+        </ErrorWrapper>
     );
 };

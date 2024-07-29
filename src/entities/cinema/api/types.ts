@@ -8,5 +8,5 @@ export interface GetCinemaDto {
         createdAt: string;
         updatedAt: string;
         name: string;
-    }
+    };
 }

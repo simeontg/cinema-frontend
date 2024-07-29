@@ -33,7 +33,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     onClose
 }) => {
     const { t } = useTranslation('common');
-    
+
     return (
         <div className={clsx('hidden max-w-[1400px] mt-3 relative', isVisible && 'md:block')}>
             <button className="absolute top-2 right-2 text-white" onClick={onClose}>

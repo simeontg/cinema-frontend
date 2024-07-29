@@ -1,14 +1,16 @@
-import { QueryHookReturnData } from "shared/types/hook";
-import { Movie } from "../model/types";
-import { useQuery } from "@tanstack/react-query";
-import { getMovie } from "../api";
+import { useQuery } from '@tanstack/react-query';
+
+import { QueryHookReturnData } from 'shared/types/hook';
+
+import { getMovie } from '../api';
+import { Movie } from '../model/types';
 
 export const useGetMovie = <ReturnData = Movie>(id: string): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['movie', id],
         queryFn: async () => {
             const movie = await getMovie(id);
-            return movie
+            return movie;
         }
     });
 
@@ -18,4 +20,4 @@ export const useGetMovie = <ReturnData = Movie>(id: string): QueryHookReturnData
         isError,
         isSuccess
     };
-}
+};

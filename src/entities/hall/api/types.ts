@@ -1,4 +1,4 @@
-import { GetCinemaDto } from "entities/cinema/api/types";
+import { GetCinemaDto } from 'entities/cinema/api/types';
 
 export interface GetHallDto {
     id: string;
@@ -7,12 +7,12 @@ export interface GetHallDto {
     hall_name: string;
     hall_plan: {
         rows: {
-            row: string,
+            row: string;
             seats: {
-                reserved: boolean,
-                seat_number: string
-            }[]
-        }[]
-    },
-    cinema: GetCinemaDto
+                reserved: boolean;
+                seat_number: string;
+            }[];
+        }[];
+    };
+    cinema: GetCinemaDto;
 }

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Session } from 'entities/session/model/types';
-import { transformSessionsToCinemasWithTimeSlots } from 'shared/utils/transformSessionsToCinemasWithTimeslots';
+import { transformSessionsToCinemasWithTimeSlots } from '../utils/transformSessionsToCinemasWithTimeslots';
 
 import { Projection } from './Projection';
 

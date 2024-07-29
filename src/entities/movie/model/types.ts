@@ -1,4 +1,4 @@
-import { Session } from "entities/session/model/types";
+import { Session } from 'entities/session/model/types';
 
 export interface TrendedMovie {
     id: string;

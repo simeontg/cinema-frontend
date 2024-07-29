@@ -8,5 +8,5 @@ export interface Cinema {
         createdAt: string;
         updatedAt: string;
         name: string;
-    }
+    };
 }

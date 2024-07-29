@@ -24,8 +24,7 @@ export const getPaginatedMovies = async ({
     return response.data;
 };
 
-
 export const getMovie = async (id: string): Promise<GetMovieDto> => {
     const response = await $api.get(`/movies/${id}`);
     return response.data;
-}
+};

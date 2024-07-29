@@ -1,4 +1,4 @@
-import { Cinema } from "entities/cinema/model/types";
+import { Cinema } from 'entities/cinema/model/types';
 
 export interface Session {
     id: string;

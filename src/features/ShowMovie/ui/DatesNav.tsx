@@ -31,12 +31,12 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
     };
 
     useEffect(() => {
-        setActiveDate(dates[0])
-    }, [])
+        setActiveDate(dates[0]);
+    }, []);
 
     const onDateClick = (date: Date) => {
         setActiveDate(date);
-    }
+    };
 
     return (
         <div className="h-[150px] font-effra bg-gray-200 flex gap-16 items-center justify-center max-w-full">
@@ -56,7 +56,15 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
                     const convertedDate = date.getDate();
                     const isActive = activeDate?.getTime() === date.getTime();
                     return (
-                        <Date isActive={isActive} onClick={onDateClick} wholeDate={date} key={convertedDate} day={day} month={month} date={convertedDate} />
+                        <Date
+                            isActive={isActive}
+                            onClick={onDateClick}
+                            wholeDate={date}
+                            key={convertedDate}
+                            day={day}
+                            month={month}
+                            date={convertedDate}
+                        />
                     );
                 })}
             </div>
