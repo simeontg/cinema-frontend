@@ -5,10 +5,10 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import { Button } from 'shared/ui';
-import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import { Button } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
+import { transformMinutesToHours } from 'shared/utils/transformMinutesToHours';
 
 interface MovieDetailsProps {
     style?: CSSProperties;
@@ -33,7 +33,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     onClose
 }) => {
     const { t } = useTranslation('common');
-    
+
     return (
         <div className={clsx('hidden max-w-[1400px] mt-3 relative', isVisible && 'md:block')}>
             <button className="absolute top-2 right-2 text-white" onClick={onClose}>

@@ -1,3 +1,4 @@
+import { GetSessionDto } from 'entities/session/api/types';
 import { PaginatedParams } from 'shared/types/dto';
 
 type ReleaseTypeParam = 'current' | 'upcoming';
@@ -28,4 +29,5 @@ export interface GetMovieDto {
     genre: string;
     releaseDate: Date;
     trended: boolean;
+    sessions: GetSessionDto;
 }

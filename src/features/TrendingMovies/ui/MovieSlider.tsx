@@ -6,8 +6,8 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import { Link } from 'react-router-dom';
 
 import { TrendedMovie } from 'entities/movie/model/types';
-import { Button } from 'shared/ui';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import { Button } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 interface MovieSliderProps {

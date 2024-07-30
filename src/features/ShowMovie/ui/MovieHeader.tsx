@@ -3,10 +3,24 @@ import { FC } from 'react';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import { Link } from 'react-router-dom';
 
-import { Button } from 'shared/ui';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import { Button } from 'shared/ui';
 
-export const MovieHeader: FC = () => {
+interface MovieHeaderProps {
+    title: string;
+    imageUrl: string;
+    genre: string;
+    duration: number;
+    description: string;
+}
+
+export const MovieHeader: FC<MovieHeaderProps> = ({
+    title,
+    imageUrl,
+    genre,
+    duration,
+    description
+}) => {
     const { t } = useTranslation('common');
 
     return (
@@ -21,22 +35,19 @@ export const MovieHeader: FC = () => {
                 <div
                     className="md:w-[300px] md:h-[420px] w-[180px] h-[300px]"
                     style={{
-                        background:
-                            'url(https://reelcinemas.com//MovieImages/HO00003938.jpg) center/cover'
+                        background: `url(${imageUrl}) center/cover`
                     }}
                 ></div>
                 <div className="pointer-events-none flex lg:justify-start lg:items-start justify-start items-start md:justify-center md:items-center flex-col text-white mt-10 lg:mt-20 lg:ml-20 inline-block">
-                    <h1 className="text-2xl md:text-6xl font-effra font-bold">Kung Fu Panda 4</h1>
-                    <p className="mt-4">Comedy</p>
+                    <h1 className="text-2xl md:text-6xl font-effra font-bold">{title}</h1>
+                    <p className="mt-4">{genre}</p>
                     <div className="flex gap-2 mt-4">
                         <ScheduleIcon />
-                        <p className="font-effra">210 MIN</p>
+                        <p className="font-effra">{duration} MIN</p>
                     </div>
                     <div className="mt-4 w-96">
                         <p className="font-effra text-start md:text-center lg:text-start">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. In nostrum
-                            tenetur, voluptas ut libero architecto? Soluta inventore hic fugiat
-                            ullam nam, vel deserunt mollitia error a rem in, voluptate veniam?
+                            {description}
                         </p>
                     </div>
                     <Link to={`/movie`}>

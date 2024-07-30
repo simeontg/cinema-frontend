@@ -9,3 +9,4 @@ export { TextField } from './TextField/TextField';
 export { Drawer } from './Drawer/Drawer';
 export { Alert } from './Alert/Alert';
 export { GenericForm } from './Form/GenericForm';
+export { ErrorWrapper } from './ErrorWrapper/ErrorWrapper';

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -10,10 +10,12 @@ import { Date } from './Date';
 
 interface DatesNavProps {
     dates: Date[];
+    setActiveDate: (date: Date) => void;
+    activeDate: Date | null;
 }
 const visibleItemsCount = 7;
 
-export const DatesNav: FC<DatesNavProps> = ({ dates }) => {
+export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }) => {
     const [startIndex, setStartIndex] = useState(0);
 
     const shiftLeft = () => {
@@ -26,6 +28,14 @@ export const DatesNav: FC<DatesNavProps> = ({ dates }) => {
         if (startIndex + visibleItemsCount < dates.length) {
             setStartIndex(startIndex + 1);
         }
+    };
+
+    useEffect(() => {
+        setActiveDate(dates[0]);
+    }, []);
+
+    const onDateClick = (date: Date) => {
+        setActiveDate(date);
     };
 
     return (
@@ -44,8 +54,17 @@ export const DatesNav: FC<DatesNavProps> = ({ dates }) => {
                     const day = mapDayToLetter(date.getDay());
                     const month = mapMonthToLetter(date.getMonth());
                     const convertedDate = date.getDate();
+                    const isActive = activeDate?.getTime() === date.getTime();
                     return (
-                        <Date key={convertedDate} day={day} month={month} date={convertedDate} />
+                        <Date
+                            isActive={isActive}
+                            onClick={onDateClick}
+                            wholeDate={date}
+                            key={convertedDate}
+                            day={day}
+                            month={month}
+                            date={convertedDate}
+                        />
                     );
                 })}
             </div>
