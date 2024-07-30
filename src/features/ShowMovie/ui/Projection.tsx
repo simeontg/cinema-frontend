@@ -10,14 +10,18 @@ interface ProjectionProps {
     city: string;
     cinema: string;
     timeSlots: string[];
+    isVisible: boolean;
 }
 
-export const Projection: FC<ProjectionProps> = ({ city, cinema, timeSlots }) => {
+export const Projection: FC<ProjectionProps> = ({ city, cinema, timeSlots, isVisible }) => {
     const [isContainerHovered, setIsContainerHovered] = useState(false);
 
     return (
         <div
-            className="flex flex-col xl:flex-row xl:gap-60 gap-12 p-20 items-center ml-6 border-b-2"
+            className={clsx(
+                'flex flex-col xl:flex-row xl:gap-60 gap-12 p-20 items-center ml-6 border-b-2',
+                isVisible ? '' : 'hidden'
+            )}
             onMouseEnter={() => setIsContainerHovered(true)}
             onMouseLeave={() => setIsContainerHovered(false)}
             style={isContainerHovered ? boxShadow : {}}
@@ -34,13 +38,13 @@ export const Projection: FC<ProjectionProps> = ({ city, cinema, timeSlots }) => 
                 <p>{cinema}</p>
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                {timeSlots.map((timeSlot) => (
+                {timeSlots.map((timeslot) => (
                     <Button
-                        key={timeSlot}
+                        key={timeslot}
                         variant="outlined"
                         className="hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !border-[#6e3996] !rounded-full !px-6 !py-1 text-[10px]"
                     >
-                        {timeSlot}
+                        {timeslot}
                     </Button>
                 ))}
             </div>
