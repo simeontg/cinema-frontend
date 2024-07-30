@@ -65,7 +65,7 @@ export const ProjectionFilters: FC<ProjectionFiltersProps> = ({ items, setFilter
                 <AccessTimeOutlinedIcon />
                 <Autocomplete
                     className="w-64"
-                    options={[t('morning'),t('afternoon'),t('evening')]}
+                    options={[t('morning'), t('afternoon'), t('evening')]}
                     renderInput={(params) => <TextField {...params} label={t('timeslot')} />}
                     onChange={onTimeChange}
                 />

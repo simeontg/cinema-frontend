@@ -19,8 +19,7 @@ export const Projection: FC<ProjectionProps> = ({ city, cinema, timeSlots, isVis
     return (
         <div
             className={clsx(
-                'flex flex-col xl:flex-row xl:gap-60 gap-12 p-20 items-center ml-6 border-b-2',
-                isVisible ? '' : 'hidden'
+                'flex flex-col xl:flex-row xl:gap-60 gap-12 p-20 items-center ml-6 border-b-2', { 'hidden': !isVisible }
             )}
             onMouseEnter={() => setIsContainerHovered(true)}
             onMouseLeave={() => setIsContainerHovered(false)}

@@ -24,11 +24,12 @@ export const ProjectionsList: FC<ProjectionListProps> = ({ sessions, activeDate 
     );
 
     const timeSlotsByCinema = transformSessionsToCinemasWithTimeSlots(filteredSessions);
+    const timeslotByCinemaEntries = Object.entries(timeSlotsByCinema);
 
     return (
         <div className="mx-20 my-12 font-effra">
-            <ProjectionFilters items={Object.entries(timeSlotsByCinema)} setFilters={setFilters} />
-            {Object.entries(timeSlotsByCinema).map((timeSlotByCinema) => {
+            <ProjectionFilters items={timeslotByCinemaEntries} setFilters={setFilters} />
+            {timeslotByCinemaEntries.map((timeSlotByCinema) => {
                 const city = timeSlotByCinema[1].city;
                 const cinema = timeSlotByCinema[0];
                 const timeSlots = timeSlotByCinema[1].timeSlots.sort();
