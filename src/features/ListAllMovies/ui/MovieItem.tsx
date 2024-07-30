@@ -19,7 +19,7 @@ export const MovieItem: FC<MovieItemProps> = ({
     title,
     imageUrl,
     clicked,
-    onClick,
+    onClick
 }) => {
     const [isInfoVisible, setIsInfoVisible] = useState(false);
 
@@ -27,7 +27,7 @@ export const MovieItem: FC<MovieItemProps> = ({
         <div
             onMouseEnter={() => setIsInfoVisible(true)}
             onMouseLeave={() => setIsInfoVisible(false)}
-            className='font-effra w-48 h-64 rounded-md relative hover:cursor-pointer'
+            className="font-effra w-48 h-64 rounded-md relative hover:cursor-pointer"
             onClick={onClick}
         >
             <img

@@ -46,5 +46,11 @@
     "Sep": "Sep",
     "Oct": "Oct",
     "Nov": "Nov",
-    "Dec": "Dec"
+    "Dec": "Dec",
+    "city": "City",
+    "cinema": "Cinema",
+    "timeslot": "Time slot",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening"
 }
