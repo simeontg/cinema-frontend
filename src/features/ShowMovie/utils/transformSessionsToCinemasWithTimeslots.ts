@@ -2,7 +2,7 @@ import { Session } from 'entities/session/model/types';
 
 interface CinemaWithTimeslots {
     [cinemaName: string]: {
-        timeSlots: string[];
+        timeSlots: Record<string, string>[];
         city: string;
     };
 }
@@ -15,11 +15,11 @@ export const transformSessionsToCinemasWithTimeSlots = (
     sessions.forEach((session) => {
         if (!obj[session.cinema.name]) {
             obj[session.cinema.name] = {
-                timeSlots: [session.time],
+                timeSlots: [{time: session.time, id: session.id}],
                 city: session.cinema.city.name
             };
         } else {
-            obj[session.cinema.name].timeSlots.push(session.time);
+            obj[session.cinema.name].timeSlots.push({time: session.time, id: session.id});
         }
     });
 

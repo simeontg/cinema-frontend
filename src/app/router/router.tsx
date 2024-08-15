@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { AuthPageLazy } from 'pages/auth/AuthPage.async';
+import { BookSeatsPageLazy } from 'pages/book';
 import { MainPageLazy } from 'pages/main';
 import { MoviePageLazy } from 'pages/movie';
 import { ProfilePageLazy } from 'pages/profile';
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
                     {
                         path: RoutesPaths[Routes.MOVIE],
                         element: <MoviePageLazy />
+                    },
+                    {
+                        path: RoutesPaths[Routes.BOOKSEATS],
+                        element: <BookSeatsPageLazy />
                     }
                 ]
             }

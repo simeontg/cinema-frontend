@@ -7,7 +7,8 @@ import storageService from 'shared/services/storageService';
 import { getToken } from './getToken';
 
 export const $api = axios.create({
-    baseURL: MOVIES_BASE_URL
+    baseURL: MOVIES_BASE_URL,
+    withCredentials: true
 });
 
 export const $authApi = axios.create({

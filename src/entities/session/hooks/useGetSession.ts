@@ -2,16 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 
 import { QueryHookReturnData } from 'shared/types/hook';
 
-import { getSessions } from '../api';
+import { getSession } from '../api';
 import { Session } from '../model/types';
 
-export const useGetSessions = <ReturnData = Session[]>(): QueryHookReturnData<ReturnData> => {
+export const useGetSession = <ReturnData = Session>(id: string): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
-        queryKey: ['sessions'],
+        queryKey: ['session', id],
         queryFn: async () => {
-            const sessions = await getSessions();
-            return sessions;
-        }
+            const session = await getSession(id);
+            return session;
+        },
+        staleTime: 10 * (60 * 1000)
     });
 
     return {
