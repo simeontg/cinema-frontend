@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { Session } from 'entities/session/model/types';
 import { getPeriodOfDay } from 'shared/utils/getTimeOfDay';
 
+import { parseTime } from '../../../shared/utils/parseTime';
 import { transformSessionsToCinemasWithTimeSlots } from '../utils/transformSessionsToCinemasWithTimeslots';
 import { Projection } from './Projection';
 import { ProjectionFilters } from './ProjectionsFilters';
@@ -25,18 +26,19 @@ export const ProjectionsList: FC<ProjectionListProps> = ({ sessions, activeDate 
 
     const timeSlotsByCinema = transformSessionsToCinemasWithTimeSlots(filteredSessions);
     const timeslotByCinemaEntries = Object.entries(timeSlotsByCinema);
-
     return (
         <div className="mx-20 my-12 font-effra">
             <ProjectionFilters items={timeslotByCinemaEntries} setFilters={setFilters} />
             {timeslotByCinemaEntries.map((timeSlotByCinema) => {
                 const city = timeSlotByCinema[1].city;
                 const cinema = timeSlotByCinema[0];
-                const timeSlots = timeSlotByCinema[1].timeSlots.sort();
+                const timeSlots = timeSlotByCinema[1].timeSlots.sort(
+                    (a, b) => parseTime(a.time).getTime() - parseTime(b.time).getTime()
+                );
 
                 const fitleredTimeSlots = filters.time
                     ? timeSlots.filter((timeslot) =>
-                          getPeriodOfDay(timeslot).includes(filters.time)
+                          getPeriodOfDay(timeslot.time).includes(filters.time)
                       )
                     : timeSlots;
 
@@ -44,7 +46,9 @@ export const ProjectionsList: FC<ProjectionListProps> = ({ sessions, activeDate 
                     (city.includes(filters.city) &&
                         cinema.includes(filters.cinema) &&
                         timeSlots.some((timeslot) =>
-                            filters.time ? getPeriodOfDay(timeslot).includes(filters.time) : true
+                            filters.time
+                                ? getPeriodOfDay(timeslot.time).includes(filters.time)
+                                : true
                         )) ||
                     filters.city === null ||
                     filters.cinema === null;

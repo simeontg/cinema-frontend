@@ -10,7 +10,7 @@ import { Autocomplete, TextField } from 'shared/ui';
 import { Filters } from '../types';
 
 interface ProjectionFiltersProps {
-    items: Array<[string, { timeSlots: string[]; city: string }]>;
+    items: Array<[string, { timeSlots: Record<string, string>[]; city: string }]>;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }
 

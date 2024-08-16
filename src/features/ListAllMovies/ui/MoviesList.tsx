@@ -1,12 +1,16 @@
 import { FC, useState } from 'react';
 
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 
 import { MovieReleaseType } from 'entities/movie/hooks/useGetPaginatedMovies/types';
 import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies/useGetPaginatedMovies';
+import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { Button, ErrorWrapper, LoadingSpinner } from 'shared/ui';
+import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import useGetTransformedData from '../hooks/useGetTransformedData';
 import { Filters, SelectedMovie } from '../types';
@@ -55,6 +59,9 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         });
     };
 
+    const screenSize = useScreenSize();
+    const navigate = useNavigate();
+
     const transformedData = useGetTransformedData(data);
 
     let emptyMoviesToAdd = 0;
@@ -80,9 +87,13 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                                         title={movie.title}
                                         imageUrl={movie.imageUrl}
                                         clicked={selectedMovie.id === movie.id}
-                                        onClick={() =>
-                                            setSelectedMovie({ ...movie, rowIndex: idx })
-                                        }
+                                        onClick={() => {
+                                            if (screenSize.width < MOBILE_SCREEN_WIDTH) {
+                                                navigate(generateMovieRoute(movie.id));
+                                            } else {
+                                                setSelectedMovie({ ...movie, rowIndex: idx });
+                                            }
+                                        }}
                                     />
                                 ))}
                                 {idx === transformedData.length - 1 &&
