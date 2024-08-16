@@ -3,8 +3,8 @@ import { FC, useState } from 'react';
 import { Session } from 'entities/session/model/types';
 import { getPeriodOfDay } from 'shared/utils/getTimeOfDay';
 
+import { parseTime } from '../../../shared/utils/parseTime';
 import { transformSessionsToCinemasWithTimeSlots } from '../utils/transformSessionsToCinemasWithTimeslots';
-import { parseTime } from '../utils/parseTime';
 import { Projection } from './Projection';
 import { ProjectionFilters } from './ProjectionsFilters';
 

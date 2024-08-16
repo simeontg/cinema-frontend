@@ -10,5 +10,9 @@ interface DialogProps {
 }
 
 export const Dialog: FC<DialogProps> = ({ open, children, className, onClose }) => {
-    return <MaterialDialog className={className} onClose={onClose} open={open}>{children}</MaterialDialog>;
+    return (
+        <MaterialDialog className={className} onClose={onClose} open={open}>
+            {children}
+        </MaterialDialog>
+    );
 };

@@ -1,10 +1,9 @@
-import { BookSeatsBlock } from 'features/BookSeats/ui/BookSeatsBlock';
 import { FC } from 'react';
 
+import { BookSeatsBlock } from 'features/BookSeats/ui/BookSeatsBlock';
+
 const BookSeatsPage: FC = () => {
-    return (
-        <BookSeatsBlock />
-    );
+    return <BookSeatsBlock />;
 };
 
 export default BookSeatsPage;

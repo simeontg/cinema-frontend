@@ -10,4 +10,4 @@ export { Drawer } from './Drawer/Drawer';
 export { Alert } from './Alert/Alert';
 export { GenericForm } from './Form/GenericForm';
 export { ErrorWrapper } from './ErrorWrapper/ErrorWrapper';
-export { Dialog } from './Dialog/Dialog'
+export { Dialog } from './Dialog/Dialog';

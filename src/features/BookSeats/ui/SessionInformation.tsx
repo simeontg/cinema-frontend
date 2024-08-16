@@ -27,7 +27,7 @@ export const SessionInformation: FC<SessionInformationProps> = ({
                 <PlayArrowOutlinedIcon />
                 <p>{movieTitle}</p>
             </div>
-            <div className='flex gap-8 mb-4'>
+            <div className="flex gap-8 mb-4">
                 <div className="flex gap-4">
                     <PlaceOutlinedIcon />
                     <p>{city}</p>

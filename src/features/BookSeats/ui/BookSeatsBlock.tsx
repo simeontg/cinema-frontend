@@ -20,7 +20,7 @@ export const BookSeatsBlock: FC = () => {
     return (
         <ErrorWrapper isError={isError}>
             <div className="font-effra lg:px-20 flex flex-col lg:flex-row w-full">
-                <HallDesign />
+                <HallDesign hallId={session.hall.id}/>
                 <OrderInformation
                     movieTitle={session.movie.title}
                     cinema={session.cinema.name}

@@ -1,1 +1,1 @@
-export { BookSeatsPageLazy } from "./ui/BookSeatsPage.async";
+export { BookSeatsPageLazy } from './ui/BookSeatsPage.async';
