@@ -11,3 +11,7 @@ export { Alert } from './Alert/Alert';
 export { GenericForm } from './Form/GenericForm';
 export { ErrorWrapper } from './ErrorWrapper/ErrorWrapper';
 export { Dialog } from './Dialog/Dialog';
+export { Tooltip } from './Tooltip/Tooltip';
+export { CoupleSeatIcon } from './Icons/CoupleSeaticon';
+export { SeatIcon } from './Icons/SeatIcon';
+export { VIPSeatIcon } from './Icons/VIPSeatIcon';

@@ -3,8 +3,14 @@ import { FC } from 'react';
 import EventSeatOutlinedIcon from '@mui/icons-material/EventSeatOutlined';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
+import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpdateReservation';
 import { Button, Dialog } from 'shared/ui';
+import { generateMovieRoute } from 'shared/utils/routesUtils';
+
+import { Seat } from '../types/seat';
 
 interface ConfirmationDialogProps {
     open: boolean;
@@ -14,6 +20,10 @@ interface ConfirmationDialogProps {
     date: Date;
     time: string;
     onClose: () => void;
+    seats: Seat[];
+    movieId: string;
+    price: number;
+    reservationId: string;
 }
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
@@ -23,8 +33,21 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     time,
     date,
     movieTitle,
-    onClose
+    onClose,
+    seats,
+    movieId,
+    price,
+    reservationId
 }) => {
+    const { mutate: updateReservation } = useUpdateReservationMutation();
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+
+    const onConfirmation = () => {
+        queryClient.invalidateQueries({ queryKey: ['hallPlan'] });
+        navigate(generateMovieRoute(movieId));
+    };
+
     return (
         <Dialog onClose={onClose} open={open}>
             <div className="p-10">
@@ -43,7 +66,19 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                     <EventSeatOutlinedIcon />
                     <p>{cinema}</p>
                 </div>
-                <div className="flex justify-center lg:justify-start gap-5 px-4 mt-32">
+                <div className="flex flex-wrap gap-8 mb-4">
+                    {seats.map((seat) => (
+                        <div key={seat.id} className="flex flex-col">
+                            <p>{seat.seat_type}</p>
+                            <p>{seat.name}</p>
+                        </div>
+                    ))}
+                </div>
+                <div className="flex justify-between my-12">
+                    <p className="text-3xl font-bold">Total price</p>
+                    <p className="text-2xl font-bold">${price}</p>
+                </div>
+                <div className="flex justify-center lg:justify-start gap-5 px-4 mt-20">
                     <Button
                         variant="outlined"
                         className="!border-2 hover:!border-[#6e3996] !p-6 !mt-6 !w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-lg"
@@ -54,6 +89,16 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                     <Button
                         variant="outlined"
                         className="!p-6 !mt-6 !w-[220px] !bg-[#6e3996] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
+                        onClick={() => {
+                            updateReservation(
+                                {
+                                    total_price: price,
+                                    hallSeatIds: seats.map((s) => s.id),
+                                    reservationId: reservationId
+                                },
+                                { onSuccess: () => onConfirmation() }
+                            );
+                        }}
                     >
                         Confirm
                     </Button>
