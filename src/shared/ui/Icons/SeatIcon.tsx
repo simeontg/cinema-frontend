@@ -10,7 +10,7 @@ export const SeatIcon: FC<SeatIconProps> = ({ color, px }) => {
         <svg
             height={px}
             width={px}
-            stroke='black'
+            stroke="black"
             strokeWidth={6}
             version="1.1"
             id="Layer_1"
@@ -76,4 +76,3 @@ export const SeatIcon: FC<SeatIconProps> = ({ color, px }) => {
         </svg>
     );
 };
-

@@ -1,6 +1,6 @@
 interface Seat {
     id: string;
-    seat_type: "VIP" | "couple" | "regular";
+    seat_type: 'VIP' | 'couple' | 'regular';
     price: number;
     name: string;
     reserved: boolean;

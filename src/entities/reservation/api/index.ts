@@ -1,5 +1,6 @@
-import { $api } from "shared/api/api";
-import { CreateReservationDto, UpdateReservationDto } from "../hooks/types/reservationTypes";
+import { $api } from 'shared/api/api';
+
+import { CreateReservationDto, UpdateReservationDto } from '../hooks/types/reservationTypes';
 
 export const createReservation = async (createReservationDto: CreateReservationDto) => {
     const response = await $api.post('/reservation', createReservationDto);
@@ -7,6 +8,9 @@ export const createReservation = async (createReservationDto: CreateReservationD
 };
 
 export const updateReservation = async (updateReservationDto: UpdateReservationDto) => {
-    const response = await $api.put(`/reservation/${updateReservationDto.reservationId}`, updateReservationDto);
+    const response = await $api.put(
+        `/reservation/${updateReservationDto.reservationId}`,
+        updateReservationDto
+    );
     return response.data;
 };

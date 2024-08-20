@@ -70,9 +70,9 @@ export const BookSeatsBlock: FC = () => {
 
     return (
         <ErrorWrapper isError={isError}>
-            <div className='flex flex-col lg:px-20'>
-                <div className='bg-gray-100 py-4 md:gap-96 items-center justify-start flex w-full'>
-                    <div className='text-xl pr-16 p-8 font-bold'>Choose your seats</div>
+            <div className="flex flex-col lg:px-20">
+                <div className="bg-gray-100 py-4 md:gap-96 items-center justify-start flex w-full">
+                    <div className="text-xl pr-16 p-8 font-bold">Choose your seats</div>
                     <CountdownTimer seconds={secondsRemaining} />
                 </div>
                 <div className="font-effra flex flex-col lg:flex-row w-full">

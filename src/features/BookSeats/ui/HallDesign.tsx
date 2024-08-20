@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { io } from 'socket.io-client';
 
 import { useGetHallPlan } from 'entities/hall/hooks/useGetHallPlan';
+import { RESERVATION_WEBSOCKET_URL } from 'shared/constants/api';
 import { ErrorWrapper, LoadingSpinner, Tooltip } from 'shared/ui';
 
 import { Seat } from '../types/seat';
@@ -23,6 +26,21 @@ export const HallDesign: FC<HallDesignProps> = ({
     chosenSeats
 }) => {
     const { data: hallPlan, isLoading, isError } = useGetHallPlan(hallId, sessionId);
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        const socket = io(RESERVATION_WEBSOCKET_URL);
+
+        socket.on('reservation', ({ sessionId: socketSessionId }: { sessionId: string }) => {
+            if (socketSessionId === sessionId) {
+                queryClient.invalidateQueries({ queryKey: ['hallPlan', sessionId] });
+            }
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -52,14 +70,18 @@ export const HallDesign: FC<HallDesignProps> = ({
                                                 <Tooltip
                                                     key={seat.id}
                                                     title={
-                                                        <div className='flex gap-2'>
+                                                        <div className="flex gap-2">
                                                             <div className="flex items-center flex-col">
-                                                                <p className='text-md'>ROW</p>
-                                                                <p className='text-2xl font-bold'>{row}</p>
+                                                                <p className="text-md">ROW</p>
+                                                                <p className="text-2xl font-bold">
+                                                                    {row}
+                                                                </p>
                                                             </div>
                                                             <div className="flex items-center flex-col">
                                                                 <p>SEAT</p>
-                                                                <p className='text-2xl font-bold'>{idx + 1}</p>
+                                                                <p className="text-2xl font-bold">
+                                                                    {idx + 1}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     }

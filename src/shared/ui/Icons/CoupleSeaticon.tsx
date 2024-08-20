@@ -11,7 +11,7 @@ export const CoupleSeatIcon: FC<CoupleSeatIconProps> = ({ color, px }) => {
             height={px}
             width={px}
             version="1.1"
-            stroke='black'
+            stroke="black"
             strokeWidth={6}
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
@@ -116,4 +116,3 @@ export const CoupleSeatIcon: FC<CoupleSeatIconProps> = ({ color, px }) => {
         </svg>
     );
 };
-

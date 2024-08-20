@@ -12,7 +12,7 @@ export const VIPSeatIcon: FC<VIPSeatIconProps> = ({ color, px }) => {
             width={px}
             version="1.1"
             id="Layer_1"
-            stroke='black'
+            stroke="black"
             strokeWidth={6}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512.001 512.001"

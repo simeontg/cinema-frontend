@@ -20,13 +20,9 @@ export const ChosenSeats: FC<ChosenSeatsProps> = ({ seats }) => {
             )}
             {seats.length > 0 &&
                 seats.map((seatId) => (
-                    <div className='flex flex-col' key={seatId.id}>
-                        <p>
-                            {seatId.seat_type}
-                        </p>
-                        <p className="text-lg mr-4">
-                            {seatId.name}
-                        </p>
+                    <div className="flex flex-col" key={seatId.id}>
+                        <p>{seatId.seat_type}</p>
+                        <p className="text-lg mr-4">{seatId.name}</p>
                     </div>
                 ))}
         </div>

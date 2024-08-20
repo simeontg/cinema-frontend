@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Button } from 'shared/ui';
+import { useNavigate } from 'react-router-dom';
 
+import { Button } from 'shared/ui';
+import { generateMovieRoute } from 'shared/utils/routesUtils';
+
+import { Seat } from '../types/seat';
 import { ChosenSeats } from './ChosenSeats';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { SessionInformation } from './SessionInformation';
-import { Seat } from '../types/seat';
-import { useNavigate } from 'react-router-dom';
-import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 interface OrderInformationProps {
     movieTitle: string;
@@ -36,9 +37,9 @@ export const OrderInformation: FC<OrderInformationProps> = ({
 
     useEffect(() => {
         let price = 0;
-        seats.forEach(s => price += s.price);
+        seats.forEach((s) => (price += s.price));
         setTotalPrice(price);
-    }, [seats])
+    }, [seats]);
 
     return (
         <div className="w-full lg:w-1/3 flex-grow-0 flex-shrink-0 bg-gray-100 h-[700px]">

@@ -1,5 +1,7 @@
 import { FC } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
 import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
@@ -13,7 +15,7 @@ export const ReservationExpiredDialog: FC<ReservationExpiredDialogProps> = ({ op
 
     return (
         <Dialog open={open}>
-            <div className='md:p-24 p-8 flex flex-col items-center justify-center'>
+            <div className="md:p-24 p-8 flex flex-col items-center justify-center">
                 <p>Reservation has expired</p>
                 <Button
                     variant="outlined"
