@@ -11,14 +11,16 @@ import { CountdownTimer } from './CountdownTimer';
 import { HallDesign } from './HallDesign';
 import { OrderInformation } from './OrderInformation';
 import { ReservationExpiredDialog } from './ReservationExpiredDialog';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import useTimer from 'shared/hooks/useTimer';
 
 export const BookSeatsBlock: FC = () => {
+    const { t } = useTranslation('common');
     const { id: sessionId } = useParams();
     const { data: session, isError, isLoading } = useGetSession(sessionId!);
     const [chosenSeats, setChosenSeats] = useState<Seat[]>([]);
     const [reservationExpirationDate, setReservationExpirationDate] = useState<Date | null>(null);
     const [reservationId, setReservationId] = useState('');
-    const [secondsRemaining, setSecondsRemaining] = useState<number | null>(null);
 
     const onSeatClick = (seat: Seat) => {
         if (chosenSeats.includes(seat)) {
@@ -45,24 +47,7 @@ export const BookSeatsBlock: FC = () => {
         }
     }, [session]);
 
-    useEffect(() => {
-        if (reservationExpirationDate) {
-            const timer = setInterval(() => {
-                const currentTime = new Date().getTime();
-                const differenceInSeconds = Math.floor(
-                    (reservationExpirationDate?.getTime() - currentTime) / 1000
-                );
-
-                if (differenceInSeconds >= 0) {
-                    setSecondsRemaining(differenceInSeconds);
-                } else {
-                    setSecondsRemaining(0);
-                    clearInterval(timer);
-                }
-            }, 1000);
-            return () => clearInterval(timer);
-        }
-    }, [reservationExpirationDate]);
+    const secondsRemaining = useTimer({ date: reservationExpirationDate });
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -71,8 +56,8 @@ export const BookSeatsBlock: FC = () => {
     return (
         <ErrorWrapper isError={isError}>
             <div className="flex flex-col lg:px-20">
-                <div className="bg-gray-100 py-4 md:gap-96 items-center justify-start flex w-full">
-                    <div className="text-xl pr-16 p-8 font-bold">Choose your seats</div>
+                <div className="bg-gray-100 py-4 gap-60 lg:gap-44 xl:gap-80 items-center justify-start flex w-full">
+                    <div className="text-xl pr-16 p-8 font-bold">{t('chooseYourSeats')}</div>
                     <CountdownTimer seconds={secondsRemaining} />
                 </div>
                 <div className="font-effra flex flex-col lg:flex-row w-full">

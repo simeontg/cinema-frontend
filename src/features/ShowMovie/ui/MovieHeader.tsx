@@ -38,15 +38,15 @@ export const MovieHeader: FC<MovieHeaderProps> = ({
                         background: `url(${imageUrl}) center/cover`
                     }}
                 ></div>
-                <div className="pointer-events-none flex lg:justify-start lg:items-start justify-start items-start md:justify-center md:items-center flex-col text-white mt-10 lg:mt-20 lg:ml-20 inline-block">
+                <div className="pointer-events-none flex lg:justify-start lg:items-start justify-center items-center md:justify-center md:items-center flex-col text-white mt-10 lg:mt-20 lg:ml-20 inline-block">
                     <h1 className="text-2xl md:text-6xl font-effra font-bold">{title}</h1>
                     <p className="mt-4">{genre}</p>
                     <div className="flex gap-2 mt-4">
                         <ScheduleIcon />
                         <p className="font-effra">{duration} MIN</p>
                     </div>
-                    <div className="mt-4 w-96">
-                        <p className="font-effra text-start md:text-center lg:text-start">
+                    <div className="mt-4 w-60 md:w-96">
+                        <p className="font-effra text-sm md:text-md text-center lg:text-start">
                             {description}
                         </p>
                     </div>

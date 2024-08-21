@@ -11,6 +11,7 @@ import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import { Seat } from '../types/seat';
+import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface ConfirmationDialogProps {
     open: boolean;
@@ -39,6 +40,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     price,
     reservationId
 }) => {
+    const { t } = useTranslation('common');
     const { mutate: updateReservation } = useUpdateReservationMutation();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -74,21 +76,21 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                         </div>
                     ))}
                 </div>
-                <div className="flex justify-between my-12">
-                    <p className="text-3xl font-bold">Total price</p>
+                <div className="flex justify-start md:justify-between my-12">
+                    <p className="text-3xl font-bold">{t('orderTotal')}</p>
                     <p className="text-2xl font-bold">${price}</p>
                 </div>
-                <div className="flex justify-center lg:justify-start gap-5 px-4 mt-20">
+                <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 px-4 mt-20">
                     <Button
                         variant="outlined"
-                        className="!border-2 hover:!border-[#6e3996] !p-6 !mt-6 !w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-lg"
+                        className="!border-2 hover:!border-[#6e3996] !p-6 !mt-6 !w-[140px] md:!w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-sm !md:text-lg"
                         onClick={onClose}
                     >
-                        Cancel
+                        {t('cancel')}
                     </Button>
                     <Button
                         variant="outlined"
-                        className="!p-6 !mt-6 !w-[220px] !bg-[#6e3996] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
+                        className="!p-6 !mt-6 !w-[140px] md:!w-[220px] !bg-[#6e3996] !pointer-events-auto !rounded-full !h-[50px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
                         onClick={() => {
                             updateReservation(
                                 {
@@ -100,7 +102,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                             );
                         }}
                     >
-                        Confirm
+                        {t('confirm')}
                     </Button>
                 </div>
             </div>

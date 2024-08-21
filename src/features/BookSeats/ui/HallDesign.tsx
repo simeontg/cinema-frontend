@@ -1,16 +1,19 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { io } from 'socket.io-client';
 
 import { useGetHallPlan } from 'entities/hall/hooks/useGetHallPlan';
 import { RESERVATION_WEBSOCKET_URL } from 'shared/constants/api';
+import { RESERVATION_SOCKET_ENTITY } from 'shared/constants/socket';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import useSocket from 'shared/hooks/useSocket';
 import { ErrorWrapper, LoadingSpinner, Tooltip } from 'shared/ui';
 
 import { Seat } from '../types/seat';
 import { getSeatIcon } from '../utils/getSeatIcon';
 import { SeatLegend } from './SeatLegend';
+import { ReservationSocketData } from '../types/socket';
 
 interface HallDesignProps {
     hallId: string;
@@ -25,22 +28,19 @@ export const HallDesign: FC<HallDesignProps> = ({
     onSeatClick,
     chosenSeats
 }) => {
+    const { t } = useTranslation('common');
     const { data: hallPlan, isLoading, isError } = useGetHallPlan(hallId, sessionId);
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const socket = io(RESERVATION_WEBSOCKET_URL);
-
-        socket.on('reservation', ({ sessionId: socketSessionId }: { sessionId: string }) => {
+    useSocket<ReservationSocketData>({
+        url: RESERVATION_WEBSOCKET_URL,
+        entity: RESERVATION_SOCKET_ENTITY,
+        onListen: ({ sessionId: socketSessionId }) => {
             if (socketSessionId === sessionId) {
                 queryClient.invalidateQueries({ queryKey: ['hallPlan', sessionId] });
             }
-        });
-
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
+        }
+    });
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -72,13 +72,15 @@ export const HallDesign: FC<HallDesignProps> = ({
                                                     title={
                                                         <div className="flex gap-2">
                                                             <div className="flex items-center flex-col">
-                                                                <p className="text-md">ROW</p>
+                                                                <p className="text-md">
+                                                                    {t('row')}
+                                                                </p>
                                                                 <p className="text-2xl font-bold">
                                                                     {row}
                                                                 </p>
                                                             </div>
                                                             <div className="flex items-center flex-col">
-                                                                <p>SEAT</p>
+                                                                <p>{t('seat')}</p>
                                                                 <p className="text-2xl font-bold">
                                                                     {idx + 1}
                                                                 </p>
