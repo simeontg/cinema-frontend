@@ -5,13 +5,14 @@ import { Dialog as MaterialDialog } from '@mui/material';
 interface DialogProps {
     open: boolean;
     children: ReactNode;
+    fullScreen?: boolean;
     className?: string;
     onClose?: () => void;
 }
 
-export const Dialog: FC<DialogProps> = ({ open, children, className, onClose }) => {
+export const Dialog: FC<DialogProps> = ({ open, children, className, onClose, fullScreen }) => {
     return (
-        <MaterialDialog className={className} onClose={onClose} open={open}>
+        <MaterialDialog fullScreen={fullScreen} className={className} onClose={onClose} open={open}>
             {children}
         </MaterialDialog>
     );

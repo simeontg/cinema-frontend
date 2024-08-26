@@ -1,9 +1,10 @@
+import { ReservationsBlock } from 'features/ShowUserReservations/ReservationsBlock';
 import { FC } from 'react';
 
 const ProfilePage: FC = () => {
     return (
         <>
-            <div>Profile</div>
+            <ReservationsBlock />
         </>
     );
 };

@@ -36,7 +36,7 @@ export const Projection: FC<ProjectionProps> = ({ city, cinema, timeSlots, isVis
             >
                 <p>{city}</p>
             </div>
-            <div className="flex items-center justify-center xl:max-w-16">
+            <div className="flex items-center text-center justify-center xl:max-w-16">
                 <p>{cinema}</p>
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">

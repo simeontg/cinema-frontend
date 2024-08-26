@@ -70,16 +70,16 @@ export const GenericForm: FC<GenericFormProps> = ({
     return (
         <div className={wrapperClassName}>
             {isError && (
-                <Alert className="w-[250px]" severity="error">
+                <Alert className="max-w-[250px]" severity="error">
                     {networkErrorMessage}
                 </Alert>
             )}
             {formError && (
-                <Alert className="w-[250px]" severity="error">
+                <Alert className="max-w-[250px]" severity="error">
                     {formError}
                 </Alert>
             )}
-            <p className="text-sm">{introductionText}</p>
+            <p className="text-sm text-center md:text-start">{introductionText}</p>
             <form onSubmit={handleSubmit(onSubmit)} className={formClassName}>
                 {fields.map((field) => (
                     <Controller

@@ -44,7 +44,7 @@ export const LoginForm: FC = () => {
                 validate: (value: string) => isValidEmail(value) || t('enterValidEmail'),
                 required: { value: true, message: t('emailRequired') }
             },
-            className: 'w-[440px] !rounded-full'
+            className: 'max-w-[440px]'
         },
         {
             name: 'password',
@@ -54,7 +54,7 @@ export const LoginForm: FC = () => {
             rules: {
                 required: { value: true, message: t('passwordRequired') }
             },
-            className: 'w-[440px]'
+            className: 'max-w-[440px]'
         }
     ];
 
@@ -62,7 +62,7 @@ export const LoginForm: FC = () => {
         <GenericForm
             onSubmit={onSubmit}
             fields={fields}
-            wrapperClassName="flex flex-col gap-4 mt-8 mb-20"
+            wrapperClassName="flex flex-col gap-4 mt-8 mb-20 items-center md:items-start"
             submitButtonLabel={t('login')}
             submitButtonClass="!p-6 !w-[180px] !rounded-full !h-[50px] !text-lg !text-white"
             submitButtonStyle={buttonStyle}
@@ -70,7 +70,7 @@ export const LoginForm: FC = () => {
             formMode="onBlur"
             defaultValues={defaultValues}
             isError={isError}
-            formClassName="flex flex-col gap-4"
+            formClassName="flex flex-col gap-4 justify-center items-center md:justify-start md:items-start"
             introductionText={t('loginFormIntroText')}
             networkErrorMessage={(error as NetworkError)?.response?.data?.message}
         />

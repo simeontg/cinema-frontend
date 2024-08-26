@@ -95,7 +95,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                             updateReservation(
                                 {
                                     total_price: price,
-                                    hallSeatIds: seats.map((s) => s.id),
+                                    hallSeats: seats.map(({ id, name }) => ({ id, name })),
                                     reservationId: reservationId
                                 },
                                 { onSuccess: () => onConfirmation() }

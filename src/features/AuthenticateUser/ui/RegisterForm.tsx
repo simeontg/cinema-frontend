@@ -75,7 +75,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
             rules: {
                 required: { value: true, message: t('firstNameRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         },
         {
             name: 'lastName',
@@ -85,7 +85,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
             rules: {
                 required: { value: true, message: t('lastNameRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         },
         {
             name: 'email',
@@ -96,7 +96,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
                 validate: (value: string) => isValidEmail(value) || t('enterValidEmail'),
                 required: { value: true, message: t('emailRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         },
         {
             name: 'phoneNumber',
@@ -107,7 +107,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
                 validate: (value: string) => value.length === 10 || t('phoneDigitsError'),
                 required: { value: true, message: t('phoneNumberRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         },
         {
             name: 'password',
@@ -121,7 +121,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
                 },
                 required: { value: true, message: t('passwordRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         },
         {
             name: 'confirmPassword',
@@ -131,7 +131,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
             rules: {
                 required: { value: true, message: t('passwordRequired') }
             },
-            className: 'w-1/3'
+            className: 'w-full md:w-1/3'
         }
     ];
 
@@ -139,7 +139,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
         <GenericForm
             onSubmit={onSubmit}
             fields={fields}
-            formClassName="flex flex-wrap gap-4"
+            formClassName="flex items-center flex-col md:flex-row md:flex-wrap gap-4"
             wrapperClassName="flex flex-col gap-4 mt-8 mb-20"
             submitButtonLabel={t('signup')}
             submitButtonClass="!p-6 !w-[360px] !rounded-full !h-[50px] !text-lg !text-white"

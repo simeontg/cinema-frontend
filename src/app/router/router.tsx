@@ -2,11 +2,13 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { AuthPageLazy } from 'pages/auth/AuthPage.async';
 import { BookSeatsPageLazy } from 'pages/book';
+import { DashboardPageLazy } from 'pages/dashboard';
 import { MainPageLazy } from 'pages/main';
 import { MoviePageLazy } from 'pages/movie';
 import { ProfilePageLazy } from 'pages/profile';
 import { Routes, RoutesPaths } from 'shared/constants/router';
 
+import { AdminRoute } from './ui/AdminRoute';
 import { AuthRoute } from './ui/AuthRoute';
 import { ErrorRoute } from './ui/ErrorRoute';
 import { ProtectedRoute } from './ui/ProtectedRoute';
@@ -52,6 +54,15 @@ export const router = createBrowserRouter([
                     {
                         path: RoutesPaths[Routes.BOOKSEATS],
                         element: <BookSeatsPageLazy />
+                    }
+                ]
+            },
+            {
+                element: <AdminRoute />,
+                children: [
+                    {
+                        path: RoutesPaths[Routes.DASHBOARD],
+                        element: <DashboardPageLazy />
                     }
                 ]
             }

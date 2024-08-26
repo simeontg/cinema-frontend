@@ -3,7 +3,8 @@ export enum Routes {
     LOGIN = 'login',
     PROFILE = 'profile',
     MOVIE = 'movie',
-    BOOKSEATS = 'book-seats'
+    BOOKSEATS = 'book-seats',
+    DASHBOARD = 'dashboard'
 }
 
 export const RoutesPaths: Record<Routes, string> = {
@@ -11,5 +12,6 @@ export const RoutesPaths: Record<Routes, string> = {
     [Routes.LOGIN]: 'login',
     [Routes.PROFILE]: 'profile',
     [Routes.MOVIE]: 'movie/:id',
-    [Routes.BOOKSEATS]: 'book-seats/:id'
+    [Routes.BOOKSEATS]: 'book-seats/:id',
+    [Routes.DASHBOARD]: 'dashboard'
 };
