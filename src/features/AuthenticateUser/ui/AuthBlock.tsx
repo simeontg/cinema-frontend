@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { GOOGLE_AUTH_URL } from 'shared/constants/api';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { Tab, Tabs } from 'shared/ui';
 
 import { LoginForm } from './LoginForm';
@@ -17,6 +18,7 @@ const gmailParagraphStyle = { lineHeight: '0.1rem' };
 export const AuthBlock: FC = () => {
     const [tabValue, setTabValue] = useState(0);
     const [isGmailHovered, setIsGmailHovered] = useState(false);
+    const { width } = useScreenSize();
 
     const { t } = useTranslation('common');
 
@@ -28,8 +30,8 @@ export const AuthBlock: FC = () => {
                     tabValue === 0 ? 'min-h-[600px]' : 'min-h-[650px]'
                 )}
             >
-                <div className="mt-12 ml-24 !mb-10">
-                    <Tabs value={tabValue}>
+                <div className="mt-12 md:ml-24 !mb-10">
+                    <Tabs centered={width < 770 ? true : false} value={tabValue}>
                         <Tab
                             onClick={() => setTabValue(0)}
                             className={clsx(tabValue === 0 && '!text-[#6e3996]', '!font-bold')}

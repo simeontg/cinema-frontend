@@ -71,5 +71,9 @@
     "regularSeat": "Стандартно място",
     "reservedSeat": "Резервирано място",
     "yourCurrentlySelectedSeat": "Вашето селектирано място",
-    "minsLeft": "ОСТАВАТ"
+    "minsLeft": "ОСТАВАТ",
+    "upcoming": "Предстоящи",
+    "alreadySeen": "Изминали",
+    "noReservationsYet": "Все още няма резервации.",
+    "myReservations": "Моите резервации"
 }

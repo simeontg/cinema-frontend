@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface UseTimerProps {
     date: Date | null;
@@ -11,9 +11,7 @@ const useTimer = ({ date }: UseTimerProps) => {
         if (date) {
             const timer = setInterval(() => {
                 const currentTime = new Date().getTime();
-                const differenceInSeconds = Math.floor(
-                    (date.getTime() - currentTime) / 1000
-                );
+                const differenceInSeconds = Math.floor((date.getTime() - currentTime) / 1000);
 
                 if (differenceInSeconds >= 0) {
                     setSecondsRemaining(differenceInSeconds);
@@ -22,7 +20,7 @@ const useTimer = ({ date }: UseTimerProps) => {
                     clearInterval(timer);
                 }
             }, 1000);
-            
+
             return () => clearInterval(timer);
         } else {
             setSecondsRemaining(null);

@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { useCreateReservationMutation } from 'entities/reservation/hooks/useCreateReservation';
 import { useGetSession } from 'entities/session/hooks/useGetSession';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import useTimer from 'shared/hooks/useTimer';
 import { ErrorWrapper, LoadingSpinner } from 'shared/ui';
 
 import { Seat } from '../types/seat';
@@ -11,8 +13,6 @@ import { CountdownTimer } from './CountdownTimer';
 import { HallDesign } from './HallDesign';
 import { OrderInformation } from './OrderInformation';
 import { ReservationExpiredDialog } from './ReservationExpiredDialog';
-import { useTranslation } from 'shared/hooks/i18nHook';
-import useTimer from 'shared/hooks/useTimer';
 
 export const BookSeatsBlock: FC = () => {
     const { t } = useTranslation('common');

@@ -3,8 +3,9 @@ import { FC } from 'react';
 import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 import clsx from 'clsx';
 
-import { Seat } from '../types/seat';
 import { useTranslation } from 'shared/hooks/i18nHook';
+
+import { Seat } from '../types/seat';
 
 interface ChosenSeatsProps {
     seats: Seat[];

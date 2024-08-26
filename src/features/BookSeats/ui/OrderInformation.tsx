@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
@@ -9,7 +10,6 @@ import { Seat } from '../types/seat';
 import { ChosenSeats } from './ChosenSeats';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { SessionInformation } from './SessionInformation';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface OrderInformationProps {
     movieTitle: string;

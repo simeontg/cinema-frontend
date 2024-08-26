@@ -12,6 +12,8 @@ import { ErrorRoute } from './ui/ErrorRoute';
 import { ProtectedRoute } from './ui/ProtectedRoute';
 import { PublicRoute } from './ui/PublicRoute';
 import { RootRoute } from './ui/RootRoute';
+import { AdminRoute } from './ui/AdminRoute';
+import { DashboardPageLazy } from 'pages/dashboard';
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +54,15 @@ export const router = createBrowserRouter([
                     {
                         path: RoutesPaths[Routes.BOOKSEATS],
                         element: <BookSeatsPageLazy />
+                    }
+                ]
+            },
+            {
+                element: <AdminRoute />,
+                children: [
+                    {
+                        path: RoutesPaths[Routes.DASHBOARD],
+                        element: <DashboardPageLazy />
                     }
                 ]
             }

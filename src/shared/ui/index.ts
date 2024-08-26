@@ -15,3 +15,6 @@ export { Tooltip } from './Tooltip/Tooltip';
 export { CoupleSeatIcon } from './Icons/CoupleSeaticon';
 export { SeatIcon } from './Icons/SeatIcon';
 export { VIPSeatIcon } from './Icons/VIPSeatIcon';
+export { Accordion } from './Accordion/Accordion';
+export { AccordionSummary } from './AccordionSummary/AccordionSummary';
+export { AccordionDetails } from './AccordionDetails/AccordionDetails';

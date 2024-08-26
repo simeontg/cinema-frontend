@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -13,6 +13,13 @@ export const MovieBlock: FC = () => {
     const { id } = useParams();
     const { data: movie, isLoading, isError } = useGetMovie(id!);
     const [activeDate, setActiveDate] = useState<Date | null>(null);
+    const projectionsRef = useRef<HTMLDivElement>(null);
+
+    const scrollToProjections = () => {
+        if (projectionsRef.current) {
+            projectionsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -33,13 +40,16 @@ export const MovieBlock: FC = () => {
                 description={movie.description}
                 genre={movie.genre}
                 imageUrl={movie.imageUrl}
+                onBookNowClick={scrollToProjections}
                 duration={movie.duration}
             />
-            <DatesNav
-                activeDate={activeDate}
-                setActiveDate={setActiveDate}
-                dates={projectionDates.sort((a, b) => a.getTime() - b.getTime())}
-            />
+            <div ref={projectionsRef}>
+                <DatesNav
+                    activeDate={activeDate}
+                    setActiveDate={setActiveDate}
+                    dates={projectionDates.sort((a, b) => a.getTime() - b.getTime())}
+                />
+            </div>
             <ProjectionsList activeDate={activeDate} sessions={movie.sessions} />
         </ErrorWrapper>
     );

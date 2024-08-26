@@ -7,11 +7,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpdateReservation';
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import { Seat } from '../types/seat';
-import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 
 interface ConfirmationDialogProps {
     open: boolean;
@@ -44,6 +45,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     const { mutate: updateReservation } = useUpdateReservationMutation();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const { width } = useScreenSize();
 
     const onConfirmation = () => {
         queryClient.invalidateQueries({ queryKey: ['hallPlan'] });
@@ -51,7 +53,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     };
 
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog fullScreen={width < 770 ? true : false} onClose={onClose} open={open}>
             <div className="p-10">
                 <h1 className="text-center mb-4 text-lg font-bold text-black">{city}</h1>
                 <div className="flex gap-4 mb-4">
@@ -95,7 +97,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                             updateReservation(
                                 {
                                     total_price: price,
-                                    hallSeatIds: seats.map((s) => s.id),
+                                    hallSeats: seats.map(({ id, name }) => ({ id, name })),
                                     reservationId: reservationId
                                 },
                                 { onSuccess: () => onConfirmation() }
