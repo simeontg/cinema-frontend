@@ -8,8 +8,8 @@ export interface Reservation {
 }
 
 interface ReservationHallSeat {
-    id: string,
-    name: string,
+    id: string;
+    name: string;
     updatedAt: Date;
 }
 
@@ -17,12 +17,12 @@ interface Session {
     date: Date;
     time: string;
     movie: {
-        title: string
+        title: string;
     };
     hall: {
         hall_name: string;
-    },
+    };
     cinema: {
         name: string;
-    }
+    };
 }

@@ -1,4 +1,5 @@
 import { type FC, Suspense, lazy } from 'react';
+
 import { DashboardPageSuspense } from './DashboardPage.suspense';
 
 const DashboardPageAsync = lazy<FC>(

@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpdateReservation';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import { Seat } from '../types/seat';
-import useScreenSize from 'shared/hooks/useScreenSize';
 
 interface ConfirmationDialogProps {
     open: boolean;
