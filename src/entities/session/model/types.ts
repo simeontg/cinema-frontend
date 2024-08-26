@@ -11,5 +11,5 @@ export interface Session {
     ticket_price: number;
     cinema: Cinema;
     movie: Movie;
-    hall: GetHallDto
+    hall: GetHallDto;
 }
