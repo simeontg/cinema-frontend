@@ -6,5 +6,10 @@ export interface CreateReservationDto {
 export interface UpdateReservationDto {
     total_price: number;
     reservationId: string;
-    hallSeatIds: string[];
+    hallSeats: hallSeat[];
+}
+
+interface hallSeat {
+    id: string;
+    location: string;
 }

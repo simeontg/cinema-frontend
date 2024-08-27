@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { CoupleSeatIcon, SeatIcon, VIPSeatIcon } from 'shared/ui';
 
 export const SeatLegend: FC = () => {

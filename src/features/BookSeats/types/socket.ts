@@ -1,3 +1,3 @@
 export interface ReservationSocketData {
-    sessionId: string
+    sessionId: string;
 }

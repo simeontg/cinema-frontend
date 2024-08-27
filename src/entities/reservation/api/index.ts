@@ -14,3 +14,8 @@ export const updateReservation = async (updateReservationDto: UpdateReservationD
     );
     return response.data;
 };
+
+export const getUserReservations = async (fetchExpired: boolean) => {
+    const response = await $api.get(`/reservation/user?expired=${fetchExpired}`);
+    return response.data;
+};

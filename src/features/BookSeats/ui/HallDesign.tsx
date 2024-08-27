@@ -11,9 +11,9 @@ import useSocket from 'shared/hooks/useSocket';
 import { ErrorWrapper, LoadingSpinner, Tooltip } from 'shared/ui';
 
 import { Seat } from '../types/seat';
+import { ReservationSocketData } from '../types/socket';
 import { getSeatIcon } from '../utils/getSeatIcon';
 import { SeatLegend } from './SeatLegend';
-import { ReservationSocketData } from '../types/socket';
 
 interface HallDesignProps {
     hallId: string;

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button } from 'shared/ui';
@@ -12,6 +11,7 @@ interface MovieHeaderProps {
     genre: string;
     duration: number;
     description: string;
+    onBookNowClick?: () => void;
 }
 
 export const MovieHeader: FC<MovieHeaderProps> = ({
@@ -19,7 +19,8 @@ export const MovieHeader: FC<MovieHeaderProps> = ({
     imageUrl,
     genre,
     duration,
-    description
+    description,
+    onBookNowClick
 }) => {
     const { t } = useTranslation('common');
 
@@ -50,18 +51,17 @@ export const MovieHeader: FC<MovieHeaderProps> = ({
                             {description}
                         </p>
                     </div>
-                    <Link to={`/movie`}>
-                        <Button
-                            className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
-                            style={{
-                                background:
-                                    'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
-                            }}
-                            type="submit"
-                        >
-                            {t('bookNow')}
-                        </Button>
-                    </Link>
+                    <Button
+                        onClick={onBookNowClick}
+                        className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
+                        style={{
+                            background:
+                                'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
+                        }}
+                        type="submit"
+                    >
+                        {t('bookNow')}
+                    </Button>
                 </div>
             </div>
         </section>

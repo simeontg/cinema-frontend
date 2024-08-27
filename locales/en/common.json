@@ -70,5 +70,9 @@
     "regularSeat": "Regular seat",
     "reservedSeat": "Reserved seat",
     "yourCurrentlySelectedSeat": "Your currently selected seat",
-    "minsLeft": "MINS LEFT"
+    "minsLeft": "MINS LEFT",
+    "upcoming": "Upcoming",
+    "alreadySeen": "Already seen",
+    "noReservationsYet": "No reservations yet.",
+    "myReservations": "My reservations"
 }
