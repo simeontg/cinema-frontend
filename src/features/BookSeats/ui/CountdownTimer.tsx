@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
-import { transformSecondsToMinutes } from 'shared/utils/transformSecondsToMinutes';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import { transformSecondsToMinutes } from 'shared/utils/transformSecondsToMinutes';
 
 interface CountdownTimerProps {
     seconds: number | null;

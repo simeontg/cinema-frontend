@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import io from 'socket.io-client';
 
 interface UseSocketProps<T> {

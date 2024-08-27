@@ -1,11 +1,7 @@
 import { FC } from 'react';
 
 const DashboardPage: FC = () => {
-    return (
-        <>
-            DASHBOARD
-        </>
-    );
+    return <>DASHBOARD</>;
 };
 
 export default DashboardPage;

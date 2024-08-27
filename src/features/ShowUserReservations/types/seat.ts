@@ -1,4 +1,4 @@
 export interface Seat {
     id: string;
-    name: string;
+    location: string;
 }

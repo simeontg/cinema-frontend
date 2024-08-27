@@ -3,8 +3,9 @@ import { FC } from 'react';
 import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 import clsx from 'clsx';
 
-import { Seat } from '../types/seat';
 import { useTranslation } from 'shared/hooks/i18nHook';
+
+import { Seat } from '../types/seat';
 
 interface ChosenSeatsProps {
     seats: Seat[];
@@ -25,7 +26,7 @@ export const ChosenSeats: FC<ChosenSeatsProps> = ({ seats }) => {
                 seats.map((seatId) => (
                     <div className="flex flex-col" key={seatId.id}>
                         <p>{seatId.seat_type}</p>
-                        <p className="text-lg mr-4">{seatId.name}</p>
+                        <p className="text-lg mr-4">{seatId.location}</p>
                     </div>
                 ))}
         </div>

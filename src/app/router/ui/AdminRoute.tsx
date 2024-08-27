@@ -1,8 +1,8 @@
-import { UserRole } from 'entities/user/api/role.enum';
 import { useEffect } from 'react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { UserRole } from 'entities/user/api/role.enum';
 import { Routes, RoutesPaths } from 'shared/constants/router';
 import { useAuthContext } from 'shared/contexts/authContext';
 

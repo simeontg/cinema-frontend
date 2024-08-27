@@ -9,5 +9,9 @@ interface AccordionProps {
 }
 
 export const Accordion: FC<AccordionProps> = ({ children, expanded, className }) => {
-    return <MaterialAccordion className={className} expanded={expanded}>{children}</MaterialAccordion>;
+    return (
+        <MaterialAccordion className={className} expanded={expanded}>
+            {children}
+        </MaterialAccordion>
+    );
 };

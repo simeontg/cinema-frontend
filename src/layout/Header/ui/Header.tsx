@@ -4,13 +4,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { Link } from 'react-router-dom';
 
+import { UserRole } from 'entities/user/api/role.enum';
 import { useSignOutMutation } from 'entities/user/hooks/useSignOut';
 import { useAuthContext } from 'shared/contexts/authContext';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Drawer } from 'shared/ui';
 
 import { LanguageMenu } from './LanguageMenu';
-import { UserRole } from 'entities/user/api/role.enum';
 
 const headerStyle = { boxShadow: '1px 2px 5px 0px rgba(0,0,0,0.07)' };
 
