@@ -10,6 +10,7 @@ import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Drawer } from 'shared/ui';
 
 import { LanguageMenu } from './LanguageMenu';
+import { UserRole } from 'entities/user/api/role.enum';
 
 const headerStyle = { boxShadow: '1px 2px 5px 0px rgba(0,0,0,0.07)' };
 
@@ -51,7 +52,7 @@ export const Header: FC = () => {
                                     </Button>
                                 </Link>
                             </li>
-                            {account.role === 'ADMIN' && (
+                            {account.role === UserRole.Admin && (
                                 <li className="h-full flex text-lg items-center justify-center pl-2 pr-2 hover:border-b-[#6e3996] border-b-2 border-b-transparent border-r-[1px]">
                                     <Link to="dashboard">
                                         <Button className="!h-full !w-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base">
