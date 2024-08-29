@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { Link } from 'react-router-dom';
 
+import { UserRole } from 'entities/user/api/role.enum';
 import { useSignOutMutation } from 'entities/user/hooks/useSignOut';
 import { useAuthContext } from 'shared/contexts/authContext';
 import { useTranslation } from 'shared/hooks/i18nHook';
@@ -51,7 +52,7 @@ export const Header: FC = () => {
                                     </Button>
                                 </Link>
                             </li>
-                            {account.role === 'ADMIN' && (
+                            {account.role === UserRole.Admin && (
                                 <li className="h-full flex text-lg items-center justify-center pl-2 pr-2 hover:border-b-[#6e3996] border-b-2 border-b-transparent border-r-[1px]">
                                     <Link to="dashboard">
                                         <Button className="!h-full !w-full !text-lg !text-black hover:!text-[#6e3996] hover:!bg-transparent !text-base">

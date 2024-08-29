@@ -5,6 +5,7 @@ import { AccordionDetails } from '@mui/material';
 
 import { Accordion, AccordionSummary } from 'shared/ui';
 import { mapMonthToLetter } from 'shared/utils/dateUtils';
+
 import { Seat } from './types/seat';
 
 interface ReservationProps {
@@ -48,9 +49,11 @@ export const Reservation: FC<ReservationProps> = ({
                 </div>
                 <div>
                     <h2>Reserved seats:</h2>
-                    <div className='flex flex-wrap gap-2'>
+                    <div className="flex flex-wrap gap-2">
                         {seats.map((seat) => (
-                            <div className='w-16' key={seat.id}>{seat.name}</div>
+                            <div className="w-16" key={seat.id}>
+                                {seat.location}
+                            </div>
                         ))}
                     </div>
                 </div>

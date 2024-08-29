@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { UserRole } from 'entities/user/api/role.enum';
 import { Routes, RoutesPaths } from 'shared/constants/router';
 import { useAuthContext } from 'shared/contexts/authContext';
 
@@ -11,8 +12,10 @@ export const AdminRoute = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!account || account.role !== 'ADMIN') {
+        if (!account) {
             navigate(RoutesPaths[Routes.LOGIN], { state: { from: window.location.pathname } });
+        } else if (account.role !== UserRole.Admin) {
+            navigate(RoutesPaths[Routes.MAIN]);
         }
     }, [account]);
 

@@ -7,11 +7,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpdateReservation';
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import { Seat } from '../types/seat';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface ConfirmationDialogProps {
     open: boolean;
@@ -72,7 +72,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                     {seats.map((seat) => (
                         <div key={seat.id} className="flex flex-col">
                             <p>{seat.seat_type}</p>
-                            <p>{seat.name}</p>
+                            <p>{seat.location}</p>
                         </div>
                     ))}
                 </div>
@@ -95,7 +95,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                             updateReservation(
                                 {
                                     total_price: price,
-                                    hallSeats: seats.map(({ id, name }) => ({ id, name })),
+                                    hallSeats: seats.map(({ id, location }) => ({ id, location })),
                                     reservationId: reservationId
                                 },
                                 { onSuccess: () => onConfirmation() }
