@@ -1,4 +1,4 @@
-export type MovieReleaseType = 'current' | 'upcoming';
+export type MovieReleaseType = 'current' | 'upcoming' | 'all';
 
 export interface FilterParams {
     title: string;

@@ -24,7 +24,7 @@ interface MovieListProp {
 }
 
 export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
-    const { t } = useTranslation('main');
+    const { t } = useTranslation('common');
 
     const [filters, setFilters] = useState<Filters>({
         title: '',

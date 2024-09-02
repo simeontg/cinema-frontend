@@ -14,6 +14,12 @@ interface MovieSliderProps {
     movies: TrendedMovie[];
 }
 
+const descriptionParagraphStyle = {
+    display: '-webkit-box',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical' as const
+};
+
 const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
     const { t } = useTranslation('common');
     const [imageIndex, setImageIndex] = useState(0);
@@ -40,8 +46,13 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
                     <ScheduleIcon />
                     <p className="font-effra">{movies[imageIndex].duration} MIN</p>
                 </div>
-                <div className="mt-4 w-96">
-                    <p className="font-effra">{movies[imageIndex].description}</p>
+                <div className="mt-4 max-h-[103px] max-w-96">
+                    <p
+                        className="font-effra overflow-hidden text-ellipsis"
+                        style={descriptionParagraphStyle}
+                    >
+                        {movies[imageIndex].description}
+                    </p>
                 </div>
                 <Link to={generateMovieRoute(movies[imageIndex].id)}>
                     <Button

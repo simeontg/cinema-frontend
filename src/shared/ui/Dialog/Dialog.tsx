@@ -7,12 +7,26 @@ interface DialogProps {
     children: ReactNode;
     fullScreen?: boolean;
     className?: string;
-    onClose?: () => void;
+    onClose: () => void;
+    afterClose?: () => void;
 }
 
-export const Dialog: FC<DialogProps> = ({ open, children, className, onClose, fullScreen }) => {
+export const Dialog: FC<DialogProps> = ({
+    open,
+    children,
+    className,
+    onClose,
+    fullScreen,
+    afterClose
+}) => {
     return (
-        <MaterialDialog fullScreen={fullScreen} className={className} onClose={onClose} open={open}>
+        <MaterialDialog
+            TransitionProps={{ onExited: afterClose }}
+            fullScreen={fullScreen}
+            className={className}
+            onClose={onClose}
+            open={open}
+        >
             {children}
         </MaterialDialog>
     );

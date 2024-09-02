@@ -1,7 +1,7 @@
 import { GetSessionDto } from 'entities/session/api/types';
 import { PaginatedParams } from 'shared/types/dto';
 
-type ReleaseTypeParam = 'current' | 'upcoming';
+type ReleaseTypeParam = 'current' | 'upcoming' | 'all';
 
 export interface GetTrendedMovieDTO {
     id: string;
@@ -30,4 +30,22 @@ export interface GetMovieDto {
     releaseDate: Date;
     trended: boolean;
     sessions: GetSessionDto;
+}
+
+interface BaseMovieData {
+    title: string;
+    description: string;
+    genre: string;
+    duration: string;
+    releaseDate: string;
+    trended: boolean;
+}
+
+export interface CreateMovieData extends BaseMovieData {
+    image: File;
+}
+
+export interface UpdateMovieData extends BaseMovieData {
+    image: File | null;
+    movieId: string;
 }
