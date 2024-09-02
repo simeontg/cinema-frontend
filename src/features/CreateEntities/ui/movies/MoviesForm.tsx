@@ -1,10 +1,11 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { InputLabel } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-import { useMovieMutation } from 'entities/movie/hooks/useCreateOrUpdateMovieMutation';
+import { useCreateMovieMutation } from 'entities/movie/hooks/useCreateMovieMutation';
+import { useUpdateMovieMutation } from 'entities/movie/hooks/useUpdateMovieMutation';
 import { MOVIE_GENRES } from 'shared/constants/movieGenres';
 import { MAX_IMAGE_SIZE } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
@@ -19,7 +20,7 @@ import {
     TextField
 } from 'shared/ui';
 
-import { FormFields, SelectedMovie } from './types';
+import { CreateFormFields, SelectedMovie, UpdateFormFields } from './types';
 
 interface MoviesFormProps {
     open: boolean;
@@ -28,7 +29,7 @@ interface MoviesFormProps {
     selectedMovie: SelectedMovie | null;
 }
 
-const defaultValues: FormFields = {
+const defaultValues: CreateFormFields | UpdateFormFields = {
     title: '',
     description: '',
     duration: '',
@@ -39,7 +40,9 @@ const defaultValues: FormFields = {
 };
 
 export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, afterClose }) => {
-    const { mutate: createOrUpdateMovieMutation, isPending, isError, error } = useMovieMutation();
+    const { mutate: createMovie, isPending: isCreatingPending } = useCreateMovieMutation();
+    const { mutate: updateMovie, isPending: isUpdatingPending } = useUpdateMovieMutation();
+    const [mutationError, setMutationError] = useState('');
     const queryClient = useQueryClient();
     const { t } = useTranslation('common');
 
@@ -48,7 +51,23 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         mode: 'onBlur'
     });
 
-    const onSubmit: SubmitHandler<FormFields> = async ({
+    const handleMutationResponse = (
+        onClose: () => void,
+        reset: (values: CreateFormFields | UpdateFormFields) => void,
+        queryClient: QueryClient,
+        setMutationError: (error: string) => void
+    ) => ({
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
+            reset(defaultValues);
+            onClose();
+        },
+        onError: (err: Error) => {
+            setMutationError(err.message);
+        }
+    });
+
+    const onSubmit: SubmitHandler<CreateFormFields | UpdateFormFields> = async ({
         title,
         description,
         genre,
@@ -57,25 +76,41 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         duration,
         trended
     }) => {
-        createOrUpdateMovieMutation(
-            {
-                title,
-                description,
-                genre,
-                image,
-                releaseDate,
-                duration,
-                trended,
-                movieId: selectedMovie?.id
-            },
-            {
-                onSuccess: () => {
-                    queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
-                    reset(defaultValues);
-                    onClose();
-                }
-            }
+        const mutationResponseHandlers = handleMutationResponse(
+            onClose,
+            reset,
+            queryClient,
+            setMutationError
         );
+
+        if (selectedMovie) {
+            updateMovie(
+                {
+                    title,
+                    description,
+                    genre,
+                    image,
+                    releaseDate,
+                    duration,
+                    trended,
+                    movieId: selectedMovie.id
+                },
+                mutationResponseHandlers
+            );
+        } else {
+            createMovie(
+                {
+                    title,
+                    description,
+                    genre,
+                    image,
+                    releaseDate,
+                    duration,
+                    trended
+                } as CreateFormFields,
+                mutationResponseHandlers
+            );
+        }
     };
 
     useEffect(() => {
@@ -91,7 +126,7 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         }
     }, [selectedMovie]);
 
-    if (isPending) {
+    if (isUpdatingPending || isCreatingPending) {
         return (
             <Dialog onClose={onClose} open={open}>
                 <div className="flex justify-center items-center p-20">
@@ -104,10 +139,10 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
 
     return (
         <Dialog afterClose={afterClose} onClose={onClose} open={open}>
-            {isError && (
+            {mutationError && (
                 <div className="m-auto mt-6">
                     <Alert className="max-w-[250px]" severity="error">
-                        {error.message}
+                        {mutationError}
                     </Alert>
                 </div>
             )}
@@ -180,13 +215,19 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
                             validate: {
                                 fileType: (value) => {
                                     if (!selectedMovie || (selectedMovie && value)) {
-                                        return value?.type.startsWith('image/') || t('fileMustBeAnImage');
+                                        return (
+                                            value?.type.startsWith('image/') ||
+                                            t('fileMustBeAnImage')
+                                        );
                                     }
                                     return true;
                                 },
                                 fileSize: (value) => {
                                     if (!selectedMovie || (selectedMovie && value)) {
-                                        return (value && value.size < MAX_IMAGE_SIZE) || t('fileTooLarge');
+                                        return (
+                                            (value && value.size < MAX_IMAGE_SIZE) ||
+                                            t('fileTooLarge')
+                                        );
                                     }
                                     return true;
                                 }

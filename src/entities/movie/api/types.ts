@@ -32,13 +32,20 @@ export interface GetMovieDto {
     sessions: GetSessionDto;
 }
 
-export interface CreateOrUpdateMovieData {
+interface BaseMovieData {
     title: string;
     description: string;
     genre: string;
     duration: string;
-    image: File | null;
     releaseDate: string;
     trended: boolean;
-    movieId?: string;
+}
+
+export interface CreateMovieData extends BaseMovieData {
+    image: File;
+}
+
+export interface UpdateMovieData extends BaseMovieData {
+    image: File | null;
+    movieId: string;
 }

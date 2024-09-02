@@ -8,7 +8,17 @@ export interface SelectedMovie {
     id: string;
 }
 
-export type FormFields = {
+export type CreateFormFields = {
+    title: string;
+    description: string;
+    duration: string;
+    image: File;
+    genre: string;
+    releaseDate: string;
+    trended: boolean;
+};
+
+export type UpdateFormFields = {
     title: string;
     description: string;
     duration: string;
