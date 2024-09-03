@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react';
 
-import { Select as MaterialSelect } from '@mui/material';
+import { Select as MaterialSelect, SelectChangeEvent } from '@mui/material';
 
 interface SelectProps {
     value?: string;
-    onChange: () => void;
-    onBlur: () => void;
+    onChange: (e: SelectChangeEvent) => void;
+    onBlur?: () => void;
     className?: string;
     children: ReactNode;
     label?: string;

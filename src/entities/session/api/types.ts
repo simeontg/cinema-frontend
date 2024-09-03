@@ -9,9 +9,21 @@ export interface GetSessionDto {
     id: string;
     createdAt: string;
     updatedAt: string;
-    date: Date;
+    date: string;
     time: string;
     ticket_price: number;
     hall: GetHallDto;
     cinema: GetCinemaDto;
+}
+
+export interface CreateSessionDto {
+    movie: string;
+    cinema: string;
+    hall: string;
+    date: string;
+    time: string;
+}
+
+export interface UpdateSessionDto extends CreateSessionDto {
+    id: string;
 }
