@@ -1,18 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { QueryHookReturnData } from 'shared/types/hook';
+import { Cinema } from '../model/types';
+import { getCinemas } from '../api';
 
-import { getSessions } from '../api';
-import { Session } from '../model/types';
+const STALE_TIME = 10 * (60 * 1000); // 10 minutes
 
-export const useGetSessions = <ReturnData = Session[]>(movieId?: string): QueryHookReturnData<ReturnData> => {
+export const useGetCinemas = <ReturnData = Cinema[]>(): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
-        queryKey: ['sessions', movieId],
+        queryKey: ['cinemas'],
         queryFn: async () => {
-            const sessions = await getSessions(movieId);
-            return sessions;
+            const cinemas = await getCinemas();
+            return cinemas;
         },
-        enabled: !!movieId
+        staleTime: STALE_TIME
     });
 
     return {

@@ -23,14 +23,14 @@ export const AuthBlock: FC = () => {
     const { t } = useTranslation('common');
 
     return (
-        <div className="h-[700px] flex justify-center items-center" style={wrapperBackground}>
+        <div className="sm:h-[700px] flex justify-center items-center" style={wrapperBackground}>
             <div
                 className={clsx(
-                    'w-5/6 bg-white rounded-md',
-                    tabValue === 0 ? 'min-h-[600px]' : 'min-h-[650px]'
+                    'sm:w-5/6 bg-white rounded-md',
+                    tabValue === 0 ? 'min-h-full sm:min-h-[600px]' : 'min-h-full sm:min-h-[650px]'
                 )}
             >
-                <div className="mt-12 ml-24 !mb-10">
+                <div className="mt-12 ml-0 sm:ml-24 !mb-10">
                     <Tabs centered={width < 770} value={tabValue}>
                         <Tab
                             onClick={() => setTabValue(0)}
@@ -54,7 +54,7 @@ export const AuthBlock: FC = () => {
                         <span className="py-0 px-5 bg-white">{t('registerWithGmail')}</span>
                     </p>
                 </div>
-                <div className="flex flex-col items-center justify-center mt-4">
+                <div className="flex flex-col items-center justify-center mt-4 mb-24 sm:mb-0">
                     <Link to={GOOGLE_AUTH_URL}>
                         <button
                             onMouseEnter={() => setIsGmailHovered(true)}

@@ -1,4 +1,3 @@
-
 {
     "notFoundPageTitle": "Опа!",
     "notFoundPageDescription": "Страницата не е намерена.",
@@ -103,5 +102,18 @@
     "genreRequired": "Изберете жанр!",
     "releaseDateRequired": "Изберете премиерна дата!",
     "fileMustBeAnImage": "Избраният файл трябва да бъде снимка",
-    "fileTooLarge": "Файлът е твърде голям"
+    "fileTooLarge": "Файлът е твърде голям",
+    "noSessionsYet": "Все още няма добавени сесии. Добавете първата!",
+    "movie": "Филм",
+    "hall": "Зала",
+    "date": "Дата",
+    "time": "Час",
+    "movieRequired": "Изберете филм!",
+    "cinemaRequired": "Изберете кино!",
+    "hallRequired": "Изберете зала!",
+    "dateRequired": "Изберете дата!",
+    "timeRequired": "Изберете час!",
+    "createSession": "Създай сесия",
+    "editSession": "Редактирай сесия",
+    "selectMovieToViewSessions": "Изберете филм за да видите неговите сесиите"
 }

@@ -14,7 +14,7 @@ export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>
     limit: number,
     { title, genre }: FilterParams
 ): InfiniteQueryHookReturnData<ReturnData> => {
-    const { data, fetchNextPage, hasNextPage, isError, status, isFetchingNextPage } =
+    const { data, fetchNextPage, hasNextPage, isError, status, isFetchingNextPage, isLoading } =
         useInfiniteQuery({
             queryKey: ['paginatedMovies', releaseType, limit, title, genre],
             queryFn: ({ pageParam }) =>
@@ -39,6 +39,7 @@ export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>
         hasNextPage,
         status,
         isError,
-        isFetchingNextPage
+        isFetchingNextPage,
+        isLoading
     };
 };

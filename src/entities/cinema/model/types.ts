@@ -1,3 +1,5 @@
+import { Hall } from "entities/hall/model/types";
+
 export interface Cinema {
     id: string;
     createdAt: string;
@@ -9,4 +11,5 @@ export interface Cinema {
         updatedAt: string;
         name: string;
     };
+    halls: Hall[]
 }

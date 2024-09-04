@@ -102,5 +102,18 @@
     "genreRequired": "Genre is required!",
     "releaseDateRequired": "Release date is required!",
     "fileMustBeAnImage": "File must be an image",
-    "fileTooLarge": "File is too large"
+    "fileTooLarge": "File is too large",
+    "noSessionsYet": "No sessions yet. Add the first!",
+    "movie": "Movie",
+    "hall": "Hall",
+    "date": "Date",
+    "time": "Time",
+    "movieRequired": "Movie is required!",
+    "cinemaRequired": "Cinema is required!",
+    "hallRequired": "Hall is required!",
+    "dateRequired": "Date is required!",
+    "timeRequired": "Time is required!",
+    "createSession": "Create session",
+    "editSession": "Edit session",
+    "selectMovieToViewSessions": "Select a movie to view its sessions"
 }

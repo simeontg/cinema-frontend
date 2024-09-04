@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QueryHookReturnData } from 'shared/types/hook';
 
 import { getHallPlan } from '../api';
-import { HallPlan } from '../model/HallPlan';
+import { HallPlan } from '../model/types';
 
 const STALE_TIME = 10 * (60 * 1000); // 10 minutes
 

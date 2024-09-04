@@ -30,7 +30,7 @@ export const Reservation: FC<ReservationProps> = ({
     cinema
 }) => {
     return (
-        <Accordion className="!w-1/2 mb-6">
+        <Accordion className="md:!w-1/2 !w-full mb-6">
             <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
                 <p>
                     {mapMonthToLetter(reservationDate.getMonth())} {reservationDate.getDate()},

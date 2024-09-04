@@ -15,11 +15,11 @@ export const transformSessionsToCinemasWithTimeSlots = (
     sessions.forEach((session) => {
         if (!obj[session.cinema.name]) {
             obj[session.cinema.name] = {
-                timeSlots: [{ time: session.time, id: session.id }],
+                timeSlots: [{ time: session.startTime, id: session.id }],
                 city: session.cinema.city.name
             };
         } else {
-            obj[session.cinema.name].timeSlots.push({ time: session.time, id: session.id });
+            obj[session.cinema.name].timeSlots.push({ time: session.startTime, id: session.id });
         }
     });
 

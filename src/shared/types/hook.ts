@@ -16,4 +16,5 @@ export interface InfiniteQueryHookReturnData<ReturnedData> {
     fetchNextPage: () => Promise<InfiniteQueryObserverResult>;
     hasNextPage: boolean;
     isFetchingNextPage: boolean;
+    isLoading: boolean;
 }
