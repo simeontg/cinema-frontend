@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { AUTH_BASE_URL, MOVIES_BASE_URL } from 'shared/constants/api';
+import {
+    AUTH_BASE_URL,
+    EXPIRED_TOKEN_ERROR_MESSAGE,
+    INVALID_TOKEN_ERROR_MESSAGE,
+    MOVIES_BASE_URL
+} from 'shared/constants/api';
 import { USER_LOCALSTORAGE_KEY } from 'shared/constants/storage';
 import storageService from 'shared/services/storageService';
 
@@ -24,7 +29,7 @@ $authApi.interceptors.response.use(
         const originalRequest = error.config;
 
         if (
-            error.response.data.msg === 'Token has expired' &&
+            error.response.data.msg === EXPIRED_TOKEN_ERROR_MESSAGE &&
             error.config &&
             !error.config._isRetry
         ) {
@@ -39,7 +44,7 @@ $authApi.interceptors.response.use(
             }
         }
 
-        if (error.response.data.msg === 'Invalid token') {
+        if (error.response.data.msg === INVALID_TOKEN_ERROR_MESSAGE) {
             storageService.removeItem(USER_LOCALSTORAGE_KEY);
         }
 
@@ -54,7 +59,7 @@ $api.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
         if (
-            error.response.data.msg === 'Token has expired' &&
+            error.response.data.msg === EXPIRED_TOKEN_ERROR_MESSAGE &&
             error.config &&
             !error.config._isRetry
         ) {
@@ -69,7 +74,7 @@ $api.interceptors.response.use(
             }
         }
 
-        if (error.response.data.msg === 'Invalid token') {
+        if (error.response.data.msg === INVALID_TOKEN_ERROR_MESSAGE) {
             storageService.removeItem(USER_LOCALSTORAGE_KEY);
         }
 
