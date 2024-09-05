@@ -38,7 +38,7 @@ export const ProjectionFilters: FC<ProjectionFiltersProps> = ({ items, setFilter
         }));
     };
     return (
-        <div className="flex flex-col md:flex-row items-center ml-10 gap-8 mb-6">
+        <div className="flex flex-col lg:flex-row items-center md:ml-10 gap-8 mb-6">
             <div className="flex gap-2 items-center">
                 <FmdGoodOutlinedIcon />
                 <Autocomplete

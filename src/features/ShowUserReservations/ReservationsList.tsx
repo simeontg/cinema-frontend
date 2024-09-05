@@ -28,7 +28,7 @@ export const ReservationsList: FC<ReservationList> = ({ fetchExpired }) => {
                         reservations.map((reservation) => (
                             <Reservation
                                 projectionDate={new Date(reservation.session.date)}
-                                projectionTime={reservation.session.time}
+                                projectionTime={reservation.session.startTime}
                                 totalPrice={reservation['total_price']}
                                 seats={reservation.reservationHallSeats}
                                 key={reservation.id}

@@ -51,7 +51,7 @@ export const ManageMovies: FC = () => {
 
     return (
         <ErrorWrapper isError={isError}>
-            <div className="flex flex-col items-center sm:items-start">
+            <div className="flex flex-col items-center md:items-start">
                 <Button
                     className="!mb-12 !bg-[#6e3996] !w-40 !text-white !border-black border-2 !px-4 !py-2 !mt-8"
                     onClick={() => setIsFormOpen(true)}
@@ -80,7 +80,7 @@ export const ManageMovies: FC = () => {
                 </div>
                 <Button
                     className={clsx(
-                        'hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !px-8 !py-2.5 !m-auto !mt-8 text-[13px]',
+                        'hover:!bg-[#6e3996] hover:!text-white hover:!border-[#6e3996] !rounded-[13px] !mb-4 !px-8 !py-2.5 !m-auto !mt-8 text-[13px]',
                         hasNextPage ? '!block' : '!hidden'
                     )}
                     onClick={() => fetchNextPage()}

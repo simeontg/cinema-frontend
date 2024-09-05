@@ -50,7 +50,7 @@ export const SessionCard: FC<SessionCardProps> = ({
             </div>
             <Dialog onClose={() => setShowDeleteDialog(false)} open={showDeleteDialog}>
                 <div className="flex flex-col gap-4 p-24">
-                    <h1>
+                    <h1 className="text-center">
                         {t('proceedWithDeleting')} <span className="font-bold">session</span>?
                     </h1>
                     <div className="flex gap-12 justify-center">

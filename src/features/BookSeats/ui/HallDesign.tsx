@@ -6,7 +6,9 @@ import clsx from 'clsx';
 import { useGetHallPlan } from 'entities/hall/hooks/useGetHallPlan';
 import { RESERVATION_WEBSOCKET_URL } from 'shared/constants/api';
 import { RESERVATION_SOCKET_ENTITY } from 'shared/constants/socket';
+import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import useSocket from 'shared/hooks/useSocket';
 import { ErrorWrapper, LoadingSpinner, Tooltip } from 'shared/ui';
 
@@ -28,6 +30,8 @@ export const HallDesign: FC<HallDesignProps> = ({
     onSeatClick,
     chosenSeats
 }) => {
+    const { width } = useScreenSize();
+    const isMobile = width < MOBILE_SCREEN_WIDTH;
     const { t } = useTranslation('common');
     const { data: hallPlan, isLoading, isError } = useGetHallPlan(hallId, sessionId);
     const queryClient = useQueryClient();
@@ -50,7 +54,7 @@ export const HallDesign: FC<HallDesignProps> = ({
 
     return (
         <ErrorWrapper isError={isError}>
-            <div className="w-full lg:w-2/3 flex-grow-0 flex-shrink-0 h-[700px]">
+            <div className="w-full lg:w-2/3 flex-grow-0 flex-shrink-0 mb-12 md:mb-0 md:h-[700px]">
                 <div className="w-full">
                     <img
                         className="w-full mb-16"
@@ -59,7 +63,7 @@ export const HallDesign: FC<HallDesignProps> = ({
                     <div className="flex gap-12 items-center flex-col">
                         {hallEntries.map(([row, seats]) => {
                             return (
-                                <div className="flex gap-12 items-center" key={row}>
+                                <div className="flex gap-4 md:gap-12 items-center" key={row}>
                                     <p className="opacity-40 text-sm">{row}</p>
                                     <div className="flex gap-2">
                                         {seats.map((seat, idx) => {
@@ -97,7 +101,8 @@ export const HallDesign: FC<HallDesignProps> = ({
                                                         {getSeatIcon(
                                                             seat.seat_type,
                                                             seat.reserved,
-                                                            isSelected
+                                                            isSelected,
+                                                            isMobile
                                                         )}
                                                     </button>
                                                 </Tooltip>

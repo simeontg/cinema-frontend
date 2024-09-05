@@ -70,12 +70,12 @@ export const GenericForm: FC<GenericFormProps> = ({
     return (
         <div className={wrapperClassName}>
             {isError && (
-                <Alert className="max-w-[250px]" severity="error">
+                <Alert className="max-w-96 !m-auto md:!m-0" severity="error">
                     {networkErrorMessage}
                 </Alert>
             )}
             {formError && (
-                <Alert className="max-w-[250px]" severity="error">
+                <Alert className="max-w-96 !m-auto md:!m-0" severity="error">
                     {formError}
                 </Alert>
             )}

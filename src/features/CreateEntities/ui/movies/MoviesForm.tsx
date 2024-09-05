@@ -7,8 +7,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useCreateMovieMutation } from 'entities/movie/hooks/useCreateMovieMutation';
 import { useUpdateMovieMutation } from 'entities/movie/hooks/useUpdateMovieMutation';
 import { MOVIE_GENRES } from 'shared/constants/movieGenres';
-import { MAX_IMAGE_SIZE } from 'shared/constants/utils';
+import { MAX_IMAGE_SIZE, MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import {
     Alert,
     Button,
@@ -44,6 +45,7 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
     const { mutate: updateMovie, isPending: isUpdatingPending } = useUpdateMovieMutation();
     const [mutationError, setMutationError] = useState('');
     const queryClient = useQueryClient();
+    const { width } = useScreenSize();
     const { t } = useTranslation('common');
 
     const { handleSubmit, control, reset, setValue } = useForm({
@@ -138,7 +140,12 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
     }
 
     return (
-        <Dialog afterClose={afterClose} onClose={onClose} open={open}>
+        <Dialog
+            fullScreen={width < MOBILE_SCREEN_WIDTH}
+            afterClose={afterClose}
+            onClose={onClose}
+            open={open}
+        >
             {mutationError && (
                 <div className="m-auto mt-6">
                     <Alert className="max-w-[250px]" severity="error">
@@ -306,10 +313,10 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
                             </div>
                         )}
                     />
-                    <div className="flex flex-col sm:flex-row justify-center lg:justify-start mt-6">
+                    <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-center lg:justify-start mt-6">
                         <Button
                             variant="outlined"
-                            className="!border-2 hover:!border-[#6e3996] !p-2 !mr-2 !w-[140px] md:!w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
+                            className="!border-2 hover:!border-[#6e3996] sm:w-96 !p-2 sm:!mr-2 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
                             onClick={onClose}
                         >
                             {t('cancel')}
@@ -317,7 +324,7 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
                         <Button
                             type="submit"
                             variant="outlined"
-                            className="!p-2 !ml-2 !w-[140px] md:!w-[220px] !bg-[#6e3996] !pointer-events-auto !h-[40px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
+                            className="!p-2 sm:!ml-2 !bg-[#6e3996] sm:w-96 !pointer-events-auto !h-[40px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
                         >
                             {selectedMovie ? t('editMovie') : t('createMovie')}
                         </Button>

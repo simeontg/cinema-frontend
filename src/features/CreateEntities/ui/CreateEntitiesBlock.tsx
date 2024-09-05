@@ -15,7 +15,7 @@ export const CreateEntitiesBlock: FC = () => {
     const { t } = useTranslation('common');
     const { width } = useScreenSize();
     return (
-        <div className="font-effra sm:ml-12 mt-4">
+        <div className="font-effra flex md:block flex-col items-center md:ml-12 mt-4">
             <Tabs
                 orientation={width < MOBILE_SCREEN_WIDTH ? 'vertical' : 'horizontal'}
                 value={tabValue}

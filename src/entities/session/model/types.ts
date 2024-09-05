@@ -13,4 +13,5 @@ export interface Session {
     cinema: Cinema;
     movie: Movie;
     hall: Hall;
+    seatPrices: Record<string, string>;
 }

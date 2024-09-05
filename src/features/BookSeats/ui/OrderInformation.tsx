@@ -15,7 +15,7 @@ interface OrderInformationProps {
     movieTitle: string;
     city: string;
     cinema: string;
-    date: Date;
+    date: string;
     time: string;
     reservationId: string;
     movieId: string;

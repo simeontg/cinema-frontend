@@ -46,3 +46,33 @@ $authApi.interceptors.response.use(
         throw error;
     }
 );
+
+$api.interceptors.response.use(
+    (config) => {
+        return config;
+    },
+    async (error) => {
+        const originalRequest = error.config;
+        if (
+            error.response.data.msg === 'Token has expired' &&
+            error.config &&
+            !error.config._isRetry
+        ) {
+            const { userId } = error.response.data;
+            originalRequest._isRetry = true;
+            try {
+                await getToken(userId);
+                return $api.request(originalRequest);
+            } catch (error) {
+                storageService.removeItem(USER_LOCALSTORAGE_KEY);
+                throw error;
+            }
+        }
+
+        if (error.response.data.msg === 'Invalid token') {
+            storageService.removeItem(USER_LOCALSTORAGE_KEY);
+        }
+
+        throw error;
+    }
+);

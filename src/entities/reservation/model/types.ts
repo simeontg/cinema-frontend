@@ -15,7 +15,7 @@ interface ReservationHallSeat {
 
 interface Session {
     date: Date;
-    time: string;
+    startTime: string;
     movie: {
         title: string;
     };

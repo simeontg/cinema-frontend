@@ -10,7 +10,7 @@ interface SessionInformationProps {
     movieTitle: string;
     city: string;
     cinema: string;
-    date: Date;
+    date: string;
     time: string;
 }
 

@@ -4,6 +4,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import clsx from 'clsx';
 
+import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { mapDayToLetter, mapMonthToLetter } from 'shared/utils/dateUtils';
 
 import { Date } from './Date';
@@ -13,10 +15,11 @@ interface DatesNavProps {
     setActiveDate: (date: Date) => void;
     activeDate: Date | null;
 }
-const visibleItemsCount = 7;
 
 export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }) => {
     const [startIndex, setStartIndex] = useState(0);
+    const { width } = useScreenSize();
+    const visibleItemsCount = width < MOBILE_SCREEN_WIDTH ? 4 : 7;
 
     const shiftLeft = () => {
         if (startIndex > 0) {
@@ -39,14 +42,14 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
     };
 
     return (
-        <div className="h-[150px] font-effra bg-gray-200 flex gap-16 items-center justify-center max-w-full">
+        <div className="h-[150px] font-effra bg-gray-200 flex gap-2 md:gap-16 items-center justify-center max-w-full">
             <ArrowBackIosIcon
                 className={clsx(
                     'cursor-pointer justify-self-start',
                     dates.length > visibleItemsCount ? '!block' : '!hidden',
                     startIndex === 0 ? 'text-gray-400 pointer-events-none' : 'hover:scale-125'
                 )}
-                fontSize="large"
+                fontSize={width < MOBILE_SCREEN_WIDTH ? 'small' : 'large'}
                 onClick={shiftLeft}
             />
             <div className="flex gap-6">
@@ -60,7 +63,7 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
                             isActive={isActive}
                             onClick={onDateClick}
                             wholeDate={date}
-                            key={convertedDate}
+                            key={convertedDate + day + month}
                             day={day}
                             month={month}
                             date={convertedDate}
@@ -76,7 +79,7 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
                         ? 'text-gray-400 pointer-events-none'
                         : 'hover:scale-125'
                 )}
-                fontSize="large"
+                fontSize={width < MOBILE_SCREEN_WIDTH ? 'small' : 'large'}
                 onClick={shiftRight}
             />
         </div>

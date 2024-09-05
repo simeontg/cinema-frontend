@@ -115,5 +115,11 @@
     "timeRequired": "Изберете час!",
     "createSession": "Създай сесия",
     "editSession": "Редактирай сесия",
-    "selectMovieToViewSessions": "Изберете филм за да видите неговите сесиите"
+    "selectMovieToViewSessions": "Изберете филм за да видите неговите сесиите",
+    "reservationMadeOn": "Резервация направена на:",
+    "aboutTheDeveloper": "За разработчика",
+    "followMe": "Последвайте ме",
+    "english": "Английски",
+    "bulgarian": "Български",
+    "reservedSeats": "Резервирани места"
 }
