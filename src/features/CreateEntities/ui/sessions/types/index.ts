@@ -4,4 +4,5 @@ export type FormFields = {
     cinema: string;
     hall: string;
     movie: string;
+    seatPrices: Record<string, string>;
 };

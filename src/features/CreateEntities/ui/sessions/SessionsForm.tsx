@@ -1,19 +1,23 @@
 import { FC, useEffect, useState } from 'react';
 
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import { FormControl, InputLabel } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 
 import { useGetCinemas } from 'entities/cinema/hooks/useGetCinemas';
+import { useGetHallSeatTypes } from 'entities/hall/hooks/useGetHallSeatTypes';
 import { Movie } from 'entities/movie/model/types';
 import { CreateSessionDto, UpdateSessionDto } from 'entities/session/api/types';
 import { useCreateSessionMutation } from 'entities/session/hooks/useCreateSession';
 import { useUpdateSessionMutation } from 'entities/session/hooks/useUpdateSession';
 import { Session } from 'entities/session/model/types';
+import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
+import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { Alert, Button, Dialog, LoadingSpinner, MenuItem, Select, TextField } from 'shared/ui';
 
 import { FormFields } from './types';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface SessionProps {
     movies: Movie[] | undefined;
@@ -28,7 +32,8 @@ const defaultValues: FormFields = {
     cinema: '',
     hall: '',
     date: '',
-    time: ''
+    time: '',
+    seatPrices: {}
 };
 
 export const SessionsForm: FC<SessionProps> = ({
@@ -46,6 +51,7 @@ export const SessionsForm: FC<SessionProps> = ({
         useUpdateSessionMutation();
     const [mutationError, setMutationError] = useState('');
     const { t } = useTranslation('common');
+    const { width } = useScreenSize();
 
     const { handleSubmit, control, reset, setValue, watch } = useForm({
         defaultValues,
@@ -61,7 +67,7 @@ export const SessionsForm: FC<SessionProps> = ({
                     onClose();
                 },
                 onError: (err) => {
-                    setMutationError(err.message);
+                    setMutationError(err.response.data.message);
                 }
             });
         } else {
@@ -72,13 +78,15 @@ export const SessionsForm: FC<SessionProps> = ({
                     onClose();
                 },
                 onError: (err) => {
-                    setMutationError(err.message);
+                    setMutationError(err.response.data.message);
                 }
             });
         }
     };
 
     const cinemaValue = watch('cinema');
+    const hallValue = watch('hall');
+    const { data: seatTypes } = useGetHallSeatTypes(hallValue);
 
     useEffect(() => {
         if (selectedSession) {
@@ -87,10 +95,22 @@ export const SessionsForm: FC<SessionProps> = ({
             setValue('hall', selectedSession.hall.id);
             setValue('time', selectedSession.startTime);
             setValue('date', selectedSession.date);
+            if (selectedSession.seatPrices) {
+                Object.keys(selectedSession.seatPrices).forEach((seatType) => {
+                    setValue(`seatPrices.${seatType}`, selectedSession.seatPrices[seatType]);
+                });
+            }
         } else {
             reset(defaultValues);
         }
     }, [selectedSession]);
+
+    useEffect(() => {
+        if (!open) {
+            reset(defaultValues, { keepErrors: false });
+            setMutationError('');
+        }
+    }, [open]);
 
     if (isCreateSessionPending || isUpdateSessionPending) {
         return (
@@ -104,7 +124,12 @@ export const SessionsForm: FC<SessionProps> = ({
     }
 
     return (
-        <Dialog afterClose={afterClose} onClose={onClose} open={open}>
+        <Dialog
+            fullScreen={width < MOBILE_SCREEN_WIDTH}
+            afterClose={afterClose}
+            onClose={onClose}
+            open={open}
+        >
             {mutationError && (
                 <div className="m-auto mt-6">
                     <Alert className="max-w-[250px]" severity="error">
@@ -161,7 +186,7 @@ export const SessionsForm: FC<SessionProps> = ({
                                     className="!w-full"
                                 >
                                     {cinemas &&
-                                        cinemas.map((cinema) => (
+                                        cinemas?.map((cinema) => (
                                             <MenuItem key={cinema.id} value={cinema.id}>
                                                 {cinema.name}
                                             </MenuItem>
@@ -191,7 +216,7 @@ export const SessionsForm: FC<SessionProps> = ({
                                         {cinemaValue !== '' &&
                                             cinemas
                                                 ?.find((c) => c.id === cinemaValue)
-                                                ?.halls.map((hall) => (
+                                                ?.halls?.map((hall) => (
                                                     <MenuItem key={hall.id} value={hall.id}>
                                                         {hall.hall_name}
                                                     </MenuItem>
@@ -202,6 +227,37 @@ export const SessionsForm: FC<SessionProps> = ({
                             </div>
                         )}
                     />
+                    {seatTypes &&
+                        seatTypes.map((seatType) => (
+                            <Controller
+                                key={seatType}
+                                control={control}
+                                name={`seatPrices.${seatType}` as `seatPrices.${string}`} // Type assertion
+                                render={({
+                                    field: { onChange, onBlur, value },
+                                    fieldState: { error }
+                                }) => (
+                                    <div className="w-full">
+                                        <InputLabel>
+                                            <p className="text-xs ml-3">{seatType} seat price</p>
+                                        </InputLabel>
+                                        <TextField
+                                            type="number"
+                                            className="w-full"
+                                            label={t(seatType)}
+                                            onChange={onChange}
+                                            icon={<AttachMoneyOutlinedIcon />}
+                                            onBlur={onBlur}
+                                            value={value || ''}
+                                            error={!!error}
+                                            inputPadding="12px"
+                                            shrinkLabel={true}
+                                            helperText={error?.message || ''}
+                                        />
+                                    </div>
+                                )}
+                            />
+                        ))}
                     <Controller
                         key="date"
                         control={control}
@@ -240,10 +296,10 @@ export const SessionsForm: FC<SessionProps> = ({
                             />
                         )}
                     />
-                    <div className="flex flex-col sm:flex-row justify-center lg:justify-start mt-6">
+                    <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-center lg:justify-start mt-6">
                         <Button
                             variant="outlined"
-                            className="!border-2 hover:!border-[#6e3996] !p-2 !mr-2 !w-[140px] md:!w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
+                            className="!border-2 hover:!border-[#6e3996] sm:!w-96 !p-2 sm:!mr-2 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
                             onClick={onClose}
                         >
                             {t('cancel')}
@@ -251,7 +307,7 @@ export const SessionsForm: FC<SessionProps> = ({
                         <Button
                             type="submit"
                             variant="outlined"
-                            className="!p-2 !ml-2 !w-[140px] md:!w-[220px] !bg-[#6e3996] !pointer-events-auto !h-[40px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
+                            className="!p-2 sm:!ml-2 sm:!w-96 !bg-[#6e3996] !pointer-events-auto !h-[40px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
                         >
                             {selectedSession ? t('editSession') : t('createSession')}
                         </Button>

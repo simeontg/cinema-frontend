@@ -94,12 +94,21 @@ export const Header: FC = () => {
                         <li>
                             {!account ? (
                                 <Link to="login">
-                                    <Button>{t('login')}</Button>
+                                    <Button onClick={() => setOpen(false)}>{t('login')}</Button>
                                 </Link>
                             ) : (
-                                <div className="flex flex-col gap-2">
+                                <div className="flex text-center flex-col gap-2">
+                                    {account.role === UserRole.Admin && (
+                                        <Link to="dashboard">
+                                            <Button onClick={() => setOpen(false)}>
+                                                {t('dashboard')}
+                                            </Button>
+                                        </Link>
+                                    )}
                                     <Link to="profile">
-                                        <Button>{t('myAccount')}</Button>
+                                        <Button onClick={() => setOpen(false)}>
+                                            {t('myAccount')}
+                                        </Button>
                                     </Link>
                                     <Button onClick={() => signOut()}>{t('signOut')}</Button>
                                 </div>

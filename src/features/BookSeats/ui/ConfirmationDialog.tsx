@@ -7,7 +7,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpdateReservation';
+import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
+import useScreenSize from 'shared/hooks/useScreenSize';
 import { Button, Dialog } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
@@ -18,7 +20,7 @@ interface ConfirmationDialogProps {
     city: string;
     cinema: string;
     movieTitle: string;
-    date: Date;
+    date: string;
     time: string;
     onClose: () => void;
     seats: Seat[];
@@ -44,6 +46,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     const { mutate: updateReservation } = useUpdateReservationMutation();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const { width } = useScreenSize();
 
     const onConfirmation = () => {
         queryClient.invalidateQueries({ queryKey: ['hallPlan'] });
@@ -51,8 +54,8 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     };
 
     return (
-        <Dialog onClose={onClose} open={open}>
-            <div className="p-10">
+        <Dialog fullScreen={width < MOBILE_SCREEN_WIDTH} onClose={onClose} open={open}>
+            <div className="p-10 md:block flex flex-col gap-2 items-center">
                 <h1 className="text-center mb-4 text-lg font-bold text-black">{city}</h1>
                 <div className="flex gap-4 mb-4">
                     <PlayArrowOutlinedIcon />
@@ -76,21 +79,21 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                         </div>
                     ))}
                 </div>
-                <div className="flex justify-start md:justify-between my-12">
+                <div className="flex items-center gap-8 md:gap-0 justify-between my-12">
                     <p className="text-3xl font-bold">{t('orderTotal')}</p>
                     <p className="text-2xl font-bold">${price}</p>
                 </div>
-                <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-5 px-4 mt-20">
+                <div className="flex flex-row justify-center lg:justify-start gap-5 px-4 mt-8 md:mt-20 mb-10 md:mb-0">
                     <Button
                         variant="outlined"
-                        className="!border-2 hover:!border-[#6e3996] !p-6 !mt-6 !w-[140px] md:!w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-sm !md:text-lg"
+                        className="!border-2 hover:!border-[#6e3996] !w-1/2 !p-6 !mt-6 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-md !md:text-lg"
                         onClick={onClose}
                     >
                         {t('cancel')}
                     </Button>
                     <Button
                         variant="outlined"
-                        className="!p-6 !mt-6 !w-[140px] md:!w-[220px] !bg-[#6e3996] !pointer-events-auto !rounded-full !h-[50px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
+                        className="!p-6 !mt-6 !w-1/2 !bg-[#6e3996] !pointer-events-auto !rounded-full !h-[50px] !text-md !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
                         onClick={() => {
                             updateReservation(
                                 {

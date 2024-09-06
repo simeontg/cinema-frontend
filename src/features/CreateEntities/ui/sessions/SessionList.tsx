@@ -5,10 +5,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useDeleteSession } from 'entities/session/hooks/useDeleteSession';
 import { useGetSessions } from 'entities/session/hooks/useGetSessions';
 import { Session } from 'entities/session/model/types';
+import { useTranslation } from 'shared/hooks/i18nHook';
 import { ErrorWrapper, LoadingSpinner } from 'shared/ui';
 
 import { SessionCard } from './SessionCard';
-import { useTranslation } from 'shared/hooks/i18nHook';
 
 interface SessionListProps {
     movieId?: string;
@@ -30,13 +30,16 @@ export const SessionList: FC<SessionListProps> = ({ movieId, onEditClick }) => {
     };
 
     if (isLoading) {
-        return <LoadingSpinner />;
+        return (
+            <div className="flex items-center justify-center w-full h-[350px]">
+                <LoadingSpinner />
+            </div>
+        );
     }
 
     if (sessions?.length === 0) {
         return <p className="text-center text-2xl py-12">{t('noSessionsYet')}</p>;
     }
-
     return (
         <ErrorWrapper isError={isError}>
             <div className="flex justify-center mb-6 flex-wrap gap-4">

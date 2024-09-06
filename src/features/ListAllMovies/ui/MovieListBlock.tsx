@@ -17,7 +17,7 @@ export const MovieList: FC<MovieListProps> = () => {
 
     return (
         <div className="max-w-[1400px] block m-auto mb-5">
-            <Tabs centered={width < 770} value={tabValue} className="ml-10 mt-6 md:mt-0">
+            <Tabs centered={width < 770} value={tabValue} className="md:ml-10 mt-6 md:mt-0">
                 <Tab
                     onClick={() => setTabValue(0)}
                     className={clsx(tabValue === 0 && '!text-[#6e3996] !font-bold')}

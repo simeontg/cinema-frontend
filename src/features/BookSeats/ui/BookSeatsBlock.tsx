@@ -56,8 +56,8 @@ export const BookSeatsBlock: FC = () => {
     return (
         <ErrorWrapper isError={isError}>
             <div className="flex flex-col lg:px-20">
-                <div className="bg-gray-100 py-4 gap-60 lg:gap-44 xl:gap-80 items-center justify-start flex w-full">
-                    <div className="text-xl pr-16 p-8 font-bold">{t('chooseYourSeats')}</div>
+                <div className="bg-gray-100 py-4 md:gap-60 lg:gap-44 xl:gap-80 items-center justify-start flex w-full">
+                    <div className="text-xl md:pr-16 p-8 font-bold">{t('chooseYourSeats')}</div>
                     <CountdownTimer seconds={secondsRemaining} />
                 </div>
                 <div className="font-effra flex flex-col lg:flex-row w-full">
@@ -76,7 +76,7 @@ export const BookSeatsBlock: FC = () => {
                         movieId={session.movie.id}
                         cinema={session.cinema.name}
                         date={session.date}
-                        time={session.time}
+                        time={session.startTime}
                         city={session.cinema.city.name}
                         seats={chosenSeats}
                         reservationId={reservationId}

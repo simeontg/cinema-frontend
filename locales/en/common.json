@@ -115,5 +115,11 @@
     "timeRequired": "Time is required!",
     "createSession": "Create session",
     "editSession": "Edit session",
-    "selectMovieToViewSessions": "Select a movie to view its sessions"
+    "selectMovieToViewSessions": "Select a movie to view its sessions",
+    "reservationMadeOn": "Reservation made on:",
+    "aboutTheDeveloper": "About the developer",
+    "followMe": "Follow me",
+    "english": "English",
+    "bulgarian": "Bulgarian",
+    "reservedSeats": "Reserved seats"
 }

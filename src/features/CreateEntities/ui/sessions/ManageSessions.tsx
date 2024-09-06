@@ -29,7 +29,7 @@ export const ManageSessions: FC = () => {
 
     return (
         <ErrorWrapper>
-            <div className="flex flex-col items-center sm:items-start">
+            <div className="flex flex-col items-center md:items-start">
                 <Button
                     className="!mb-12 !bg-[#6e3996] !w-40 !text-white !border-black border-2 !px-4 !py-2 !mt-8"
                     onClick={() => {
@@ -47,7 +47,7 @@ export const ManageSessions: FC = () => {
                     </InputLabel>
                     <Select
                         value={selectedMovieId}
-                        className="!w-64"
+                        className="!w-64 !m-auto sm:!m-0"
                         onChange={(e) => setSelectedMovieId(e.target.value)}
                     >
                         {movies.pages[0].items.map((movie) => (

@@ -60,9 +60,15 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
             setIsPasswordMismatch(true);
         } else {
             setIsPasswordMismatch(false);
-            signUp({ email, password, firstName, lastName, phoneNumber });
-            setResetForm(true);
-            setTabValue(0);
+            signUp(
+                { email, password, firstName, lastName, phoneNumber },
+                {
+                    onSuccess: () => {
+                        setResetForm(true);
+                        setTabValue(0);
+                    }
+                }
+            );
         }
     };
 
