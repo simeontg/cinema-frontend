@@ -1,6 +1,5 @@
 {
-    "notFoundPageTitle": "Oops!",
-    "notFoundPageDescription": "This page is not found.",
+    "notFoundPageTitle": "Oops! The page you're looking for doesn't exist.",
     "errorPageTitle": "Oops!",
     "errorPageDescription": "Sorry, an unexpected error has occurred.",
     "loginFormIntroText": "Sign in to your Simeon Cinemas account to see your booking history and profile setting.",
@@ -121,5 +120,24 @@
     "followMe": "Follow me",
     "english": "English",
     "bulgarian": "Bulgarian",
-    "reservedSeats": "Reserved seats"
+    "reservedSeats": "Reserved seats",
+    "returnToThe": "Return to the",
+    "homepage": "homepage",
+    "maxSeatsSelected": "Maximum number of seats that can be selected is",
+    "addSeat": "Add seat",
+    "addRow": "Add row",
+    "removeRow": "Remove row",
+    "insertRowBelow": "Insert row below",
+    "addRowAtEnd": "Add row at the end",
+    "editHall": "Edit Hall",
+    "createHall": "Create Hall",
+    "hallName": "Hall name",
+    "VIP": "VIP",
+    "regular": "Regular",
+    "couples": "Couples",
+    "viewHallPlan": "View hall plan",
+    "editCinema": "Edit cinema",
+    "createCinema": "Create cinema",
+    "name": "Name",
+    "listOfCinemas": "List of cinemas"
 }

@@ -10,3 +10,12 @@ export interface GetCinemaDto {
         name: string;
     };
 }
+
+export interface CreateCinemaDto {
+    name: string;
+    city: string;
+}
+
+export interface UpdateCinemaDto extends CreateCinemaDto {
+    id: string;
+}

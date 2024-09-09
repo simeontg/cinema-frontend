@@ -9,6 +9,8 @@ import { Tab, Tabs } from 'shared/ui';
 
 import { ManageMovies } from './movies/ManageMovies';
 import { ManageSessions } from './sessions/ManageSessions';
+import { ManageCinemas } from './cinemas/ManageCinemas';
+import { ManageHalls } from './halls/ManageHalls';
 
 export const CreateEntitiesBlock: FC = () => {
     const [tabValue, setTabValue] = useState(0);
@@ -42,7 +44,9 @@ export const CreateEntitiesBlock: FC = () => {
                 ></Tab>
             </Tabs>
             {tabValue === 0 && <ManageMovies />}
+            {tabValue === 1 && <ManageCinemas />}
             {tabValue === 2 && <ManageSessions />}
+            {tabValue === 3 && <ManageHalls />}
         </div>
     );
 };

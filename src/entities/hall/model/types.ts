@@ -1,6 +1,6 @@
 import { Cinema } from 'entities/cinema/model/types';
 
-interface Seat {
+export interface Seat {
     id: string;
     seat_type: 'VIP' | 'couple' | 'regular';
     price: number;

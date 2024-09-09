@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 
 import { InputAdornment, TextField as MaterialTextField } from '@mui/material';
 
@@ -19,48 +19,56 @@ interface TextFieldProps {
     error?: boolean;
 }
 
-export const TextField: FC<TextFieldProps> = ({
-    icon,
-    label,
-    className,
-    required,
-    onChange,
-    onBlur,
-    name,
-    value,
-    type,
-    helperText,
-    error,
-    shrinkLabel,
-    multiline,
-    inputPadding,
-    ...props
-}) => {
-    return (
-        <MaterialTextField
-            InputLabelProps={{ shrink: shrinkLabel }}
-            InputProps={{
-                endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
-                sx: {
-                    '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-                        display: 'none'
-                    },
-                    padding: inputPadding
-                }
-            }}
-            {...props}
-            required={required}
-            size="small"
-            className={className}
-            label={label}
-            name={name}
-            value={value}
-            type={type}
-            helperText={helperText}
-            onChange={onChange}
-            onBlur={onBlur}
-            multiline={multiline}
-            error={error}
-        ></MaterialTextField>
-    );
-};
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+    (
+        {
+            icon,
+            label,
+            className,
+            required,
+            onChange,
+            onBlur,
+            name,
+            value,
+            type,
+            helperText,
+            error,
+            shrinkLabel,
+            multiline,
+            inputPadding,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <MaterialTextField
+                InputLabelProps={{ shrink: shrinkLabel }}
+                InputProps={{
+                    endAdornment: <InputAdornment position="end">{icon}</InputAdornment>,
+                    sx: {
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                            display: 'none'
+                        },
+                        padding: inputPadding
+                    }
+                }}
+                required={required}
+                size="small"
+                className={className}
+                label={label}
+                name={name}
+                value={value}
+                type={type}
+                helperText={helperText}
+                onChange={onChange}
+                onBlur={onBlur}
+                multiline={multiline}
+                error={error}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+
+TextField.displayName = 'TextField';

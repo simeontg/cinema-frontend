@@ -21,6 +21,12 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
     const { width } = useScreenSize();
     const visibleItemsCount = width < MOBILE_SCREEN_WIDTH ? 4 : 7;
 
+    useEffect(() => {
+        if (startIndex + visibleItemsCount > dates.length) {
+            setStartIndex(Math.max(0, dates.length - visibleItemsCount));
+        }
+    }, [width, dates.length, visibleItemsCount, startIndex]);
+
     const shiftLeft = () => {
         if (startIndex > 0) {
             setStartIndex(startIndex - 1);
@@ -34,7 +40,9 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
     };
 
     useEffect(() => {
-        setActiveDate(dates[0]);
+        if (dates.length > 0) {
+            setActiveDate(dates[0]);
+        }
     }, []);
 
     const onDateClick = (date: Date) => {
@@ -75,7 +83,7 @@ export const DatesNav: FC<DatesNavProps> = ({ dates, setActiveDate, activeDate }
                 className={clsx(
                     'cursor-pointer justify-self-end',
                     dates.length > visibleItemsCount ? '!block' : '!hidden',
-                    startIndex + visibleItemsCount === dates.length
+                    startIndex + visibleItemsCount >= dates.length
                         ? 'text-gray-400 pointer-events-none'
                         : 'hover:scale-125'
                 )}

@@ -1,5 +1,4 @@
-import { FC, ReactNode } from 'react';
-
+import { forwardRef, ReactNode } from 'react';
 import { Select as MaterialSelect, SelectChangeEvent } from '@mui/material';
 
 interface SelectProps {
@@ -11,14 +10,9 @@ interface SelectProps {
     label?: string;
 }
 
-export const Select: FC<SelectProps> = ({
-    value,
-    onBlur,
-    onChange,
-    className,
-    label,
-    children
-}) => {
+export const Select = forwardRef<HTMLSelectElement, SelectProps>((
+    { value, onBlur, onChange, className, label, children }, ref
+) => {
     return (
         <MaterialSelect
             value={value}
@@ -26,8 +20,11 @@ export const Select: FC<SelectProps> = ({
             onChange={onChange}
             className={className}
             label={label}
+            ref={ref}
         >
             {children}
         </MaterialSelect>
     );
-};
+});
+
+Select.displayName = 'Select';

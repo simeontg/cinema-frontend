@@ -6,7 +6,7 @@ import { useCreateReservationMutation } from 'entities/reservation/hooks/useCrea
 import { useGetSession } from 'entities/session/hooks/useGetSession';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useTimer from 'shared/hooks/useTimer';
-import { ErrorWrapper, LoadingSpinner } from 'shared/ui';
+import { Button, Dialog, ErrorWrapper, LoadingSpinner } from 'shared/ui';
 
 import { Seat } from '../types/seat';
 import { CountdownTimer } from './CountdownTimer';
@@ -14,11 +14,14 @@ import { HallDesign } from './HallDesign';
 import { OrderInformation } from './OrderInformation';
 import { ReservationExpiredDialog } from './ReservationExpiredDialog';
 
+const MAX_CHOSEN_SEATS = 7;
+
 export const BookSeatsBlock: FC = () => {
     const { t } = useTranslation('common');
     const { id: sessionId } = useParams();
     const { data: session, isError, isLoading } = useGetSession(sessionId!);
     const [chosenSeats, setChosenSeats] = useState<Seat[]>([]);
+    const [maximumSeatsExceeded, setMaximumSeatsExceeded] = useState(false);
     const [reservationExpirationDate, setReservationExpirationDate] = useState<Date | null>(null);
     const [reservationId, setReservationId] = useState('');
 
@@ -26,9 +29,19 @@ export const BookSeatsBlock: FC = () => {
         if (chosenSeats.includes(seat)) {
             setChosenSeats((prev) => prev.filter((p) => p !== seat));
         } else {
-            setChosenSeats((prev) => [...prev, seat]);
+            if (chosenSeats.length < MAX_CHOSEN_SEATS) {
+                setChosenSeats((prev) => [...prev, seat]);
+            } else {
+                setMaximumSeatsExceeded(true);
+            }
         }
     };
+
+    useEffect(() => {
+        if (chosenSeats.length === MAX_CHOSEN_SEATS) {
+            setMaximumSeatsExceeded(false);
+        }
+    }, [chosenSeats]);
 
     const { mutate: createReservation } = useCreateReservationMutation();
 
@@ -45,7 +58,7 @@ export const BookSeatsBlock: FC = () => {
                 }
             );
         }
-    }, [session]);
+    }, [sessionId, session]);
 
     const secondsRemaining = useTimer({ date: reservationExpirationDate });
 
@@ -83,6 +96,20 @@ export const BookSeatsBlock: FC = () => {
                     />
                 </div>
             </div>
+            <Dialog open={maximumSeatsExceeded} onClose={() => setMaximumSeatsExceeded(false)}>
+                <div className="font-effra p-32 flex justify-center flex-col items-center">
+                    <h1 className="text-center text-2xl">
+                        {t('maxSeatsSelected')} {MAX_CHOSEN_SEATS}!
+                    </h1>
+                    <Button
+                        variant="outlined"
+                        className="!border-2 hover:!border-[#6e3996] !p-6 !mt-6 !w-[220px] !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !rounded-full !h-[50px] !text-lg"
+                        onClick={() => setMaximumSeatsExceeded(false)}
+                    >
+                        {t('back')}
+                    </Button>
+                </div>
+            </Dialog>
         </ErrorWrapper>
     );
 };

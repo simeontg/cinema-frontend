@@ -3,6 +3,7 @@ import { FC } from 'react';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 
 import { useTranslation } from 'shared/hooks/i18nHook';
+import { Skeleton } from 'shared/ui';
 import { transformSecondsToMinutes } from 'shared/utils/transformSecondsToMinutes';
 
 interface CountdownTimerProps {
@@ -23,6 +24,10 @@ export const CountdownTimer: FC<CountdownTimerProps> = ({ seconds }) => {
             </div>
         );
     }
-
-    return null;
+    return (
+        <div className="bg-gray-100 border-2 p-4 rounded-lg text-gray-500 flex gap-4 items-center justify-center text-lg">
+            <ScheduleIcon className="text-xl md:!text-4xl" />
+            <Skeleton variant='rectangular' height={35} width={40}/>
+        </div>
+    );
 };

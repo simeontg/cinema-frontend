@@ -7,8 +7,6 @@ import { getPaginatedMovies } from '../../api';
 import { Movie } from '../../model/types';
 import { FilterParams, MovieReleaseType } from './types';
 
-const STALE_TIME = 10 * (60 * 1000); // 10 minutes
-
 export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>(
     releaseType: MovieReleaseType,
     limit: number,
@@ -30,7 +28,6 @@ export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>
                 return currentPage < totalPages ? currentPage + 1 : undefined;
             },
             initialPageParam: 1,
-            staleTime: STALE_TIME
         });
 
     return {

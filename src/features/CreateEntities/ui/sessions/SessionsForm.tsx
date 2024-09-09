@@ -105,13 +105,6 @@ export const SessionsForm: FC<SessionProps> = ({
         }
     }, [selectedSession]);
 
-    useEffect(() => {
-        if (!open) {
-            reset(defaultValues, { keepErrors: false });
-            setMutationError('');
-        }
-    }, [open]);
-
     if (isCreateSessionPending || isUpdateSessionPending) {
         return (
             <Dialog onClose={onClose} open={open}>
@@ -127,7 +120,10 @@ export const SessionsForm: FC<SessionProps> = ({
         <Dialog
             fullScreen={width < MOBILE_SCREEN_WIDTH}
             afterClose={afterClose}
-            onClose={onClose}
+            onClose={() => {
+                onClose();
+                setMutationError('');
+            }}
             open={open}
         >
             {mutationError && (
@@ -232,6 +228,10 @@ export const SessionsForm: FC<SessionProps> = ({
                             <Controller
                                 key={seatType}
                                 control={control}
+                                rules={{
+                                    min: { value: 1, message: 'Price must be at least 1' },
+                                    required: { value: true, message: `${seatType} price is required`}
+                                }}
                                 name={`seatPrices.${seatType}` as `seatPrices.${string}`} // Type assertion
                                 render={({
                                     field: { onChange, onBlur, value },
@@ -300,7 +300,10 @@ export const SessionsForm: FC<SessionProps> = ({
                         <Button
                             variant="outlined"
                             className="!border-2 hover:!border-[#6e3996] sm:!w-96 !p-2 sm:!mr-2 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
-                            onClick={onClose}
+                            onClick={() => {
+                                onClose();
+                                setMutationError('');
+                            }}
                         >
                             {t('cancel')}
                         </Button>

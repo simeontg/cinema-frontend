@@ -61,7 +61,13 @@ export const RegisterForm: FC<RegisterFormProps> = ({ setTabValue }) => {
         } else {
             setIsPasswordMismatch(false);
             signUp(
-                { email, password, firstName, lastName, phoneNumber },
+                {
+                    email: email.trim(),
+                    password,
+                    firstName: firstName.trim(),
+                    lastName: lastName.trim(),
+                    phoneNumber
+                },
                 {
                     onSuccess: () => {
                         setResetForm(true);

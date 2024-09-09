@@ -7,7 +7,7 @@ interface DialogProps {
     children: ReactNode;
     fullScreen?: boolean;
     className?: string;
-    onClose: () => void;
+    onClose?: () => void;
     afterClose?: () => void;
 }
 

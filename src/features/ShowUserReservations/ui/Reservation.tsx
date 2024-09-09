@@ -7,7 +7,7 @@ import { useTranslation } from 'shared/hooks/i18nHook';
 import { Accordion, AccordionSummary } from 'shared/ui';
 import { mapMonthToLetter } from 'shared/utils/dateUtils';
 
-import { Seat } from './types/seat';
+import { Seat } from '../types/seat';
 
 interface ReservationProps {
     reservationDate: Date;

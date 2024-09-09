@@ -2,9 +2,10 @@ import { FC } from 'react';
 
 import { useGetUserReservations } from 'entities/reservation/hooks/useGetUserReservations';
 import { useTranslation } from 'shared/hooks/i18nHook';
-import { ErrorWrapper, LoadingSpinner } from 'shared/ui';
+import { ErrorWrapper } from 'shared/ui';
 
 import { Reservation } from './Reservation';
+import { ReservationsListSkeleton } from './skeleton/ReservationListSkeleton';
 
 interface ReservationList {
     fetchExpired: boolean;
@@ -15,7 +16,7 @@ export const ReservationsList: FC<ReservationList> = ({ fetchExpired }) => {
     const { data: reservations, isLoading, isError } = useGetUserReservations(fetchExpired);
 
     if (isLoading) {
-        return <LoadingSpinner />;
+        return <ReservationsListSkeleton />;
     }
 
     return (

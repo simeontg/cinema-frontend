@@ -21,4 +21,5 @@ export interface Movie {
     releaseDate: Date;
     trended: boolean;
     sessions: Session[];
+    hasSessions: boolean;
 }
