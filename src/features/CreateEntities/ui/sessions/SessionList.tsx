@@ -28,7 +28,7 @@ export const SessionList: FC<SessionListProps> = ({ movieId, onEditClick }) => {
                 queryClient.invalidateQueries({ queryKey: ['sessions', movieId] });
             },
             onError: () => {
-                setMutationError('This session is part of reservation an cannot be deleted');
+                setMutationError(t('sessionPartOfReservationCannotBeDeleted'));
             }
         });
     };

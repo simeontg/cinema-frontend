@@ -89,7 +89,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
     }
 
     if (!transformedData) {
-        return <LoadingSpinner />
+        return <LoadingSpinner />;
     }
 
     return (

@@ -7,7 +7,7 @@ interface CoupleSeatIconProps {
 
 export const CoupleSeatIcon: FC<CoupleSeatIconProps> = ({ color, px }) => {
     return (
-        <div style={{width: px, height: px}}>
+        <div style={{ width: px, height: px }}>
             <svg
                 version="1.1"
                 stroke="black"

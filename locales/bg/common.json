@@ -139,5 +139,13 @@
     "editCinema": "Редактирай кино",
     "createCinema": "Създай кино",
     "name": "Име",
-    "listOfCinemas": "Списък с кина"
+    "listOfCinemas": "Списък с кина",
+    "cinemaPartOfReservationCannotBeDeleted": "Това кино е част от резервация и не може да бъде изтрито.",
+    "hallPartOfReservationCannotBeDeleted": "Този салон е част от резервация и не може да бъде изтрит.",
+    "sessionPartOfReservationCannotBeDeleted": "Тази прожекция е част от резервация и не може да бъде изтрита.",
+    "minMovieLengthError": "Филмът трябва да е с продължителност поне 60 минути.",
+    "maxMovieLengthError": "Филмът не може да е с продължителност по-дълга от 300 минути.",
+    "minPriceError": "Цената трябва да е поне 1.",
+    "seatPrice": "място цена",
+    "documentTitle": "Кина"
 }

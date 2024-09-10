@@ -32,8 +32,8 @@ export const getMovie = async (id: string): Promise<GetMovieDto> => {
 export const createMovie = async (formData: FormData) => {
     const response = await $api.post('/movies', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+            'Content-Type': 'multipart/form-data'
+        }
     });
     return response.data;
 };
@@ -41,8 +41,8 @@ export const createMovie = async (formData: FormData) => {
 export const updateMovie = async (movieId: string, formData: FormData) => {
     const response = await $api.put(`/movies/${movieId}`, formData, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+            'Content-Type': 'multipart/form-data'
+        }
     });
     return response.data;
 };
@@ -50,4 +50,4 @@ export const updateMovie = async (movieId: string, formData: FormData) => {
 export const deleteMovie = async (movieId: string) => {
     const response = await $api.delete(`/movies/${movieId}`);
     return response.data;
-}
+};

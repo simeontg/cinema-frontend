@@ -19,7 +19,6 @@ export interface UpdateHallDto extends CreateHallDto {
     id: string;
 }
 
-
 export interface Seat {
     seatType: string;
     seatCount: number;

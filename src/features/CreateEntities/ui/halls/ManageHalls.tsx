@@ -5,8 +5,8 @@ import { useTranslation } from 'shared/hooks/i18nHook';
 import { Button, ErrorWrapper, LoadingSpinner } from 'shared/ui';
 
 import { HallCard } from './HallCard';
-import { SelectedHall } from './types';
 import { HallsForm } from './HallsForm';
+import { SelectedHall } from './types';
 
 export const ManageHalls: FC = () => {
     const { t } = useTranslation('common');

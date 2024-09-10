@@ -73,7 +73,7 @@ export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id
                     </div>
                 )}
                 <div className="flex flex-col gap-4 p-16">
-                    <h1 className='text-center'>
+                    <h1 className="text-center">
                         {t('proceedWithDeleting')} <span className="font-bold">{title}</span>?
                     </h1>
                     <div className="flex gap-12 justify-center">

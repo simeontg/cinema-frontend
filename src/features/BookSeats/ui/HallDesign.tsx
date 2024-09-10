@@ -57,10 +57,7 @@ export const HallDesign: FC<HallDesignProps> = ({
     return (
         <ErrorWrapper isError={isError}>
             <div className="w-full lg:w-2/3 flex-grow-0 flex-shrink-0 overflow-auto h-[700px]">
-                <TransformWrapper
-                    initialScale={1}
-                    disabled={true}
-                >
+                <TransformWrapper initialScale={1} disabled={true}>
                     <TransformComponent>
                         <div className="w-full">
                             <img

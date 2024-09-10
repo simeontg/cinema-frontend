@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
+import { NetworkError } from 'shared/types/network';
+
 import { createMovie } from '../api';
 import { CreateMovieData } from '../api/types';
-import { NetworkError } from 'shared/types/network';
 import { Movie } from '../model/types';
 
 export const useCreateMovieMutation = () => {

@@ -25,4 +25,4 @@ export const updateSession = async (sessionData: UpdateSessionDto) => {
 export const deleteSession = async (sessionId: string) => {
     const response = await $api.delete(`/session/${sessionId}`);
     return response.data;
-}
+};

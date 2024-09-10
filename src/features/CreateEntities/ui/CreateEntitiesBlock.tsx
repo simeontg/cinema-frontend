@@ -7,10 +7,10 @@ import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
 import { Tab, Tabs } from 'shared/ui';
 
-import { ManageMovies } from './movies/ManageMovies';
-import { ManageSessions } from './sessions/ManageSessions';
 import { ManageCinemas } from './cinemas/ManageCinemas';
 import { ManageHalls } from './halls/ManageHalls';
+import { ManageMovies } from './movies/ManageMovies';
+import { ManageSessions } from './sessions/ManageSessions';
 
 export const CreateEntitiesBlock: FC = () => {
     const [tabValue, setTabValue] = useState(0);

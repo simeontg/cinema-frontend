@@ -88,7 +88,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
         if (selectedHall) {
             setValue('hallName', selectedHall.hall_name);
             setValue('cinemaId', selectedHall.cinema.id);
-            console.log(selectedHall)
+            console.log(selectedHall);
             if (hallPlan) {
                 const transformedPlan = Object.entries(hallPlan).map(([row, seats]) => ({
                     rowIndex: Number(row),
@@ -116,22 +116,24 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
 
     const handleRemoveSeat = (rowIndex: number, seatIndex: number) => {
         const currentSeats = rowFields[rowIndex]?.seats || [];
-        const updatedSeats = currentSeats.filter((_: unknown, index: number) => index !== seatIndex);
+        const updatedSeats = currentSeats.filter(
+            (_: unknown, index: number) => index !== seatIndex
+        );
         updateRow(rowIndex, { ...rowFields[rowIndex], seats: updatedSeats });
     };
 
     const handleAddRow = (index: number) => {
-        const newRow: Row = { 
+        const newRow: Row = {
             rowIndex: index,
-            seats: [{ seatType: 'regular', seatCount: 1 }] 
+            seats: [{ seatType: 'regular', seatCount: 1 }]
         };
-        
+
         if (index < rowFields.length) {
             insertRow(index, newRow);
         } else {
             appendRow(newRow);
         }
-    };    
+    };
 
     const handleRemoveRow = (rowIndex: number) => {
         removeRow(rowIndex);

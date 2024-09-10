@@ -229,8 +229,11 @@ export const SessionsForm: FC<SessionProps> = ({
                                 key={seatType}
                                 control={control}
                                 rules={{
-                                    min: { value: 1, message: 'Price must be at least 1' },
-                                    required: { value: true, message: `${seatType} price is required`}
+                                    min: { value: 1, message: t('minPriceError') },
+                                    required: {
+                                        value: true,
+                                        message: `${seatType} price is required`
+                                    }
                                 }}
                                 name={`seatPrices.${seatType}` as `seatPrices.${string}`} // Type assertion
                                 render={({
@@ -239,12 +242,11 @@ export const SessionsForm: FC<SessionProps> = ({
                                 }) => (
                                     <div className="w-full">
                                         <InputLabel>
-                                            <p className="text-xs ml-3">{seatType} seat price</p>
+                                            <p className="text-xs ml-3">{seatType} {t('seatPrice')}</p>
                                         </InputLabel>
                                         <TextField
                                             type="number"
                                             className="w-full"
-                                            label={t(seatType)}
                                             onChange={onChange}
                                             icon={<AttachMoneyOutlinedIcon />}
                                             onBlur={onBlur}

@@ -27,7 +27,7 @@ export const useGetPaginatedMovies = <ReturnData = PaginatedModel<Movie> | null>
                 const { currentPage, totalPages } = lastPage.meta;
                 return currentPage < totalPages ? currentPage + 1 : undefined;
             },
-            initialPageParam: 1,
+            initialPageParam: 1
         });
 
     return {

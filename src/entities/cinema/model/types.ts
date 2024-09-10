@@ -1,4 +1,4 @@
-import { Hall } from "entities/hall/model/types";
+import { Hall } from 'entities/hall/model/types';
 
 export interface Cinema {
     id: string;
@@ -11,5 +11,5 @@ export interface Cinema {
         updatedAt: string;
         name: string;
     };
-    halls: Hall[]
+    halls: Hall[];
 }

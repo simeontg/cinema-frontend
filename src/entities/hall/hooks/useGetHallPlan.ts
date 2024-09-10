@@ -26,6 +26,6 @@ export const useGetHallPlan = <ReturnData = HallPlan>(
         data: (data ? data : null) as ReturnData,
         isLoading: isFetching,
         isError,
-        isSuccess,
+        isSuccess
     };
 };

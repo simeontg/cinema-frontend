@@ -29,7 +29,7 @@ export const CinemaCard: FC<CinemaCardProps> = ({ name, city, id, onEditClick })
                 setShowDeleteDialog(false);
             },
             onError: () => {
-                setMutationError('This cinema is part of reservation an cannot be deleted');
+                setMutationError(t('cinemaPartOfReservationCannotBeDeleted'));
             }
         });
     };

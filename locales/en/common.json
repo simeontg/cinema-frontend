@@ -139,5 +139,13 @@
     "editCinema": "Edit cinema",
     "createCinema": "Create cinema",
     "name": "Name",
-    "listOfCinemas": "List of cinemas"
+    "listOfCinemas": "List of cinemas",
+    "cinemaPartOfReservationCannotBeDeleted": "This cinema is part of reservation and cannot be deleted.",
+    "hallPartOfReservationCannotBeDeleted": "This hall is part of reservation and cannot be deleted.",
+    "sessionPartOfReservationCannotBeDeleted": "This session is part of reservation and cannot be deleted.",
+    "minMovieLengthError": "Movie must be with length of at least 60 minutes.",
+    "maxMovieLengthError": "Movie must be with length of at maximum 300 minutes.",
+    "minPriceError": "Price must be at least 1.",
+    "seatPrice": "seat price",
+    "documentTitle": "Cinemas"
 }

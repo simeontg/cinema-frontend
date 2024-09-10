@@ -4,7 +4,7 @@ export interface SelectedHall {
     cinema: {
         id: string;
     };
-    hallPlan: HallPlan
+    hallPlan: HallPlan;
 }
 
 export interface FormFields {

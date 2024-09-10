@@ -3,15 +3,15 @@ import { FC, useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+import { UpdateCinemaDto } from 'entities/cinema/api/types';
 import { useCreateCinemaMutation } from 'entities/cinema/hooks/useCreateCinema';
+import { useUpdateCinemaMitation } from 'entities/cinema/hooks/useUpdateCinema';
 import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
 import { Alert, Button, Dialog, LoadingSpinner, TextField } from 'shared/ui';
 
 import { FormFields, SelectedCinema } from './types';
-import { useUpdateCinemaMitation } from 'entities/cinema/hooks/useUpdateCinema';
-import { UpdateCinemaDto } from 'entities/cinema/api/types';
 
 interface MoviesFormProps {
     open: boolean;

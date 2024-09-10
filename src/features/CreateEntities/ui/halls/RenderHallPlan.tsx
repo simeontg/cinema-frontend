@@ -18,7 +18,7 @@ export const RenderHallPlan: FC<RenderHallPlanProps> = ({ onClose, open, name, i
     const { width } = useScreenSize();
     const { t } = useTranslation('common');
     const { data: hallPlan, isLoading } = useGetHallPlan(id, undefined, open);
-    console.log('renderhallplan')
+    console.log('renderhallplan');
     if (isLoading) {
         return (
             <Dialog open={true} fullScreen={true}>

@@ -31,7 +31,7 @@ export const HallCard: FC<HallCardProps> = ({ name, cinema, id, onEditClick }) =
                 setShowDeleteDialog(false);
             },
             onError: () => {
-                setMutationError('This hall is already used in reservation.');
+                setMutationError(t('hallPartOfReservationCannotBeDeleted'));
             }
         });
     };
@@ -91,12 +91,14 @@ export const HallCard: FC<HallCardProps> = ({ name, cinema, id, onEditClick }) =
                     </div>
                 </div>
             </Dialog>
-            {showHallPlanDialog && <RenderHallPlan
-                open={showHallPlanDialog}
-                onClose={() => setShowHallPlanDialog(false)}
-                id={id}
-                name={name}
-            />}
+            {showHallPlanDialog && (
+                <RenderHallPlan
+                    open={showHallPlanDialog}
+                    onClose={() => setShowHallPlanDialog(false)}
+                    id={id}
+                    name={name}
+                />
+            )}
         </div>
     );
 };

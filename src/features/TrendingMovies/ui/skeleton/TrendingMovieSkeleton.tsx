@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { Skeleton } from 'shared/ui';
 
 export const TrendingMoviesSkeleton: FC = () => {
@@ -27,12 +28,8 @@ export const TrendingMoviesSkeleton: FC = () => {
                         className="!p-6 !mt-6 !pointer-events-auto !rounded-full"
                     />
                 </div>
-                <div
-                    className="block absolute p4 left-5 h-7 w-7 top-1/2"
-                ></div>
-                <div
-                    className="block absolute p4 right-5 h-7 w-7 top-1/2"
-                ></div>
+                <div className="block absolute p4 left-5 h-7 w-7 top-1/2"></div>
+                <div className="block absolute p4 right-5 h-7 w-7 top-1/2"></div>
                 <div className="mt-20 ml-24 flex gap-14 overflow-hidden max-w-[1350px] items-center justify-center">
                     {Array(6)
                         .fill(0)

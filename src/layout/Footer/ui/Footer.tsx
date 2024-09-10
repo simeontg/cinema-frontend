@@ -10,7 +10,7 @@ export const Footer: FC = () => {
     const { t } = useTranslation('common');
     return (
         <div className="shrink-0 w-full bg-zinc-900 font-effra flex flex-col text-white">
-            <div className='flex pb-8'>
+            <div className="flex pb-8">
                 <div className="pt-14 pl-6 sm:pl-28">
                     <h1 className="text-sm sm:text-lg font-bold mb-2">{t('aboutTheDeveloper')}</h1>
                     <p>Simeon Georgiev</p>
@@ -29,7 +29,7 @@ export const Footer: FC = () => {
                     </div>
                 </div>
             </div>
-                <p className='text-center'>&copy; 2024</p>
+            <p className="text-center">&copy; 2024</p>
         </div>
     );
 };

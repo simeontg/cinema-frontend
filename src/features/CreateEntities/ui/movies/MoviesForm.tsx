@@ -6,10 +6,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useCreateMovieMutation } from 'entities/movie/hooks/useCreateMovieMutation';
 import { useUpdateMovieMutation } from 'entities/movie/hooks/useUpdateMovieMutation';
+import { Movie } from 'entities/movie/model/types';
 import { MOVIE_GENRES } from 'shared/constants/movieGenres';
 import { MAX_IMAGE_SIZE, MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
+import { NetworkError } from 'shared/types/network';
 import {
     Alert,
     Button,
@@ -22,8 +24,6 @@ import {
 } from 'shared/ui';
 
 import { CreateFormFields, SelectedMovie, UpdateFormFields } from './types';
-import { NetworkError } from 'shared/types/network';
-import { Movie } from 'entities/movie/model/types';
 
 interface MoviesFormProps {
     open: boolean;
@@ -62,7 +62,7 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         setMutationError: (error: string) => void
     ) => ({
         onSuccess: (movie: Movie) => {
-            console.log(movie)
+            console.log(movie);
             queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
             queryClient.invalidateQueries({ queryKey: ['trending'] });
             queryClient.invalidateQueries({ queryKey: ['movie', movie.id] });
@@ -209,11 +209,11 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
                             required: { value: true, message: t('durationRequired') },
                             min: {
                                 value: 60,
-                                message: 'Movie must be with length at least 60 minutes'
+                                message: t('minMovieLengthError')
                             },
                             max: {
                                 value: 300,
-                                message: 'Movie must be with length at most 300 minutes'
+                                message: t('maxMovieLengthError')
                             }
                         }}
                         render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (

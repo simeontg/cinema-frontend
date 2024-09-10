@@ -27,7 +27,7 @@ export const CountdownTimer: FC<CountdownTimerProps> = ({ seconds }) => {
     return (
         <div className="bg-gray-100 border-2 p-4 rounded-lg text-gray-500 flex gap-4 items-center justify-center text-lg">
             <ScheduleIcon className="text-xl md:!text-4xl" />
-            <Skeleton variant='rectangular' height={35} width={40}/>
+            <Skeleton variant="rectangular" height={35} width={40} />
         </div>
     );
 };
