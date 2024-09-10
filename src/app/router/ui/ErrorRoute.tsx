@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import { useTranslation } from 'shared/hooks/i18nHook';
 
@@ -12,15 +12,33 @@ export const ErrorRoute: FC = () => {
     return (
         <div>
             {notFoundPageError ? (
-                <>
-                    <h1>{t('notFoundPageTitle')}</h1>
-                    <p>{t('notFoundPageDescription')}</p>
-                </>
+                <div className="flex items-center justify-center h-screen bg-gray-100">
+                    <div className="text-center">
+                        <h1 className="text-9xl font-bold text-gray-800">404</h1>
+                        <p className="text-xl text-gray-600 mt-4">{t('notFoundPageTitle')}</p>
+                        <p className="text-lg text-gray-500 mt-2">
+                            {t('returnToThe')}{' '}
+                            <Link to="/" className="text-blue-500 hover:underline">
+                                {t('homepage')}
+                            </Link>
+                            .
+                        </p>
+                    </div>
+                </div>
             ) : (
-                <>
-                    <h1>{t('errorPageTitle')}</h1>
-                    <p>{t('errorPageDescription')}</p>
-                </>
+                <div className="flex items-center justify-center h-screen bg-gray-100">
+                    <div className="text-center">
+                        <h1 className="text-9xl font-bold text-gray-800">{t('errorPageTitle')}</h1>
+                        <p className="text-xl text-gray-600 mt-4">{t('errorPageDescription')}</p>
+                        <p className="text-lg text-gray-500 mt-2">
+                            {t('returnToThe')}{' '}
+                            <Link to="/" className="text-blue-500 hover:underline">
+                                {t('homepage')}
+                            </Link>
+                            .
+                        </p>
+                    </div>
+                </div>
             )}
         </div>
     );

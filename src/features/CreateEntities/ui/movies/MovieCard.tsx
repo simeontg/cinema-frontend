@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useDeleteMovieMutation } from 'entities/movie/hooks/useDeleteMovieMutation';
 import { useTranslation } from 'shared/hooks/i18nHook';
-import { Dialog } from 'shared/ui';
+import { Alert, Dialog } from 'shared/ui';
 
 interface MovieCardProps {
     title: string;
@@ -16,6 +16,7 @@ interface MovieCardProps {
 
 export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id }) => {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const [mutationError, setMutationError] = useState('');
 
     const queryClient = useQueryClient();
     const { mutate: deleteMovieMutation } = useDeleteMovieMutation();
@@ -26,6 +27,9 @@ export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id
             onSuccess: () => {
                 queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
                 setShowDeleteDialog(false);
+            },
+            onError: () => {
+                setMutationError('This movie is part of reservation an cannot be deleted');
             }
         });
     };
@@ -54,9 +58,22 @@ export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id
                     {t('delete')}
                 </Button>
             </div>
-            <Dialog onClose={() => setShowDeleteDialog(false)} open={showDeleteDialog}>
-                <div className="flex flex-col gap-4 p-24">
-                    <h1>
+            <Dialog
+                onClose={() => {
+                    setShowDeleteDialog(false);
+                    setMutationError('');
+                }}
+                open={showDeleteDialog}
+            >
+                {mutationError && (
+                    <div className="flex justify-center mt-6">
+                        <Alert className="max-w-[250px] text-center" severity="error">
+                            {mutationError}
+                        </Alert>
+                    </div>
+                )}
+                <div className="flex flex-col gap-4 p-16">
+                    <h1 className="text-center">
                         {t('proceedWithDeleting')} <span className="font-bold">{title}</span>?
                     </h1>
                     <div className="flex gap-12 justify-center">

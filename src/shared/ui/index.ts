@@ -20,3 +20,4 @@ export { AccordionSummary } from './AccordionSummary/AccordionSummary';
 export { AccordionDetails } from './AccordionDetails/AccordionDetails';
 export { Select } from './Select/Select';
 export { Checkbox } from './Checkbox/Checkbox';
+export { Skeleton } from './Skeleton/Skeleton';

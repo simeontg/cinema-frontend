@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -17,6 +17,7 @@ interface SessionListProps {
 
 export const SessionList: FC<SessionListProps> = ({ movieId, onEditClick }) => {
     const queryClient = useQueryClient();
+    const [mutationError, setMutationError] = useState('');
     const { data: sessions, isLoading, isError } = useGetSessions(movieId);
     const { mutate: deleteSession } = useDeleteSession();
     const { t } = useTranslation('common');
@@ -25,6 +26,9 @@ export const SessionList: FC<SessionListProps> = ({ movieId, onEditClick }) => {
         deleteSession(sessionId, {
             onSuccess: () => {
                 queryClient.invalidateQueries({ queryKey: ['sessions', movieId] });
+            },
+            onError: () => {
+                setMutationError(t('sessionPartOfReservationCannotBeDeleted'));
             }
         });
     };
@@ -52,6 +56,7 @@ export const SessionList: FC<SessionListProps> = ({ movieId, onEditClick }) => {
                         cinemaName={session.cinema.name}
                         hallName={session.hall.hall_name}
                         date={session.date}
+                        errorMessage={mutationError}
                         time={session.startTime}
                     />
                 ))}

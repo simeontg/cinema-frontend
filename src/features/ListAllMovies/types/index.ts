@@ -11,4 +11,5 @@ export interface SelectedMovie {
     imageUrl: string;
     id: string;
     rowIndex: number | null;
+    hasSessions: boolean;
 }

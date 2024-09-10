@@ -9,7 +9,9 @@ export const RootRoute: FC = () => {
     return (
         <>
             <Header />
-            <Outlet />
+            <div className="flex-grow">
+                <Outlet />
+            </div>
             <Footer />
         </>
     );

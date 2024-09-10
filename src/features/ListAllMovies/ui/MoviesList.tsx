@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
@@ -31,11 +31,13 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         genre: ''
     });
 
-    const { data, hasNextPage, fetchNextPage, isError, isFetchingNextPage } = useGetPaginatedMovies(
-        type,
-        limit,
-        filters
-    );
+    const {
+        data: movies,
+        hasNextPage,
+        fetchNextPage,
+        isError,
+        isFetchingNextPage
+    } = useGetPaginatedMovies(type, limit, filters);
 
     const [selectedMovie, setSelectedMovie] = useState<SelectedMovie>({
         description: '',
@@ -44,8 +46,22 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         genre: '',
         duration: 0,
         imageUrl: '',
-        id: ''
+        id: '',
+        hasSessions: false
     });
+
+    useEffect(() => {
+        setSelectedMovie({
+            description: '',
+            title: '',
+            rowIndex: null,
+            genre: '',
+            duration: 0,
+            imageUrl: '',
+            id: '',
+            hasSessions: false
+        });
+    }, [filters]);
 
     const handleCloseMovieDetails = () => {
         setSelectedMovie({
@@ -55,14 +71,15 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
             genre: '',
             duration: 0,
             imageUrl: '',
-            id: ''
+            id: '',
+            hasSessions: false
         });
     };
 
     const screenSize = useScreenSize();
     const navigate = useNavigate();
 
-    const transformedData = useGetTransformedData(data);
+    const transformedData = useGetTransformedData(movies);
 
     let emptyMoviesToAdd = 0;
 
@@ -71,10 +88,14 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
             transformedData[0].length - transformedData[transformedData.length - 1].length;
     }
 
+    if (!transformedData) {
+        return <LoadingSpinner />;
+    }
+
     return (
         <ErrorWrapper isError={isError}>
             <div className="max-w-[1400px] pl-10 pr-10">
-                <MovieFilters data={data} setFilters={setFilters} />
+                <MovieFilters data={movies} setFilters={setFilters} />
                 {transformedData?.map((row, idx) => (
                     <Fragment key={idx}>
                         <div className="flex gap-8 mt-5">
@@ -105,6 +126,7 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
                         <MovieDetails
                             isVisible={selectedMovie?.rowIndex === idx}
                             title={selectedMovie?.title}
+                            showBookNow={selectedMovie?.hasSessions}
                             description={selectedMovie?.description}
                             genre={selectedMovie?.genre}
                             id={selectedMovie?.id}

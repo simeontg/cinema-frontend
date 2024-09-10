@@ -5,7 +5,9 @@ import { QueryHookReturnData } from 'shared/types/hook';
 import { getSessions } from '../api';
 import { Session } from '../model/types';
 
-export const useGetSessions = <ReturnData = Session[]>(movieId?: string): QueryHookReturnData<ReturnData> => {
+export const useGetSessions = <ReturnData = Session[]>(
+    movieId?: string
+): QueryHookReturnData<ReturnData> => {
     const { data, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['sessions', movieId],
         queryFn: async () => {

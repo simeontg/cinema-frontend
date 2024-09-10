@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { type Callback, type TFunction } from 'i18next';
 import { useTranslation as useTranslationLib } from 'react-i18next';
@@ -13,6 +13,10 @@ export const useTranslation = (nameSpace: string | string[] = 'common'): UseTran
     const { t, i18n } = useTranslationLib(nameSpace);
 
     const currentLanguage = i18n.language;
+    
+    useEffect(() => {
+        document.title = t('documentTitle');
+    }, [t, currentLanguage]);
 
     const tFunc = useCallback(
         (key: string, ns?: string) => {

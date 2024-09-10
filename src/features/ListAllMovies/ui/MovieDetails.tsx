@@ -19,6 +19,7 @@ interface MovieDetailsProps {
     duration: number;
     genre: string;
     isVisible: boolean;
+    showBookNow: boolean;
     onClose: MouseEventHandler;
 }
 
@@ -29,6 +30,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
     imageUrl,
     duration,
     id,
+    showBookNow,
     isVisible,
     onClose
 }) => {
@@ -48,18 +50,22 @@ export const MovieDetails: FC<MovieDetailsProps> = ({
                         <p>{transformMinutesToHours(duration)}</p>
                     </div>
                     <p className="w-3/4 text-sm">{description}</p>
-                    <Link to={generateMovieRoute(id)}>
-                        <Button
-                            className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
-                            style={{
-                                background:
-                                    'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
-                            }}
-                            type="submit"
-                        >
-                            {t('bookNow')}
-                        </Button>
-                    </Link>
+                    {showBookNow ? (
+                        <Link to={generateMovieRoute(id)}>
+                            <Button
+                                className="!p-6 !mt-6 !w-[220px] !pointer-events-auto !rounded-full !h-[50px] !text-lg !text-white"
+                                style={{
+                                    background:
+                                        'linear-gradient(135deg, #552879 0%, #311758 25%, #170a3f 100%)'
+                                }}
+                                type="submit"
+                            >
+                                {t('bookNow')}
+                            </Button>
+                        </Link>
+                    ) : (
+                        <div className="my-20"></div>
+                    )}
                 </div>
                 <div
                     className="w-full"

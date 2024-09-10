@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { QueryHookReturnData } from 'shared/types/hook';
-import { Cinema } from '../model/types';
+
 import { getCinemas } from '../api';
+import { Cinema } from '../model/types';
 
 const STALE_TIME = 10 * (60 * 1000); // 10 minutes
 

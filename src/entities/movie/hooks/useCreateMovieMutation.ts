@@ -1,10 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 
+import { NetworkError } from 'shared/types/network';
+
 import { createMovie } from '../api';
 import { CreateMovieData } from '../api/types';
+import { Movie } from '../model/types';
 
 export const useCreateMovieMutation = () => {
-    return useMutation({
+    return useMutation<Movie, NetworkError, CreateMovieData>({
         mutationFn: (movieData: CreateMovieData) => {
             const formData = new FormData();
             formData.append('title', movieData.title);

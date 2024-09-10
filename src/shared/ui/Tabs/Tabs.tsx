@@ -7,13 +7,26 @@ interface TabsProps {
     value: number;
     className?: string;
     onChange?: () => void;
-    orientation?: 'horizontal' | 'vertical'
+    orientation?: 'horizontal' | 'vertical';
     centered?: boolean;
 }
 
-export const Tabs: FC<TabsProps> = ({ children, value, className, onChange, centered, orientation }) => {
+export const Tabs: FC<TabsProps> = ({
+    children,
+    value,
+    className,
+    onChange,
+    centered,
+    orientation
+}) => {
     return (
-        <MaterialTabs orientation={orientation} centered={centered} onChange={onChange} className={className} value={value}>
+        <MaterialTabs
+            orientation={orientation}
+            centered={centered}
+            onChange={onChange}
+            className={className}
+            value={value}
+        >
             {children}
         </MaterialTabs>
     );

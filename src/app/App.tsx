@@ -16,7 +16,7 @@ export const App = () => {
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
                 <ThemeProvider theme={theme}>
-                    <div className="app">
+                    <div className="app flex flex-col min-h-screen">
                         <RouterProvider router={router} />
                     </div>
                 </ThemeProvider>

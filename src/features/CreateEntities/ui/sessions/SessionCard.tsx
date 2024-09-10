@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 
 import { useTranslation } from 'shared/hooks/i18nHook';
-import { Button, Dialog } from 'shared/ui';
+import { Alert, Button, Dialog } from 'shared/ui';
 
 interface SessionCardProps {
     time: string;
@@ -9,6 +9,7 @@ interface SessionCardProps {
     hallName: string;
     cinemaName: string;
     movieTitle: string;
+    errorMessage: string;
     onEditClick?: () => void;
     onDelete: () => void;
 }
@@ -19,6 +20,7 @@ export const SessionCard: FC<SessionCardProps> = ({
     hallName,
     cinemaName,
     movieTitle,
+    errorMessage,
     onEditClick,
     onDelete
 }) => {
@@ -26,7 +28,7 @@ export const SessionCard: FC<SessionCardProps> = ({
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
     return (
-        <div className="flex flex-col p-16 gap-2 mt-6 border-2">
+        <div className="flex flex-col items-center p-16 gap-2 mt-6 border-2">
             <h1 className="text-center">{movieTitle}</h1>
             <p className="text-center">
                 {date}, {time}
@@ -49,6 +51,13 @@ export const SessionCard: FC<SessionCardProps> = ({
                 </Button>
             </div>
             <Dialog onClose={() => setShowDeleteDialog(false)} open={showDeleteDialog}>
+                {errorMessage && (
+                    <div className="flex justify-center mt-6">
+                        <Alert className="max-w-[250px] text-center" severity="error">
+                            {errorMessage}
+                        </Alert>
+                    </div>
+                )}
                 <div className="flex flex-col gap-4 p-24">
                     <h1 className="text-center">
                         {t('proceedWithDeleting')} <span className="font-bold">session</span>?

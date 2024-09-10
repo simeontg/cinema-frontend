@@ -27,6 +27,7 @@ export const ChosenSeats: FC<ChosenSeatsProps> = ({ seats }) => {
                     <div className="flex flex-col" key={seatId.id}>
                         <p>{seatId.seat_type}</p>
                         <p className="text-lg mr-4">{seatId.location}</p>
+                        <p>${seatId.price}</p>
                     </div>
                 ))}
         </div>

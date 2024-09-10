@@ -1,5 +1,6 @@
-import { CreateEntitiesBlock } from 'features/CreateEntities/ui/CreateEntitiesBlock';
 import { FC } from 'react';
+
+import { CreateEntitiesBlock } from 'features/CreateEntities/ui/CreateEntitiesBlock';
 
 const DashboardPage: FC = () => {
     return (

@@ -6,10 +6,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useCreateMovieMutation } from 'entities/movie/hooks/useCreateMovieMutation';
 import { useUpdateMovieMutation } from 'entities/movie/hooks/useUpdateMovieMutation';
+import { Movie } from 'entities/movie/model/types';
 import { MOVIE_GENRES } from 'shared/constants/movieGenres';
 import { MAX_IMAGE_SIZE, MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
+import { NetworkError } from 'shared/types/network';
 import {
     Alert,
     Button,
@@ -59,13 +61,16 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         queryClient: QueryClient,
         setMutationError: (error: string) => void
     ) => ({
-        onSuccess: () => {
+        onSuccess: (movie: Movie) => {
+            console.log(movie);
             queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
+            queryClient.invalidateQueries({ queryKey: ['trending'] });
+            queryClient.invalidateQueries({ queryKey: ['movie', movie.id] });
             reset(defaultValues);
             onClose();
         },
-        onError: (err: Error) => {
-            setMutationError(err.message);
+        onError: (err: NetworkError) => {
+            setMutationError(err.response.data.message);
         }
     });
 
@@ -88,9 +93,9 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         if (selectedMovie) {
             updateMovie(
                 {
-                    title,
-                    description,
-                    genre,
+                    title: title.trim(),
+                    description: description.trim(),
+                    genre: genre.trim(),
                     image,
                     releaseDate,
                     duration,
@@ -102,9 +107,9 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         } else {
             createMovie(
                 {
-                    title,
-                    description,
-                    genre,
+                    title: title.trim(),
+                    description: description.trim(),
+                    genre: genre.trim(),
                     image,
                     releaseDate,
                     duration,
@@ -143,7 +148,10 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         <Dialog
             fullScreen={width < MOBILE_SCREEN_WIDTH}
             afterClose={afterClose}
-            onClose={onClose}
+            onClose={() => {
+                onClose();
+                setMutationError('');
+            }}
             open={open}
         >
             {mutationError && (
@@ -197,7 +205,17 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
                         key="duration"
                         control={control}
                         name="duration"
-                        rules={{ required: { value: true, message: t('durationRequired') } }}
+                        rules={{
+                            required: { value: true, message: t('durationRequired') },
+                            min: {
+                                value: 60,
+                                message: t('minMovieLengthError')
+                            },
+                            max: {
+                                value: 300,
+                                message: t('maxMovieLengthError')
+                            }
+                        }}
                         render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                             <TextField
                                 type="number"
