@@ -10,14 +10,15 @@ The **Movie Reservation Web Application** is a comprehensive platform that allow
 
 ## Screenshots and user flow
 
-**All users** 
+**All users** <br />
+Home Page with selected movie details: <br />
 
-<img src="https://i.postimg.cc/mZ1YNTmh/Screenshot-2024-09-20-at-23-47-33-Cinemas.png" />
+<img src="https://i.postimg.cc/PfMt7w37/Screenshot-2024-09-21-at-00-19-27-Cinemas.png" />
 
 **Authenticated user** <br />
-Movie Details: <br />
+Dedicated Movie Page: <br />
 <img src="https://i.postimg.cc/m2Q7J8fs/Screenshot-2024-09-20-at-23-48-11-Cinemas.png" /> <br />
-Reserve seats: <br />
+Seat reservation page: <br />
 <img src="https://i.postimg.cc/9QCyhZCq/Screenshot-2024-09-20-at-23-49-24-Cinemas.png" /> <br />
 See your reservations: <br />
 <img src="https://i.postimg.cc/3wwpyhy8/Screenshot-2024-09-20-at-23-49-54-Cinemas.png" /> <br />
