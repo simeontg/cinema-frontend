@@ -10,7 +10,7 @@ import { useUpdateReservationMutation } from 'entities/reservation/hooks/useUpda
 import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
-import { Button, Dialog } from 'shared/ui';
+import { Button, Dialog, LoadingSpinner } from 'shared/ui';
 import { generateMovieRoute } from 'shared/utils/routesUtils';
 
 import { Seat } from '../types/seat';
@@ -43,7 +43,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
     reservationId
 }) => {
     const { t } = useTranslation('common');
-    const { mutate: updateReservation } = useUpdateReservationMutation();
+    const { mutate: updateReservation, isPending } = useUpdateReservationMutation();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const { width } = useScreenSize();
@@ -52,6 +52,17 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
         queryClient.invalidateQueries({ queryKey: ['hallPlan'] });
         navigate(generateMovieRoute(movieId));
     };
+
+    if (isPending) {
+        return (
+            <Dialog fullScreen={width < MOBILE_SCREEN_WIDTH} onClose={onClose} open={open}>
+               <div className="flex justify-center items-center p-20">
+                    <LoadingSpinner />
+                    <span className="ml-4">{t('pleaseWait')}</span>
+                </div>
+            </Dialog>
+        );
+    }
 
     return (
         <Dialog fullScreen={width < MOBILE_SCREEN_WIDTH} onClose={onClose} open={open}>
@@ -101,6 +112,7 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
                                     hallSeats: seats.map(({ id, location }) => ({ id, location })),
                                     reservationId: reservationId
                                 },
+
                                 { onSuccess: () => onConfirmation() }
                             );
                         }}

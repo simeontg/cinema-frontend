@@ -56,7 +56,15 @@ export const ProjectionFilters: FC<ProjectionFiltersProps> = ({ items, setFilter
                 <MovieCreationOutlinedIcon />
                 <Autocomplete
                     className="w-64"
-                    options={items.map((timeslotByCinema) => timeslotByCinema[0]) || []}
+                    options={
+                        items.map((timeslotByCinema) => {
+                            const splittedCinema = timeslotByCinema[0].split(' ');
+                            const cinema = splittedCinema
+                                .slice(0, splittedCinema.length - 1)
+                                .join(' ');
+                            return cinema;
+                        }) || []
+                    }
                     renderInput={(params) => <TextField {...params} label={t('cinema')} />}
                     onChange={onCinemaChange}
                 />

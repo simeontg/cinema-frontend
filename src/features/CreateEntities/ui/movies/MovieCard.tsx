@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useDeleteMovieMutation } from 'entities/movie/hooks/useDeleteMovieMutation';
 import { useTranslation } from 'shared/hooks/i18nHook';
-import { Alert, Dialog } from 'shared/ui';
+import { Alert, Dialog, LoadingSpinner } from 'shared/ui';
 
 interface MovieCardProps {
     title: string;
@@ -19,7 +19,7 @@ export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id
     const [mutationError, setMutationError] = useState('');
 
     const queryClient = useQueryClient();
-    const { mutate: deleteMovieMutation } = useDeleteMovieMutation();
+    const { mutate: deleteMovieMutation, isPending } = useDeleteMovieMutation();
     const { t } = useTranslation('common');
 
     const onDelete = (movieId: string) => {
@@ -29,11 +29,21 @@ export const MovieCard: FC<MovieCardProps> = ({ title, onEditClick, imageUrl, id
                 setShowDeleteDialog(false);
             },
             onError: () => {
-                setMutationError('This movie is part of reservation an cannot be deleted');
+                setMutationError(t('moviePartOfReservationCannotBeDeleted'));
             }
         });
     };
 
+    if (isPending) {
+        return (
+            <Dialog open={true}>
+                <div className="flex justify-center items-center p-20">
+                    <LoadingSpinner />
+                    <span className="ml-4">{t('pleaseWait')}</span>
+                </div>
+            </Dialog>
+        );
+    }
     return (
         <div className="flex p-8 border-2 justify-center flex-col">
             <h1 className="text-center text-lg font-bold mb-4">{title}</h1>

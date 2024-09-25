@@ -11,7 +11,7 @@ import { useUpdateHallMutation } from 'entities/hall/hooks/useUpdateHall';
 import { MOBILE_SCREEN_WIDTH } from 'shared/constants/utils';
 import { useTranslation } from 'shared/hooks/i18nHook';
 import useScreenSize from 'shared/hooks/useScreenSize';
-import { Alert, Button, Dialog, MenuItem, Select, TextField } from 'shared/ui';
+import { Alert, Button, Dialog, LoadingSpinner, MenuItem, Select, TextField } from 'shared/ui';
 
 import { FormFields, Row, SelectedHall } from './types';
 import { transformSeats } from './utils/transformHallPlantoForm';
@@ -30,9 +30,9 @@ const defaultValues: FormFields = {
 
 export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) => {
     const { data: cinemas } = useGetCinemas();
-    const { data: hallPlan } = useGetHallPlan(selectedHall?.id);
-    const { mutate: createHall } = useCreateHallMutation();
-    const { mutate: updateHall } = useUpdateHallMutation();
+    const { data: hallPlan, isLoading } = useGetHallPlan(selectedHall?.id);
+    const { mutate: createHall, isPending: isCreatePending } = useCreateHallMutation();
+    const { mutate: updateHall, isPending: isUpdatePending } = useUpdateHallMutation();
 
     const [mutationError, setMutationError] = useState('');
     const { width } = useScreenSize();
@@ -64,6 +64,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                         onClose();
                         queryClient.invalidateQueries({ queryKey: ['halls'] });
                         queryClient.invalidateQueries({ queryKey: ['hallPlan', hall.id] });
+                        queryClient.invalidateQueries({ queryKey: ['cinemas'] });
                     },
                     onError: (err) => {
                         setMutationError(err.response.data.message);
@@ -75,6 +76,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                 onSuccess: (hall) => {
                     queryClient.invalidateQueries({ queryKey: ['halls'] });
                     queryClient.invalidateQueries({ queryKey: ['hallPlan', hall.id] });
+                    queryClient.invalidateQueries({ queryKey: ['cinemas'] });
                     onClose();
                 },
                 onError: (err) => {
@@ -88,7 +90,6 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
         if (selectedHall) {
             setValue('hallName', selectedHall.hall_name);
             setValue('cinemaId', selectedHall.cinema.id);
-            console.log(selectedHall);
             if (hallPlan) {
                 const transformedPlan = Object.entries(hallPlan).map(([row, seats]) => ({
                     rowIndex: Number(row),
@@ -103,14 +104,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
 
     const handleAddSeat = (rowIndex: number) => {
         const currentSeats = rowFields[rowIndex]?.seats || [];
-        const totalSeatCount = currentSeats.reduce(
-            (acc: number, seat: { seatCount: number }) => acc + seat.seatCount,
-            0
-        );
-        const updatedSeats = [
-            ...currentSeats,
-            { seatType: 'regular', seatCount: Math.min(15 - totalSeatCount, 1) }
-        ];
+        const updatedSeats = [...currentSeats, { seatType: 'regular', seatCount: 1 }];
         updateRow(rowIndex, { ...rowFields[rowIndex], seats: updatedSeats });
     };
 
@@ -138,6 +132,17 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
     const handleRemoveRow = (rowIndex: number) => {
         removeRow(rowIndex);
     };
+
+    if (isCreatePending || isUpdatePending) {
+        return (
+            <Dialog onClose={onClose} open={open}>
+                <div className="flex justify-center items-center p-20">
+                    <LoadingSpinner />
+                    <span className="ml-4">{t('pleaseWait')}</span>
+                </div>
+            </Dialog>
+        );
+    }
 
     return (
         <Dialog
@@ -176,7 +181,12 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                                     {cinemas &&
                                         cinemas.map((cinema) => (
                                             <MenuItem key={cinema.id} value={cinema.id}>
-                                                {cinema.name}
+                                                <div className="flex items-center gap-2">
+                                                    {cinema.name}
+                                                    <span className="text-xs">
+                                                        ({cinema.city.name})
+                                                    </span>
+                                                </div>
                                             </MenuItem>
                                         ))}
                                 </Select>
@@ -201,100 +211,114 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                         )}
                     />
                     <div className="flex flex-col gap-4">
-                        {rowFields.map((row, rowIndex) => (
-                            <div key={row.id} className="row-container">
-                                <h4>
-                                    {t('row')} {rowIndex + 1}
-                                </h4>
+                        {isLoading ? (
+                            <LoadingSpinner />
+                        ) : (
+                            rowFields.map((row, rowIndex) => (
+                                <div key={row.id} className="row-container">
+                                    <h4>
+                                        {t('row')} {rowIndex + 1}
+                                    </h4>
 
-                                <Controller
-                                    control={control}
-                                    name={`hallPlan.${rowIndex}.seats`}
-                                    render={({ field }) => (
-                                        <div>
-                                            {field.value.map((seat: unknown, seatIndex: number) => (
-                                                <div
-                                                    key={seatIndex}
-                                                    className="h-[40px] flex gap-2 mb-2"
-                                                >
-                                                    <Controller
-                                                        control={control}
-                                                        name={`hallPlan.${rowIndex}.seats.${seatIndex}.seatType`}
-                                                        render={({
-                                                            field: { onChange, onBlur, value }
-                                                        }) => (
-                                                            <Select
-                                                                className="!w-1/2"
-                                                                onChange={onChange}
-                                                                onBlur={onBlur}
-                                                                value={value}
-                                                                label="Seat Type"
-                                                            >
-                                                                <MenuItem value="VIP">
-                                                                    {t('VIP')}
-                                                                </MenuItem>
-                                                                <MenuItem value="regular">
-                                                                    {t('regular')}
-                                                                </MenuItem>
-                                                                <MenuItem value="couple">
-                                                                    {t('couples')}
-                                                                </MenuItem>
-                                                            </Select>
-                                                        )}
-                                                    />
-                                                    <Controller
-                                                        control={control}
-                                                        name={`hallPlan.${rowIndex}.seats.${seatIndex}.seatCount`}
-                                                        render={({ field }) => (
-                                                            <TextField
-                                                                {...field}
-                                                                type="number"
-                                                                value={field.value.toString()}
-                                                                className="!w-1/2 !h-full"
-                                                                label="Seat Count"
+                                    <Controller
+                                        control={control}
+                                        name={`hallPlan.${rowIndex}.seats`}
+                                        render={({ field }) => (
+                                            <div>
+                                                {field.value.map(
+                                                    (seat: unknown, seatIndex: number) => (
+                                                        <div
+                                                            key={seatIndex}
+                                                            className="h-[40px] flex gap-2 mb-2"
+                                                        >
+                                                            <Controller
+                                                                control={control}
+                                                                name={`hallPlan.${rowIndex}.seats.${seatIndex}.seatType`}
+                                                                render={({
+                                                                    field: {
+                                                                        onChange,
+                                                                        onBlur,
+                                                                        value
+                                                                    }
+                                                                }) => (
+                                                                    <Select
+                                                                        className="!w-1/2"
+                                                                        onChange={onChange}
+                                                                        onBlur={onBlur}
+                                                                        value={value}
+                                                                        label="Seat Type"
+                                                                    >
+                                                                        <MenuItem value="VIP">
+                                                                            {t('VIP')}
+                                                                        </MenuItem>
+                                                                        <MenuItem value="regular">
+                                                                            {t('regular')}
+                                                                        </MenuItem>
+                                                                        <MenuItem value="couple">
+                                                                            {t('couples')}
+                                                                        </MenuItem>
+                                                                    </Select>
+                                                                )}
                                                             />
-                                                        )}
-                                                    />
+                                                            <Controller
+                                                                control={control}
+                                                                name={`hallPlan.${rowIndex}.seats.${seatIndex}.seatCount`}
+                                                                render={({ field }) => (
+                                                                    <TextField
+                                                                        {...field}
+                                                                        type="number"
+                                                                        value={field.value.toString()}
+                                                                        className="!w-1/2 !h-full"
+                                                                        label="Seat Count"
+                                                                    />
+                                                                )}
+                                                            />
+                                                            <Button
+                                                                className="!ml-2 !text-red-500"
+                                                                onClick={() =>
+                                                                    handleRemoveSeat(
+                                                                        rowIndex,
+                                                                        seatIndex
+                                                                    )
+                                                                }
+                                                            >
+                                                                x
+                                                            </Button>
+                                                        </div>
+                                                    )
+                                                )}
+                                                <div className="flex justify-between">
                                                     <Button
-                                                        className="!ml-2 !text-red-500"
-                                                        onClick={() =>
-                                                            handleRemoveSeat(rowIndex, seatIndex)
-                                                        }
+                                                        variant="outlined"
+                                                        className="!p-2 !text-white !bg-green-600 !pointer-events-auto !font-bold !text-sm"
+                                                        onClick={() => handleAddSeat(rowIndex)}
                                                     >
-                                                        x
+                                                        {t('addSeat')}
+                                                    </Button>
+                                                    <Button
+                                                        variant="outlined"
+                                                        className="!p-2 !text-white !bg-red-600 !pointer-events-auto !font-bold !text-sm"
+                                                        onClick={() => handleRemoveRow(rowIndex)}
+                                                    >
+                                                        {t('removeRow')}
+                                                    </Button>
+                                                    <Button
+                                                        variant="outlined"
+                                                        className="!p-2 !text-white !bg-blue-600 !pointer-events-auto !font-bold !text-sm"
+                                                        onClick={() => handleAddRow(rowIndex + 1)}
+                                                    >
+                                                        {t('insertRowBelow')}
                                                     </Button>
                                                 </div>
-                                            ))}
-                                            <div className="flex justify-between">
-                                                <Button
-                                                    variant="outlined"
-                                                    className="!p-2 !text-white !bg-green-600 !pointer-events-auto !font-bold !text-sm"
-                                                    onClick={() => handleAddSeat(rowIndex)}
-                                                >
-                                                    {t('addSeat')}
-                                                </Button>
-                                                <Button
-                                                    variant="outlined"
-                                                    className="!p-2 !text-white !bg-red-600 !pointer-events-auto !font-bold !text-sm"
-                                                    onClick={() => handleRemoveRow(rowIndex)}
-                                                >
-                                                    {t('removeRow')}
-                                                </Button>
-                                                <Button
-                                                    variant="outlined"
-                                                    className="!p-2 !text-white !bg-blue-600 !pointer-events-auto !font-bold !text-sm"
-                                                    onClick={() => handleAddRow(rowIndex + 1)}
-                                                >
-                                                    {t('insertRowBelow')}
-                                                </Button>
                                             </div>
-                                        </div>
-                                    )}
-                                />
-                            </div>
-                        ))}
+                                        )}
+                                    />
+                                </div>
+                            ))
+                        )}
                         <Button
                             variant="outlined"
+                            disabled={isLoading}
                             className="!border-2 !w-full hover:!border-[#6e3996] sm:w-96 !p-2 sm:!mr-2 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
                             onClick={() => handleAddRow(rowFields.length)}
                         >
@@ -303,6 +327,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                     </div>
                     <div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-center lg:justify-start mt-6">
                         <Button
+                            disabled={isLoading}
                             variant="outlined"
                             className="!border-2 hover:!border-[#6e3996] sm:w-96 !p-2 sm:!mr-2 !text-[#6e3996] !bg-transparent hover:!bg-white !pointer-events-auto !h-[40px] !text-sm !md:text-lg"
                             onClick={onClose}
@@ -311,6 +336,7 @@ export const HallsForm: FC<MoviesFormProps> = ({ open, onClose, selectedHall }) 
                         </Button>
                         <Button
                             type="submit"
+                            disabled={isLoading}
                             variant="outlined"
                             className="!p-2 sm:!ml-2 !bg-[#6e3996] sm:w-96 !pointer-events-auto !h-[40px] !text-sm !md:text-lg !text-white hover:!text-[#6e3996] hover:!bg-white !border-2 hover:!border-[#6e3996]"
                         >

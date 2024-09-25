@@ -62,6 +62,10 @@ export const BookSeatsBlock: FC = () => {
 
     const secondsRemaining = useTimer({ date: reservationExpirationDate });
 
+    if (!session && isError) {
+        return <ErrorWrapper isError={true} />;
+    }
+
     if (isLoading) {
         return <LoadingSpinner />;
     }
