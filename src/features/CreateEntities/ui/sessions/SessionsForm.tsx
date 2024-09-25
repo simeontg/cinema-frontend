@@ -63,6 +63,7 @@ export const SessionsForm: FC<SessionProps> = ({
             updateSessionMutation({ ...values, id: selectedSession.id } as UpdateSessionDto, {
                 onSuccess: () => {
                     queryClient.invalidateQueries({ queryKey: ['sessions', values.movie] });
+                    queryClient.invalidateQueries({ queryKey: ['movie', values.movie] });
                     reset(defaultValues);
                     onClose();
                 },
@@ -74,6 +75,7 @@ export const SessionsForm: FC<SessionProps> = ({
             createSessionMutation(values, {
                 onSuccess: () => {
                     queryClient.invalidateQueries({ queryKey: ['sessions', values.movie] });
+                    queryClient.invalidateQueries({ queryKey: ['movie', values.movie] });
                     reset(defaultValues);
                     onClose();
                 },
@@ -184,7 +186,12 @@ export const SessionsForm: FC<SessionProps> = ({
                                     {cinemas &&
                                         cinemas?.map((cinema) => (
                                             <MenuItem key={cinema.id} value={cinema.id}>
-                                                {cinema.name}
+                                                <div className='flex items-center gap-2'>
+                                                    {cinema.name}
+                                                    <span className="text-xs">
+                                                        ({cinema.city.name})
+                                                    </span>
+                                                </div>
                                             </MenuItem>
                                         ))}
                                 </Select>
@@ -242,7 +249,9 @@ export const SessionsForm: FC<SessionProps> = ({
                                 }) => (
                                     <div className="w-full">
                                         <InputLabel>
-                                            <p className="text-xs ml-3">{seatType} {t('seatPrice')}</p>
+                                            <p className="text-xs ml-3">
+                                                {seatType} {t('seatPrice')}
+                                            </p>
                                         </InputLabel>
                                         <TextField
                                             type="number"

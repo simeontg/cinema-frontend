@@ -1,3 +1,5 @@
+import { Session } from "entities/session/model/types";
+
 export interface Filters {
     title: string;
     genre: string;
@@ -12,4 +14,5 @@ export interface SelectedMovie {
     id: string;
     rowIndex: number | null;
     hasSessions: boolean;
+    sessions?: Session[];
 }

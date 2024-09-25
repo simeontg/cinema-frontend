@@ -31,7 +31,8 @@ export const ProjectionsList: FC<ProjectionListProps> = ({ sessions, activeDate 
             <ProjectionFilters items={timeslotByCinemaEntries} setFilters={setFilters} />
             {timeslotByCinemaEntries.map((timeSlotByCinema) => {
                 const city = timeSlotByCinema[1].city;
-                const cinema = timeSlotByCinema[0];
+                const splittedCinema = timeSlotByCinema[0].split(' ');
+                const cinema = splittedCinema.slice(0, splittedCinema.length - 1).join(' ')
                 const timeSlots = timeSlotByCinema[1].timeSlots.sort(
                     (a, b) => parseTime(a.time).getTime() - parseTime(b.time).getTime()
                 );

@@ -36,7 +36,8 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
         hasNextPage,
         fetchNextPage,
         isError,
-        isFetchingNextPage
+        isFetchingNextPage,
+        isLoading
     } = useGetPaginatedMovies(type, limit, filters);
 
     const [selectedMovie, setSelectedMovie] = useState<SelectedMovie>({
@@ -88,54 +89,64 @@ export const MoviesList: FC<MovieListProp> = ({ type, limit }) => {
             transformedData[0].length - transformedData[transformedData.length - 1].length;
     }
 
-    if (!transformedData) {
+    if (!transformedData && isLoading) {
         return <LoadingSpinner />;
     }
 
     return (
         <ErrorWrapper isError={isError}>
             <div className="max-w-[1400px] pl-10 pr-10">
-                <MovieFilters data={movies} setFilters={setFilters} />
-                {transformedData?.map((row, idx) => (
-                    <Fragment key={idx}>
-                        <div className="flex gap-8 mt-5">
-                            <Fragment>
-                                {row.map((movie) => (
-                                    <MovieItem
-                                        key={movie.id}
-                                        genre={movie.genre}
-                                        duration={movie.duration}
-                                        title={movie.title}
-                                        imageUrl={movie.imageUrl}
-                                        clicked={selectedMovie.id === movie.id}
-                                        onClick={() => {
-                                            if (screenSize.width < MOBILE_SCREEN_WIDTH) {
-                                                navigate(generateMovieRoute(movie.id));
-                                            } else {
-                                                setSelectedMovie({ ...movie, rowIndex: idx });
-                                            }
-                                        }}
-                                    />
-                                ))}
-                                {idx === transformedData.length - 1 &&
-                                    Array.from({ length: emptyMoviesToAdd }).map((_, idx) => (
-                                        <div key={idx} className="w-48 h-48"></div>
+                <MovieFilters type={type} setFilters={setFilters} />
+                {transformedData && transformedData.length === 0 && !isLoading ? (
+                    <p className="text-center font-effra py-20 text-xl">
+                        {t('noMoviesMatchingCriteria')}
+                    </p>
+                ) : (
+                    transformedData?.map((row, idx) => (
+                        <Fragment key={idx}>
+                            <div className="flex gap-8 mt-5">
+                                <Fragment>
+                                    {row.map((movie) => (
+                                        <MovieItem
+                                            key={movie.id}
+                                            genre={movie.genre}
+                                            duration={movie.duration}
+                                            title={movie.title}
+                                            imageUrl={movie.imageUrl}
+                                            clicked={selectedMovie.id === movie.id}
+                                            onClick={() => {
+                                                if (screenSize.width < MOBILE_SCREEN_WIDTH) {
+                                                    navigate(generateMovieRoute(movie.id));
+                                                } else {
+                                                    setSelectedMovie({ ...movie, rowIndex: idx });
+                                                }
+                                            }}
+                                        />
                                     ))}
-                            </Fragment>
-                        </div>
-                        <MovieDetails
-                            isVisible={selectedMovie?.rowIndex === idx}
-                            title={selectedMovie?.title}
-                            showBookNow={selectedMovie?.hasSessions}
-                            description={selectedMovie?.description}
-                            genre={selectedMovie?.genre}
-                            id={selectedMovie?.id}
-                            imageUrl={selectedMovie?.imageUrl}
-                            duration={selectedMovie?.duration}
-                            onClose={handleCloseMovieDetails}
-                        />
-                    </Fragment>
-                ))}
+                                    {idx === transformedData.length - 1 &&
+                                        Array.from({ length: emptyMoviesToAdd }).map((_, idx) => (
+                                            <div key={idx} className="w-48 h-48"></div>
+                                        ))}
+                                </Fragment>
+                            </div>
+                            <MovieDetails
+                                isVisible={selectedMovie?.rowIndex === idx}
+                                title={selectedMovie?.title}
+                                showBookNow={!!selectedMovie.sessions?.some(
+                                    (s) =>
+                                        new Date(`${s.date}T${s.startTime}`).getTime() >
+                                        new Date().getTime()
+                                )}
+                                description={selectedMovie?.description}
+                                genre={selectedMovie?.genre}
+                                id={selectedMovie?.id}
+                                imageUrl={selectedMovie?.imageUrl}
+                                duration={selectedMovie?.duration}
+                                onClose={handleCloseMovieDetails}
+                            />
+                        </Fragment>
+                    ))
+                )}
                 <div
                     className={clsx(
                         'flex items-center justify-center',

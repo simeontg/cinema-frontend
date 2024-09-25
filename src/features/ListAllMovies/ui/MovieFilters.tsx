@@ -3,22 +3,23 @@ import { FC } from 'react';
 import CameraRollIcon from '@mui/icons-material/CameraRoll';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
-import { Movie } from 'entities/movie/model/types';
+import { MovieReleaseType } from 'entities/movie/hooks/useGetPaginatedMovies/types';
+import { useGetPaginatedMovies } from 'entities/movie/hooks/useGetPaginatedMovies/useGetPaginatedMovies';
 import { MOVIE_GENRES } from 'shared/constants/movieGenres';
 import { useTranslation } from 'shared/hooks/i18nHook';
-import { PaginatedModel } from 'shared/types/model';
 import { Autocomplete, TextField } from 'shared/ui';
 
 import { Filters } from '../types';
 
 interface MovieFiltersProps {
-    data: PaginatedModel<Movie> | null;
+    type: MovieReleaseType;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }
 
-export const MovieFilters: FC<MovieFiltersProps> = ({ data, setFilters }) => {
+export const MovieFilters: FC<MovieFiltersProps> = ({ type, setFilters }) => {
     const { t } = useTranslation('main');
 
+    const { data: movies } = useGetPaginatedMovies(type, 100, { title: '', genre: '' });
     const onTitleChange = (e: React.SyntheticEvent, value: string) => {
         setFilters((prevState: Filters) => ({
             ...prevState,
@@ -39,7 +40,7 @@ export const MovieFilters: FC<MovieFiltersProps> = ({ data, setFilters }) => {
                 <OndemandVideoIcon />
                 <Autocomplete
                     className="w-64"
-                    options={data?.pages[0].items.map((item) => item.title) || []}
+                    options={movies?.pages[0].items.map((movie) => movie.title) || []}
                     onChange={onTitleChange}
                     renderInput={(params) => <TextField {...params} label={t('moviesFilter')} />}
                 />

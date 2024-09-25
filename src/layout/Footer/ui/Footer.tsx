@@ -20,12 +20,20 @@ export const Footer: FC = () => {
                 <div className="pt-14 pl-10 sm:pl-24">
                     <h1 className="text-lg font-bold mb-2">{t('followMe')}</h1>
                     <div className="flex gap-3">
-                        <Link to="https://github.com/simeontg">
+                        <a
+                            href="https://github.com/simeontg"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <GitHubIcon className="hover:bg-black" />
-                        </Link>
-                        <Link to="https://linkedin.com/in/simeon-georgiev-dev">
+                        </a>
+                        <a
+                            href="https://linkedin.com/in/simeon-georgiev-dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <LinkedInIcon />
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

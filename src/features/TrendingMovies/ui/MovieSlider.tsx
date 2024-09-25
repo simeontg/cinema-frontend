@@ -32,6 +32,10 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
         setImageIndex((index) => (index === 0 ? movies.length - 1 : index - 1));
     };
 
+    if (movies.length === 0) {
+        return <></>;
+    }
+
     return (
         <section
             className="w-full h-full relative"
@@ -39,7 +43,7 @@ const MovieSlider: FC<MovieSliderProps> = ({ movies }) => {
                 background: `linear-gradient(to left, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 100%), url(${movies[imageIndex].imageUrl}) center/cover`
             }}
         >
-            <div className="pointer-events-none mt-20 ml-20 inline-block w-[600px] h-[300px]">
+            <div className="pointer-events-none mt-20 ml-20 inline-block w-[700px] h-[300px]">
                 <h1 className="text-6xl font-effra font-bold">{movies[imageIndex].title}</h1>
                 <p className="mt-4">{movies[imageIndex].genre.toUpperCase()}</p>
                 <div className="flex gap-2 mt-4">

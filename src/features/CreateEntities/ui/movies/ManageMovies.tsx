@@ -41,11 +41,11 @@ export const ManageMovies: FC = () => {
         data: movies,
         fetchNextPage,
         isError,
-        isFetchingNextPage,
+        isLoading,
         hasNextPage
     } = useGetPaginatedMovies('all', 5, { title: '', genre: '' });
 
-    if (isFetchingNextPage) {
+    if (isLoading) {
         return <LoadingSpinner />;
     }
 

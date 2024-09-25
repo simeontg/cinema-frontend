@@ -62,7 +62,6 @@ export const MoviesForm: FC<MoviesFormProps> = ({ open, onClose, selectedMovie, 
         setMutationError: (error: string) => void
     ) => ({
         onSuccess: (movie: Movie) => {
-            console.log(movie);
             queryClient.invalidateQueries({ queryKey: ['paginatedMovies'] });
             queryClient.invalidateQueries({ queryKey: ['trending'] });
             queryClient.invalidateQueries({ queryKey: ['movie', movie.id] });

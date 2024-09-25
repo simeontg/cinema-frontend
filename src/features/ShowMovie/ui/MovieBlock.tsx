@@ -26,12 +26,21 @@ export const MovieBlock: FC = () => {
     }
 
     const projectionDates: Date[] = [];
+    if (isError || !movie) {
+        return <ErrorWrapper isError={true} />;
+    }
 
-    movie.sessions.forEach((s) => {
-        if (!projectionDates.some((d) => d.getTime() === new Date(s.date).getTime())) {
-            projectionDates.push(new Date(s.date));
-        }
-    });
+    movie.sessions
+        .filter((s) => {
+            const today = new Date();
+            const sDate = new Date(`${s.date}T${s.startTime}`);
+            return sDate.getTime() >= today.getTime();
+        })
+        .forEach((s) => {
+            if (!projectionDates.some((d) => d.getTime() === new Date(s.date).getTime())) {
+                projectionDates.push(new Date(s.date));
+            }
+        });
 
     return (
         <ErrorWrapper isError={isError}>
@@ -50,7 +59,13 @@ export const MovieBlock: FC = () => {
                     dates={projectionDates.sort((a, b) => a.getTime() - b.getTime())}
                 />
             </div>
-            <ProjectionsList activeDate={activeDate} sessions={movie.sessions} />
+            <ProjectionsList
+                activeDate={activeDate}
+                sessions={movie.sessions.filter((s) => {
+                    const dateTimeString = `${s.date}T${s.startTime}`;
+                    return new Date(dateTimeString).getTime() > new Date().getTime();
+                })}
+            />
         </ErrorWrapper>
     );
 };
